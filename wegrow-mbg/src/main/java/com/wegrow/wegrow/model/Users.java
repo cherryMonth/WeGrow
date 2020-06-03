@@ -4,20 +4,33 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
 
-public class User implements Serializable {
+public class Users implements Serializable {
+    @ApiModelProperty(value = "用户ID")
     private Integer id;
 
+    @ApiModelProperty(value = "用户邮箱")
     private String email;
 
-    private Boolean confirmed;
-
+    @ApiModelProperty(value = "用户昵称")
     private String username;
 
-    private String passwordHash;
-
+    @ApiModelProperty(value = "用户简介")
     private String aboutMe;
 
+    @ApiModelProperty(value = "用户最后一次登陆时间")
     private Date lastSeen;
+
+    @ApiModelProperty(value = "信息创建时间")
+    private Date createTime;
+
+    @ApiModelProperty(value = "信息更新时间")
+    private Date updateTime;
+
+    @ApiModelProperty(value = "用户头像hash")
+    private String avatarHash;
+
+    @ApiModelProperty(value = "用户状态信息：是否被封禁，是否进行邮件验证")
+    private Byte status;
 
     private static final long serialVersionUID = 1L;
 
@@ -37,28 +50,12 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public Boolean getConfirmed() {
-        return confirmed;
-    }
-
-    public void setConfirmed(Boolean confirmed) {
-        this.confirmed = confirmed;
-    }
-
     public String getUsername() {
         return username;
     }
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPasswordHash() {
-        return passwordHash;
-    }
-
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
     }
 
     public String getAboutMe() {
@@ -77,6 +74,38 @@ public class User implements Serializable {
         this.lastSeen = lastSeen;
     }
 
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public String getAvatarHash() {
+        return avatarHash;
+    }
+
+    public void setAvatarHash(String avatarHash) {
+        this.avatarHash = avatarHash;
+    }
+
+    public Byte getStatus() {
+        return status;
+    }
+
+    public void setStatus(Byte status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -85,11 +114,13 @@ public class User implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", email=").append(email);
-        sb.append(", confirmed=").append(confirmed);
         sb.append(", username=").append(username);
-        sb.append(", passwordHash=").append(passwordHash);
         sb.append(", aboutMe=").append(aboutMe);
         sb.append(", lastSeen=").append(lastSeen);
+        sb.append(", createTime=").append(createTime);
+        sb.append(", updateTime=").append(updateTime);
+        sb.append(", avatarHash=").append(avatarHash);
+        sb.append(", status=").append(status);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

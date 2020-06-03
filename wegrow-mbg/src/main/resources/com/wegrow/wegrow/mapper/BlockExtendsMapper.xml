@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wegrow.wegrow.mapper.UserMapper">
-  <resultMap id="BaseResultMap" type="com.wegrow.wegrow.model.User">
+<mapper namespace="com.wegrow.wegrow.mapper.BlockExtendsMapper">
+  <resultMap id="BaseResultMap" type="com.wegrow.wegrow.model.BlockExtends">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="confirmed" jdbcType="BIT" property="confirmed" />
-    <result column="username" jdbcType="VARCHAR" property="username" />
-    <result column="password_hash" jdbcType="VARCHAR" property="passwordHash" />
-    <result column="about_me" jdbcType="VARCHAR" property="aboutMe" />
-    <result column="last_seen" jdbcType="TIMESTAMP" property="lastSeen" />
+    <result column="block_id" jdbcType="INTEGER" property="blockId" />
+    <result column="field" jdbcType="VARCHAR" property="field" />
+    <result column="value" jdbcType="VARCHAR" property="value" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -69,15 +68,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, email, confirmed, username, password_hash, about_me, last_seen
+    id, block_id, field, value, create_time, update_time
   </sql>
-  <select id="selectByExample" parameterType="com.wegrow.wegrow.model.UserExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.wegrow.wegrow.model.BlockExtendsExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from USER
+    from block_extends
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -88,105 +87,94 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from USER
+    from block_extends
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from USER
+    delete from block_extends
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.wegrow.wegrow.model.UserExample">
-    delete from USER
+  <delete id="deleteByExample" parameterType="com.wegrow.wegrow.model.BlockExtendsExample">
+    delete from block_extends
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.wegrow.wegrow.model.User">
+  <insert id="insert" parameterType="com.wegrow.wegrow.model.BlockExtends">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into USER (email, confirmed, username, 
-      password_hash, about_me, last_seen
-      )
-    values (#{email,jdbcType=VARCHAR}, #{confirmed,jdbcType=BIT}, #{username,jdbcType=VARCHAR}, 
-      #{passwordHash,jdbcType=VARCHAR}, #{aboutMe,jdbcType=VARCHAR}, #{lastSeen,jdbcType=TIMESTAMP}
-      )
+    insert into block_extends (block_id, field, value, 
+      create_time, update_time)
+    values (#{blockId,jdbcType=INTEGER}, #{field,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.wegrow.wegrow.model.User">
+  <insert id="insertSelective" parameterType="com.wegrow.wegrow.model.BlockExtends">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into USER
+    insert into block_extends
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="email != null">
-        email,
+      <if test="blockId != null">
+        block_id,
       </if>
-      <if test="confirmed != null">
-        confirmed,
+      <if test="field != null">
+        field,
       </if>
-      <if test="username != null">
-        username,
+      <if test="value != null">
+        value,
       </if>
-      <if test="passwordHash != null">
-        password_hash,
+      <if test="createTime != null">
+        create_time,
       </if>
-      <if test="aboutMe != null">
-        about_me,
-      </if>
-      <if test="lastSeen != null">
-        last_seen,
+      <if test="updateTime != null">
+        update_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="email != null">
-        #{email,jdbcType=VARCHAR},
+      <if test="blockId != null">
+        #{blockId,jdbcType=INTEGER},
       </if>
-      <if test="confirmed != null">
-        #{confirmed,jdbcType=BIT},
+      <if test="field != null">
+        #{field,jdbcType=VARCHAR},
       </if>
-      <if test="username != null">
-        #{username,jdbcType=VARCHAR},
+      <if test="value != null">
+        #{value,jdbcType=VARCHAR},
       </if>
-      <if test="passwordHash != null">
-        #{passwordHash,jdbcType=VARCHAR},
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="aboutMe != null">
-        #{aboutMe,jdbcType=VARCHAR},
-      </if>
-      <if test="lastSeen != null">
-        #{lastSeen,jdbcType=TIMESTAMP},
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.wegrow.wegrow.model.UserExample" resultType="java.lang.Long">
-    select count(*) from USER
+  <select id="countByExample" parameterType="com.wegrow.wegrow.model.BlockExtendsExample" resultType="java.lang.Long">
+    select count(*) from block_extends
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update USER
+    update block_extends
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.email != null">
-        email = #{record.email,jdbcType=VARCHAR},
+      <if test="record.blockId != null">
+        block_id = #{record.blockId,jdbcType=INTEGER},
       </if>
-      <if test="record.confirmed != null">
-        confirmed = #{record.confirmed,jdbcType=BIT},
+      <if test="record.field != null">
+        field = #{record.field,jdbcType=VARCHAR},
       </if>
-      <if test="record.username != null">
-        username = #{record.username,jdbcType=VARCHAR},
+      <if test="record.value != null">
+        value = #{record.value,jdbcType=VARCHAR},
       </if>
-      <if test="record.passwordHash != null">
-        password_hash = #{record.passwordHash,jdbcType=VARCHAR},
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.aboutMe != null">
-        about_me = #{record.aboutMe,jdbcType=VARCHAR},
-      </if>
-      <if test="record.lastSeen != null">
-        last_seen = #{record.lastSeen,jdbcType=TIMESTAMP},
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -194,50 +182,45 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update USER
+    update block_extends
     set id = #{record.id,jdbcType=INTEGER},
-      email = #{record.email,jdbcType=VARCHAR},
-      confirmed = #{record.confirmed,jdbcType=BIT},
-      username = #{record.username,jdbcType=VARCHAR},
-      password_hash = #{record.passwordHash,jdbcType=VARCHAR},
-      about_me = #{record.aboutMe,jdbcType=VARCHAR},
-      last_seen = #{record.lastSeen,jdbcType=TIMESTAMP}
+      block_id = #{record.blockId,jdbcType=INTEGER},
+      field = #{record.field,jdbcType=VARCHAR},
+      value = #{record.value,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.wegrow.wegrow.model.User">
-    update USER
+  <update id="updateByPrimaryKeySelective" parameterType="com.wegrow.wegrow.model.BlockExtends">
+    update block_extends
     <set>
-      <if test="email != null">
-        email = #{email,jdbcType=VARCHAR},
+      <if test="blockId != null">
+        block_id = #{blockId,jdbcType=INTEGER},
       </if>
-      <if test="confirmed != null">
-        confirmed = #{confirmed,jdbcType=BIT},
+      <if test="field != null">
+        field = #{field,jdbcType=VARCHAR},
       </if>
-      <if test="username != null">
-        username = #{username,jdbcType=VARCHAR},
+      <if test="value != null">
+        value = #{value,jdbcType=VARCHAR},
       </if>
-      <if test="passwordHash != null">
-        password_hash = #{passwordHash,jdbcType=VARCHAR},
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="aboutMe != null">
-        about_me = #{aboutMe,jdbcType=VARCHAR},
-      </if>
-      <if test="lastSeen != null">
-        last_seen = #{lastSeen,jdbcType=TIMESTAMP},
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.wegrow.wegrow.model.User">
-    update USER
-    set email = #{email,jdbcType=VARCHAR},
-      confirmed = #{confirmed,jdbcType=BIT},
-      username = #{username,jdbcType=VARCHAR},
-      password_hash = #{passwordHash,jdbcType=VARCHAR},
-      about_me = #{aboutMe,jdbcType=VARCHAR},
-      last_seen = #{lastSeen,jdbcType=TIMESTAMP}
+  <update id="updateByPrimaryKey" parameterType="com.wegrow.wegrow.model.BlockExtends">
+    update block_extends
+    set block_id = #{blockId,jdbcType=INTEGER},
+      field = #{field,jdbcType=VARCHAR},
+      value = #{value,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
