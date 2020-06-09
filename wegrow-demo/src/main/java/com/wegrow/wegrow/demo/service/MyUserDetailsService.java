@@ -9,6 +9,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+/*
+UserDetails是我们自行设计系统的用户、账户的概念。他包含了用户名、密码及其对应的授予权限。
+UserDetails就是当前系统中如何获取库存用户信息的服务。
+我们添加@Service注解，就是为了使Spring自动配置
+ */
+
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
