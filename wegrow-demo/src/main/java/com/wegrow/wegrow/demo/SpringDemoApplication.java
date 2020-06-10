@@ -8,7 +8,6 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @EnableDiscoveryClient
 @SpringBootApplication
-@MapperScan("com.wegrow.wegrow.demo.mapper")
 public class SpringDemoApplication {
 
     public static void main(String[] args) {

@@ -1,6 +1,6 @@
-package com.wegrow.common.common.exception;
+package com.wegrow.wegrow.common.exception;
 
-import com.wegrow.common.common.api.CommonResult;
+import com.wegrow.wegrow.common.api.CommonResult;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;

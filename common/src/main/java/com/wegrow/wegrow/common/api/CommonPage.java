@@ -1,4 +1,4 @@
-package com.wegrow.common.common.api;
+package com.wegrow.wegrow.common.api;
 
 import com.github.pagehelper.PageInfo;
 import org.springframework.data.domain.Page;

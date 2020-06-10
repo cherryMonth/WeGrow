@@ -6,10 +6,13 @@
     <groupId>com.wegrow.wegrow</groupId>
     <artifactId>wegrow</artifactId>
     <version>1.0.0-SNAPSHOT</version>
+    <!-- 父模块必须以pom打包类型，同时以<modules>给出所有的子模块。父模块的POM示例如下 -->
     <modules>
         <module>wegrow-mbg</module>
-        <module>wegrow-core</module>
+<!--        <module>wegrow-core</module>-->
+        <module>common</module>
         <module>wegrow-demo</module>
+        <module>wegrow-security</module>
     </modules>
     <name>wegrow</name>
     <packaging>pom</packaging>

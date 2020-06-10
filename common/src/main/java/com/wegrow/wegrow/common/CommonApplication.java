@@ -1,4 +1,4 @@
-package com.wegrow.common.common;
+package com.wegrow.wegrow.common;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

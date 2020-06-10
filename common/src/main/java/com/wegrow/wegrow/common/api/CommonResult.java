@@ -1,4 +1,4 @@
-package com.wegrow.common.common.api;
+package com.wegrow.wegrow.common.api;
 
 /**
  * 通用返回对象

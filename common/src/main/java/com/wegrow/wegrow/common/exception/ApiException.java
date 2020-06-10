@@ -1,6 +1,6 @@
-package com.wegrow.common.common.exception;
+package com.wegrow.wegrow.common.exception;
 
-import com.wegrow.common.common.api.IErrorCode;
+import com.wegrow.wegrow.common.api.IErrorCode;
 
 /**
  * 自定义API异常
