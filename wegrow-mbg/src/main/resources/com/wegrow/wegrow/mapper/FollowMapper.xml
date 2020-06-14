@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wegrow.wegrow.mapper.FollowMapper">
   <resultMap id="BaseResultMap" type="com.wegrow.wegrow.model.Follow">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="followed_user_id" jdbcType="INTEGER" property="followedUserId" />
-    <result column="status" jdbcType="TINYINT" property="status" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="USER_ID" jdbcType="INTEGER" property="userId" />
+    <result column="FOLLOWED_USER_ID" jdbcType="INTEGER" property="followedUserId" />
+    <result column="STATUS" jdbcType="TINYINT" property="status" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_id, followed_user_id, status, create_time, update_time
+    ID, USER_ID, FOLLOWED_USER_ID, STATUS, CREATE_TIME, UPDATE_TIME
   </sql>
   <select id="selectByExample" parameterType="com.wegrow.wegrow.model.FollowExample" resultMap="BaseResultMap">
     select
@@ -76,7 +76,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from follow
+    from FOLLOW
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -87,15 +87,15 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from follow
-    where id = #{id,jdbcType=INTEGER}
+    from FOLLOW
+    where ID = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from follow
-    where id = #{id,jdbcType=INTEGER}
+    delete from FOLLOW
+    where ID = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.wegrow.wegrow.model.FollowExample">
-    delete from follow
+    delete from FOLLOW
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -104,8 +104,8 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into follow (user_id, followed_user_id, status, 
-      create_time, update_time)
+    insert into FOLLOW (USER_ID, FOLLOWED_USER_ID, STATUS, 
+      CREATE_TIME, UPDATE_TIME)
     values (#{userId,jdbcType=INTEGER}, #{followedUserId,jdbcType=INTEGER}, #{status,jdbcType=TINYINT}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
@@ -113,22 +113,22 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into follow
+    insert into FOLLOW
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="userId != null">
-        user_id,
+        USER_ID,
       </if>
       <if test="followedUserId != null">
-        followed_user_id,
+        FOLLOWED_USER_ID,
       </if>
       <if test="status != null">
-        status,
+        STATUS,
       </if>
       <if test="createTime != null">
-        create_time,
+        CREATE_TIME,
       </if>
       <if test="updateTime != null">
-        update_time,
+        UPDATE_TIME,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -150,31 +150,31 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.wegrow.wegrow.model.FollowExample" resultType="java.lang.Long">
-    select count(*) from follow
+    select count(*) from FOLLOW
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update follow
+    update FOLLOW
     <set>
       <if test="record.id != null">
-        id = #{record.id,jdbcType=INTEGER},
+        ID = #{record.id,jdbcType=INTEGER},
       </if>
       <if test="record.userId != null">
-        user_id = #{record.userId,jdbcType=INTEGER},
+        USER_ID = #{record.userId,jdbcType=INTEGER},
       </if>
       <if test="record.followedUserId != null">
-        followed_user_id = #{record.followedUserId,jdbcType=INTEGER},
+        FOLLOWED_USER_ID = #{record.followedUserId,jdbcType=INTEGER},
       </if>
       <if test="record.status != null">
-        status = #{record.status,jdbcType=TINYINT},
+        STATUS = #{record.status,jdbcType=TINYINT},
       </if>
       <if test="record.createTime != null">
-        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.updateTime != null">
-        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+        UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -182,45 +182,45 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update follow
-    set id = #{record.id,jdbcType=INTEGER},
-      user_id = #{record.userId,jdbcType=INTEGER},
-      followed_user_id = #{record.followedUserId,jdbcType=INTEGER},
-      status = #{record.status,jdbcType=TINYINT},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    update FOLLOW
+    set ID = #{record.id,jdbcType=INTEGER},
+      USER_ID = #{record.userId,jdbcType=INTEGER},
+      FOLLOWED_USER_ID = #{record.followedUserId,jdbcType=INTEGER},
+      STATUS = #{record.status,jdbcType=TINYINT},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.wegrow.wegrow.model.Follow">
-    update follow
+    update FOLLOW
     <set>
       <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
+        USER_ID = #{userId,jdbcType=INTEGER},
       </if>
       <if test="followedUserId != null">
-        followed_user_id = #{followedUserId,jdbcType=INTEGER},
+        FOLLOWED_USER_ID = #{followedUserId,jdbcType=INTEGER},
       </if>
       <if test="status != null">
-        status = #{status,jdbcType=TINYINT},
+        STATUS = #{status,jdbcType=TINYINT},
       </if>
       <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.wegrow.wegrow.model.Follow">
-    update follow
-    set user_id = #{userId,jdbcType=INTEGER},
-      followed_user_id = #{followedUserId,jdbcType=INTEGER},
-      status = #{status,jdbcType=TINYINT},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
+    update FOLLOW
+    set USER_ID = #{userId,jdbcType=INTEGER},
+      FOLLOWED_USER_ID = #{followedUserId,jdbcType=INTEGER},
+      STATUS = #{status,jdbcType=TINYINT},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

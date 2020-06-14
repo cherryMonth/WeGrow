@@ -7,7 +7,7 @@ import java.util.Date;
 public class LocalAuth implements Serializable {
     private Integer id;
 
-    @ApiModelProperty(value = "用户id")
+    @ApiModelProperty(value = "用户ID")
     private Integer userId;
 
     @ApiModelProperty(value = "用户邮箱")

@@ -42,6 +42,9 @@
         <logstash-logback.version>5.3</logstash-logback.version>
         <admin-starter-server.version>2.1.5</admin-starter-server.version>
         <minio.version>3.0.10</minio.version>
+        <common.version>1.0.0-SNAPSHOT</common.version>
+        <wegrow-mbg.version>1.0.0-SNAPSHOT</wegrow-mbg.version>
+        <wegrow-security.version>1.0.0-SNAPSHOT</wegrow-security.version>
     </properties>
 
     <dependencies>
@@ -148,16 +151,25 @@
                 <artifactId>minio</artifactId>
                 <version>${minio.version}</version>
             </dependency>
+            <!-- wegrow通用模块 -->
+            <dependency>
+                <groupId>com.wegrow.wegrow</groupId>
+                <artifactId>common</artifactId>
+                <version>${common.version}</version>
+            </dependency>
+            <!-- wegrow MBG生成模块 -->
+            <dependency>
+                <groupId>com.wegrow.wegrow</groupId>
+                <artifactId>wegrow-mbg</artifactId>
+                <version>${wegrow-mbg.version}</version>
+            </dependency>
+            <!-- wegrow MBG生成模块 -->
+            <dependency>
+                <groupId>com.wegrow.wegrow</groupId>
+                <artifactId>wegrow-security</artifactId>
+                <version>${wegrow-security.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

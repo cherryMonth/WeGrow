@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wegrow.wegrow.mapper.UsersMapper">
-  <resultMap id="BaseResultMap" type="com.wegrow.wegrow.model.Users">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="username" jdbcType="VARCHAR" property="username" />
-    <result column="about_me" jdbcType="VARCHAR" property="aboutMe" />
-    <result column="last_seen" jdbcType="TIMESTAMP" property="lastSeen" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="avatar_hash" jdbcType="VARCHAR" property="avatarHash" />
-    <result column="status" jdbcType="TINYINT" property="status" />
+<mapper namespace="com.wegrow.wegrow.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.wegrow.wegrow.model.User">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+    <result column="USERNAME" jdbcType="VARCHAR" property="username" />
+    <result column="ABOUT_ME" jdbcType="VARCHAR" property="aboutMe" />
+    <result column="LAST_SEEN" jdbcType="TIMESTAMP" property="lastSeen" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="AVATAR_HASH" jdbcType="VARCHAR" property="avatarHash" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -71,16 +70,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, email, username, about_me, last_seen, create_time, update_time, avatar_hash, 
-    status
+    ID, EMAIL, USERNAME, ABOUT_ME, LAST_SEEN, CREATE_TIME, UPDATE_TIME, AVATAR_HASH
   </sql>
-  <select id="selectByExample" parameterType="com.wegrow.wegrow.model.UsersExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.wegrow.wegrow.model.UserExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from users
+    from USER
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -91,59 +89,56 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from users
-    where id = #{id,jdbcType=INTEGER}
+    from USER
+    where ID = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from users
-    where id = #{id,jdbcType=INTEGER}
+    delete from USER
+    where ID = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.wegrow.wegrow.model.UsersExample">
-    delete from users
+  <delete id="deleteByExample" parameterType="com.wegrow.wegrow.model.UserExample">
+    delete from USER
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.wegrow.wegrow.model.Users">
+  <insert id="insert" parameterType="com.wegrow.wegrow.model.User">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into users (email, username, about_me, 
-      last_seen, create_time, update_time, 
-      avatar_hash, status)
+    insert into USER (EMAIL, USERNAME, ABOUT_ME, 
+      LAST_SEEN, CREATE_TIME, UPDATE_TIME, 
+      AVATAR_HASH)
     values (#{email,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{aboutMe,jdbcType=VARCHAR}, 
       #{lastSeen,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{avatarHash,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT})
+      #{avatarHash,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.wegrow.wegrow.model.Users">
+  <insert id="insertSelective" parameterType="com.wegrow.wegrow.model.User">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into users
+    insert into USER
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="email != null">
-        email,
+        EMAIL,
       </if>
       <if test="username != null">
-        username,
+        USERNAME,
       </if>
       <if test="aboutMe != null">
-        about_me,
+        ABOUT_ME,
       </if>
       <if test="lastSeen != null">
-        last_seen,
+        LAST_SEEN,
       </if>
       <if test="createTime != null">
-        create_time,
+        CREATE_TIME,
       </if>
       <if test="updateTime != null">
-        update_time,
+        UPDATE_TIME,
       </if>
       <if test="avatarHash != null">
-        avatar_hash,
-      </if>
-      <if test="status != null">
-        status,
+        AVATAR_HASH,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -168,46 +163,40 @@
       <if test="avatarHash != null">
         #{avatarHash,jdbcType=VARCHAR},
       </if>
-      <if test="status != null">
-        #{status,jdbcType=TINYINT},
-      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.wegrow.wegrow.model.UsersExample" resultType="java.lang.Long">
-    select count(*) from users
+  <select id="countByExample" parameterType="com.wegrow.wegrow.model.UserExample" resultType="java.lang.Long">
+    select count(*) from USER
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update users
+    update USER
     <set>
       <if test="record.id != null">
-        id = #{record.id,jdbcType=INTEGER},
+        ID = #{record.id,jdbcType=INTEGER},
       </if>
       <if test="record.email != null">
-        email = #{record.email,jdbcType=VARCHAR},
+        EMAIL = #{record.email,jdbcType=VARCHAR},
       </if>
       <if test="record.username != null">
-        username = #{record.username,jdbcType=VARCHAR},
+        USERNAME = #{record.username,jdbcType=VARCHAR},
       </if>
       <if test="record.aboutMe != null">
-        about_me = #{record.aboutMe,jdbcType=VARCHAR},
+        ABOUT_ME = #{record.aboutMe,jdbcType=VARCHAR},
       </if>
       <if test="record.lastSeen != null">
-        last_seen = #{record.lastSeen,jdbcType=TIMESTAMP},
+        LAST_SEEN = #{record.lastSeen,jdbcType=TIMESTAMP},
       </if>
       <if test="record.createTime != null">
-        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.updateTime != null">
-        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+        UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.avatarHash != null">
-        avatar_hash = #{record.avatarHash,jdbcType=VARCHAR},
-      </if>
-      <if test="record.status != null">
-        status = #{record.status,jdbcType=TINYINT},
+        AVATAR_HASH = #{record.avatarHash,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -215,60 +204,55 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update users
-    set id = #{record.id,jdbcType=INTEGER},
-      email = #{record.email,jdbcType=VARCHAR},
-      username = #{record.username,jdbcType=VARCHAR},
-      about_me = #{record.aboutMe,jdbcType=VARCHAR},
-      last_seen = #{record.lastSeen,jdbcType=TIMESTAMP},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
-      avatar_hash = #{record.avatarHash,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=TINYINT}
+    update USER
+    set ID = #{record.id,jdbcType=INTEGER},
+      EMAIL = #{record.email,jdbcType=VARCHAR},
+      USERNAME = #{record.username,jdbcType=VARCHAR},
+      ABOUT_ME = #{record.aboutMe,jdbcType=VARCHAR},
+      LAST_SEEN = #{record.lastSeen,jdbcType=TIMESTAMP},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      AVATAR_HASH = #{record.avatarHash,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.wegrow.wegrow.model.Users">
-    update users
+  <update id="updateByPrimaryKeySelective" parameterType="com.wegrow.wegrow.model.User">
+    update USER
     <set>
       <if test="email != null">
-        email = #{email,jdbcType=VARCHAR},
+        EMAIL = #{email,jdbcType=VARCHAR},
       </if>
       <if test="username != null">
-        username = #{username,jdbcType=VARCHAR},
+        USERNAME = #{username,jdbcType=VARCHAR},
       </if>
       <if test="aboutMe != null">
-        about_me = #{aboutMe,jdbcType=VARCHAR},
+        ABOUT_ME = #{aboutMe,jdbcType=VARCHAR},
       </if>
       <if test="lastSeen != null">
-        last_seen = #{lastSeen,jdbcType=TIMESTAMP},
+        LAST_SEEN = #{lastSeen,jdbcType=TIMESTAMP},
       </if>
       <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="avatarHash != null">
-        avatar_hash = #{avatarHash,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        status = #{status,jdbcType=TINYINT},
+        AVATAR_HASH = #{avatarHash,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.wegrow.wegrow.model.Users">
-    update users
-    set email = #{email,jdbcType=VARCHAR},
-      username = #{username,jdbcType=VARCHAR},
-      about_me = #{aboutMe,jdbcType=VARCHAR},
-      last_seen = #{lastSeen,jdbcType=TIMESTAMP},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      avatar_hash = #{avatarHash,jdbcType=VARCHAR},
-      status = #{status,jdbcType=TINYINT}
-    where id = #{id,jdbcType=INTEGER}
+  <update id="updateByPrimaryKey" parameterType="com.wegrow.wegrow.model.User">
+    update USER
+    set EMAIL = #{email,jdbcType=VARCHAR},
+      USERNAME = #{username,jdbcType=VARCHAR},
+      ABOUT_ME = #{aboutMe,jdbcType=VARCHAR},
+      LAST_SEEN = #{lastSeen,jdbcType=TIMESTAMP},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      AVATAR_HASH = #{avatarHash,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

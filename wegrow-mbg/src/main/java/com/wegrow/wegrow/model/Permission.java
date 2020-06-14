@@ -10,8 +10,8 @@ public class Permission implements Serializable {
     @ApiModelProperty(value = "权限名称")
     private String name;
 
-    @ApiModelProperty(value = "权限行为属性值")
-    private Byte action;
+    @ApiModelProperty(value = "权限行为说明")
+    private String action;
 
     @ApiModelProperty(value = "是否启用")
     private Boolean status;
@@ -40,11 +40,11 @@ public class Permission implements Serializable {
         this.name = name;
     }
 
-    public Byte getAction() {
+    public String getAction() {
         return action;
     }
 
-    public void setAction(Byte action) {
+    public void setAction(String action) {
         this.action = action;
     }
 

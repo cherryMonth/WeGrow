@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Users implements Serializable {
+public class User implements Serializable {
     @ApiModelProperty(value = "用户ID")
     private Integer id;
 
@@ -26,11 +26,8 @@ public class Users implements Serializable {
     @ApiModelProperty(value = "信息更新时间")
     private Date updateTime;
 
-    @ApiModelProperty(value = "用户头像hash")
+    @ApiModelProperty(value = "用户头像HASH")
     private String avatarHash;
-
-    @ApiModelProperty(value = "用户状态信息：是否被封禁，是否进行邮件验证")
-    private Byte status;
 
     private static final long serialVersionUID = 1L;
 
@@ -98,14 +95,6 @@ public class Users implements Serializable {
         this.avatarHash = avatarHash;
     }
 
-    public Byte getStatus() {
-        return status;
-    }
-
-    public void setStatus(Byte status) {
-        this.status = status;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -120,7 +109,6 @@ public class Users implements Serializable {
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);
         sb.append(", avatarHash=").append(avatarHash);
-        sb.append(", status=").append(status);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

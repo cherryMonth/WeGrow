@@ -2,19 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wegrow.wegrow.mapper.NotifyMapper">
   <resultMap id="BaseResultMap" type="com.wegrow.wegrow.model.Notify">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="type" jdbcType="TINYINT" property="type" />
-    <result column="target_id" jdbcType="INTEGER" property="targetId" />
-    <result column="target_type" jdbcType="VARCHAR" property="targetType" />
-    <result column="action" jdbcType="TINYINT" property="action" />
-    <result column="sender_id" jdbcType="INTEGER" property="senderId" />
-    <result column="is_read" jdbcType="TINYINT" property="isRead" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="TYPE" jdbcType="TINYINT" property="type" />
+    <result column="TARGET_ID" jdbcType="INTEGER" property="targetId" />
+    <result column="TARGET_TYPE" jdbcType="VARCHAR" property="targetType" />
+    <result column="ACTION" jdbcType="TINYINT" property="action" />
+    <result column="SENDER_ID" jdbcType="INTEGER" property="senderId" />
+    <result column="IS_READ" jdbcType="TINYINT" property="isRead" />
+    <result column="USER_ID" jdbcType="INTEGER" property="userId" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.wegrow.wegrow.model.Notify">
-    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+    <result column="CONTENT" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -75,11 +75,11 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, type, target_id, target_type, action, sender_id, is_read, user_id, create_time, 
-    update_time
+    ID, TYPE, TARGET_ID, TARGET_TYPE, ACTION, SENDER_ID, IS_READ, USER_ID, CREATE_TIME, 
+    UPDATE_TIME
   </sql>
   <sql id="Blob_Column_List">
-    content
+    CONTENT
   </sql>
   <select id="selectByExampleWithBLOBs" parameterType="com.wegrow.wegrow.model.NotifyExample" resultMap="ResultMapWithBLOBs">
     select
@@ -89,7 +89,7 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from notify
+    from NOTIFY
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -103,7 +103,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from notify
+    from NOTIFY
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -116,15 +116,15 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from notify
-    where id = #{id,jdbcType=INTEGER}
+    from NOTIFY
+    where ID = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from notify
-    where id = #{id,jdbcType=INTEGER}
+    delete from NOTIFY
+    where ID = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.wegrow.wegrow.model.NotifyExample">
-    delete from notify
+    delete from NOTIFY
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -133,10 +133,10 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into notify (type, target_id, target_type, 
-      action, sender_id, is_read, 
-      user_id, create_time, update_time, 
-      content)
+    insert into NOTIFY (TYPE, TARGET_ID, TARGET_TYPE, 
+      ACTION, SENDER_ID, IS_READ, 
+      USER_ID, CREATE_TIME, UPDATE_TIME, 
+      CONTENT)
     values (#{type,jdbcType=TINYINT}, #{targetId,jdbcType=INTEGER}, #{targetType,jdbcType=VARCHAR}, 
       #{action,jdbcType=TINYINT}, #{senderId,jdbcType=INTEGER}, #{isRead,jdbcType=TINYINT}, 
       #{userId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
@@ -146,37 +146,37 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into notify
+    insert into NOTIFY
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="type != null">
-        type,
+        TYPE,
       </if>
       <if test="targetId != null">
-        target_id,
+        TARGET_ID,
       </if>
       <if test="targetType != null">
-        target_type,
+        TARGET_TYPE,
       </if>
       <if test="action != null">
-        action,
+        ACTION,
       </if>
       <if test="senderId != null">
-        sender_id,
+        SENDER_ID,
       </if>
       <if test="isRead != null">
-        is_read,
+        IS_READ,
       </if>
       <if test="userId != null">
-        user_id,
+        USER_ID,
       </if>
       <if test="createTime != null">
-        create_time,
+        CREATE_TIME,
       </if>
       <if test="updateTime != null">
-        update_time,
+        UPDATE_TIME,
       </if>
       <if test="content != null">
-        content,
+        CONTENT,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -213,46 +213,46 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.wegrow.wegrow.model.NotifyExample" resultType="java.lang.Long">
-    select count(*) from notify
+    select count(*) from NOTIFY
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update notify
+    update NOTIFY
     <set>
       <if test="record.id != null">
-        id = #{record.id,jdbcType=INTEGER},
+        ID = #{record.id,jdbcType=INTEGER},
       </if>
       <if test="record.type != null">
-        type = #{record.type,jdbcType=TINYINT},
+        TYPE = #{record.type,jdbcType=TINYINT},
       </if>
       <if test="record.targetId != null">
-        target_id = #{record.targetId,jdbcType=INTEGER},
+        TARGET_ID = #{record.targetId,jdbcType=INTEGER},
       </if>
       <if test="record.targetType != null">
-        target_type = #{record.targetType,jdbcType=VARCHAR},
+        TARGET_TYPE = #{record.targetType,jdbcType=VARCHAR},
       </if>
       <if test="record.action != null">
-        action = #{record.action,jdbcType=TINYINT},
+        ACTION = #{record.action,jdbcType=TINYINT},
       </if>
       <if test="record.senderId != null">
-        sender_id = #{record.senderId,jdbcType=INTEGER},
+        SENDER_ID = #{record.senderId,jdbcType=INTEGER},
       </if>
       <if test="record.isRead != null">
-        is_read = #{record.isRead,jdbcType=TINYINT},
+        IS_READ = #{record.isRead,jdbcType=TINYINT},
       </if>
       <if test="record.userId != null">
-        user_id = #{record.userId,jdbcType=INTEGER},
+        USER_ID = #{record.userId,jdbcType=INTEGER},
       </if>
       <if test="record.createTime != null">
-        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.updateTime != null">
-        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+        UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.content != null">
-        content = #{record.content,jdbcType=LONGVARCHAR},
+        CONTENT = #{record.content,jdbcType=LONGVARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -260,99 +260,99 @@
     </if>
   </update>
   <update id="updateByExampleWithBLOBs" parameterType="map">
-    update notify
-    set id = #{record.id,jdbcType=INTEGER},
-      type = #{record.type,jdbcType=TINYINT},
-      target_id = #{record.targetId,jdbcType=INTEGER},
-      target_type = #{record.targetType,jdbcType=VARCHAR},
-      action = #{record.action,jdbcType=TINYINT},
-      sender_id = #{record.senderId,jdbcType=INTEGER},
-      is_read = #{record.isRead,jdbcType=TINYINT},
-      user_id = #{record.userId,jdbcType=INTEGER},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
-      content = #{record.content,jdbcType=LONGVARCHAR}
+    update NOTIFY
+    set ID = #{record.id,jdbcType=INTEGER},
+      TYPE = #{record.type,jdbcType=TINYINT},
+      TARGET_ID = #{record.targetId,jdbcType=INTEGER},
+      TARGET_TYPE = #{record.targetType,jdbcType=VARCHAR},
+      ACTION = #{record.action,jdbcType=TINYINT},
+      SENDER_ID = #{record.senderId,jdbcType=INTEGER},
+      IS_READ = #{record.isRead,jdbcType=TINYINT},
+      USER_ID = #{record.userId,jdbcType=INTEGER},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      CONTENT = #{record.content,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update notify
-    set id = #{record.id,jdbcType=INTEGER},
-      type = #{record.type,jdbcType=TINYINT},
-      target_id = #{record.targetId,jdbcType=INTEGER},
-      target_type = #{record.targetType,jdbcType=VARCHAR},
-      action = #{record.action,jdbcType=TINYINT},
-      sender_id = #{record.senderId,jdbcType=INTEGER},
-      is_read = #{record.isRead,jdbcType=TINYINT},
-      user_id = #{record.userId,jdbcType=INTEGER},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    update NOTIFY
+    set ID = #{record.id,jdbcType=INTEGER},
+      TYPE = #{record.type,jdbcType=TINYINT},
+      TARGET_ID = #{record.targetId,jdbcType=INTEGER},
+      TARGET_TYPE = #{record.targetType,jdbcType=VARCHAR},
+      ACTION = #{record.action,jdbcType=TINYINT},
+      SENDER_ID = #{record.senderId,jdbcType=INTEGER},
+      IS_READ = #{record.isRead,jdbcType=TINYINT},
+      USER_ID = #{record.userId,jdbcType=INTEGER},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.wegrow.wegrow.model.Notify">
-    update notify
+    update NOTIFY
     <set>
       <if test="type != null">
-        type = #{type,jdbcType=TINYINT},
+        TYPE = #{type,jdbcType=TINYINT},
       </if>
       <if test="targetId != null">
-        target_id = #{targetId,jdbcType=INTEGER},
+        TARGET_ID = #{targetId,jdbcType=INTEGER},
       </if>
       <if test="targetType != null">
-        target_type = #{targetType,jdbcType=VARCHAR},
+        TARGET_TYPE = #{targetType,jdbcType=VARCHAR},
       </if>
       <if test="action != null">
-        action = #{action,jdbcType=TINYINT},
+        ACTION = #{action,jdbcType=TINYINT},
       </if>
       <if test="senderId != null">
-        sender_id = #{senderId,jdbcType=INTEGER},
+        SENDER_ID = #{senderId,jdbcType=INTEGER},
       </if>
       <if test="isRead != null">
-        is_read = #{isRead,jdbcType=TINYINT},
+        IS_READ = #{isRead,jdbcType=TINYINT},
       </if>
       <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
+        USER_ID = #{userId,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="content != null">
-        content = #{content,jdbcType=LONGVARCHAR},
+        CONTENT = #{content,jdbcType=LONGVARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.wegrow.wegrow.model.Notify">
-    update notify
-    set type = #{type,jdbcType=TINYINT},
-      target_id = #{targetId,jdbcType=INTEGER},
-      target_type = #{targetType,jdbcType=VARCHAR},
-      action = #{action,jdbcType=TINYINT},
-      sender_id = #{senderId,jdbcType=INTEGER},
-      is_read = #{isRead,jdbcType=TINYINT},
-      user_id = #{userId,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      content = #{content,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=INTEGER}
+    update NOTIFY
+    set TYPE = #{type,jdbcType=TINYINT},
+      TARGET_ID = #{targetId,jdbcType=INTEGER},
+      TARGET_TYPE = #{targetType,jdbcType=VARCHAR},
+      ACTION = #{action,jdbcType=TINYINT},
+      SENDER_ID = #{senderId,jdbcType=INTEGER},
+      IS_READ = #{isRead,jdbcType=TINYINT},
+      USER_ID = #{userId,jdbcType=INTEGER},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      CONTENT = #{content,jdbcType=LONGVARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.wegrow.wegrow.model.Notify">
-    update notify
-    set type = #{type,jdbcType=TINYINT},
-      target_id = #{targetId,jdbcType=INTEGER},
-      target_type = #{targetType,jdbcType=VARCHAR},
-      action = #{action,jdbcType=TINYINT},
-      sender_id = #{senderId,jdbcType=INTEGER},
-      is_read = #{isRead,jdbcType=TINYINT},
-      user_id = #{userId,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
+    update NOTIFY
+    set TYPE = #{type,jdbcType=TINYINT},
+      TARGET_ID = #{targetId,jdbcType=INTEGER},
+      TARGET_TYPE = #{targetType,jdbcType=VARCHAR},
+      ACTION = #{action,jdbcType=TINYINT},
+      SENDER_ID = #{senderId,jdbcType=INTEGER},
+      IS_READ = #{isRead,jdbcType=TINYINT},
+      USER_ID = #{userId,jdbcType=INTEGER},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

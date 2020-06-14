@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wegrow.wegrow.mapper.UsersExtendsMapper">
   <resultMap id="BaseResultMap" type="com.wegrow.wegrow.model.UsersExtends">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="field" jdbcType="VARCHAR" property="field" />
-    <result column="value" jdbcType="VARCHAR" property="value" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="USER_ID" jdbcType="INTEGER" property="userId" />
+    <result column="FIELD" jdbcType="VARCHAR" property="field" />
+    <result column="VALUE" jdbcType="VARCHAR" property="value" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_id, field, value, create_time, update_time
+    ID, USER_ID, FIELD, VALUE, CREATE_TIME, UPDATE_TIME
   </sql>
   <select id="selectByExample" parameterType="com.wegrow.wegrow.model.UsersExtendsExample" resultMap="BaseResultMap">
     select
@@ -76,7 +76,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from users_extends
+    from USERS_EXTENDS
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -87,15 +87,15 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from users_extends
-    where id = #{id,jdbcType=INTEGER}
+    from USERS_EXTENDS
+    where ID = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from users_extends
-    where id = #{id,jdbcType=INTEGER}
+    delete from USERS_EXTENDS
+    where ID = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.wegrow.wegrow.model.UsersExtendsExample">
-    delete from users_extends
+    delete from USERS_EXTENDS
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -104,8 +104,8 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into users_extends (user_id, field, value, 
-      create_time, update_time)
+    insert into USERS_EXTENDS (USER_ID, FIELD, VALUE, 
+      CREATE_TIME, UPDATE_TIME)
     values (#{userId,jdbcType=INTEGER}, #{field,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
@@ -113,22 +113,22 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into users_extends
+    insert into USERS_EXTENDS
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="userId != null">
-        user_id,
+        USER_ID,
       </if>
       <if test="field != null">
-        field,
+        FIELD,
       </if>
       <if test="value != null">
-        value,
+        VALUE,
       </if>
       <if test="createTime != null">
-        create_time,
+        CREATE_TIME,
       </if>
       <if test="updateTime != null">
-        update_time,
+        UPDATE_TIME,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -150,31 +150,31 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.wegrow.wegrow.model.UsersExtendsExample" resultType="java.lang.Long">
-    select count(*) from users_extends
+    select count(*) from USERS_EXTENDS
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update users_extends
+    update USERS_EXTENDS
     <set>
       <if test="record.id != null">
-        id = #{record.id,jdbcType=INTEGER},
+        ID = #{record.id,jdbcType=INTEGER},
       </if>
       <if test="record.userId != null">
-        user_id = #{record.userId,jdbcType=INTEGER},
+        USER_ID = #{record.userId,jdbcType=INTEGER},
       </if>
       <if test="record.field != null">
-        field = #{record.field,jdbcType=VARCHAR},
+        FIELD = #{record.field,jdbcType=VARCHAR},
       </if>
       <if test="record.value != null">
-        value = #{record.value,jdbcType=VARCHAR},
+        VALUE = #{record.value,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null">
-        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.updateTime != null">
-        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+        UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -182,45 +182,45 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update users_extends
-    set id = #{record.id,jdbcType=INTEGER},
-      user_id = #{record.userId,jdbcType=INTEGER},
-      field = #{record.field,jdbcType=VARCHAR},
-      value = #{record.value,jdbcType=VARCHAR},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    update USERS_EXTENDS
+    set ID = #{record.id,jdbcType=INTEGER},
+      USER_ID = #{record.userId,jdbcType=INTEGER},
+      FIELD = #{record.field,jdbcType=VARCHAR},
+      VALUE = #{record.value,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.wegrow.wegrow.model.UsersExtends">
-    update users_extends
+    update USERS_EXTENDS
     <set>
       <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
+        USER_ID = #{userId,jdbcType=INTEGER},
       </if>
       <if test="field != null">
-        field = #{field,jdbcType=VARCHAR},
+        FIELD = #{field,jdbcType=VARCHAR},
       </if>
       <if test="value != null">
-        value = #{value,jdbcType=VARCHAR},
+        VALUE = #{value,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.wegrow.wegrow.model.UsersExtends">
-    update users_extends
-    set user_id = #{userId,jdbcType=INTEGER},
-      field = #{field,jdbcType=VARCHAR},
-      value = #{value,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
+    update USERS_EXTENDS
+    set USER_ID = #{userId,jdbcType=INTEGER},
+      FIELD = #{field,jdbcType=VARCHAR},
+      VALUE = #{value,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

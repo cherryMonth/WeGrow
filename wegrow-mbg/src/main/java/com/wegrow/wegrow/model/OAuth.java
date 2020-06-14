@@ -7,16 +7,16 @@ import java.util.Date;
 public class OAuth implements Serializable {
     private Integer id;
 
-    @ApiModelProperty(value = "用户id")
+    @ApiModelProperty(value = "用户ID")
     private Integer userId;
 
-    @ApiModelProperty(value = "oauth登陆类型")
+    @ApiModelProperty(value = "OAUTH登陆类型")
     private String oAuthName;
 
-    @ApiModelProperty(value = "第三方认证id")
+    @ApiModelProperty(value = "第三方认证ID")
     private String oauthId;
 
-    @ApiModelProperty(value = "第三方认证token")
+    @ApiModelProperty(value = "第三方认证TOKEN")
     private String oauthAccessToken;
 
     @ApiModelProperty(value = "信息创建时间")

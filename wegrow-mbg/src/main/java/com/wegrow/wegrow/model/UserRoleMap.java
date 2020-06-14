@@ -7,10 +7,10 @@ import java.util.Date;
 public class UserRoleMap implements Serializable {
     private Integer id;
 
-    @ApiModelProperty(value = "用户id")
+    @ApiModelProperty(value = "用户ID")
     private Integer userId;
 
-    @ApiModelProperty(value = "角色id")
+    @ApiModelProperty(value = "角色ID")
     private Integer roleId;
 
     @ApiModelProperty(value = "该用户当前角色的状态")

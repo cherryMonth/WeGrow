@@ -2,13 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wegrow.wegrow.mapper.TopicMapper">
   <resultMap id="BaseResultMap" type="com.wegrow.wegrow.model.Topic">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="topic_name" jdbcType="VARCHAR" property="topicName" />
-    <result column="topic_info" jdbcType="VARCHAR" property="topicInfo" />
-    <result column="status" jdbcType="TINYINT" property="status" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="USER_ID" jdbcType="INTEGER" property="userId" />
+    <result column="TOPIC_NAME" jdbcType="VARCHAR" property="topicName" />
+    <result column="TOPIC_INFO" jdbcType="VARCHAR" property="topicInfo" />
+    <result column="STATUS" jdbcType="TINYINT" property="status" />
+    <result column="AVATAR_HASH" jdbcType="VARCHAR" property="avatarHash" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -69,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_id, topic_name, topic_info, status, create_time, update_time
+    ID, USER_ID, TOPIC_NAME, TOPIC_INFO, STATUS, AVATAR_HASH, CREATE_TIME, UPDATE_TIME
   </sql>
   <select id="selectByExample" parameterType="com.wegrow.wegrow.model.TopicExample" resultMap="BaseResultMap">
     select
@@ -77,7 +78,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from topic
+    from TOPIC
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -88,15 +89,15 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from topic
-    where id = #{id,jdbcType=INTEGER}
+    from TOPIC
+    where ID = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from topic
-    where id = #{id,jdbcType=INTEGER}
+    delete from TOPIC
+    where ID = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.wegrow.wegrow.model.TopicExample">
-    delete from topic
+    delete from TOPIC
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -105,36 +106,39 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into topic (user_id, topic_name, topic_info, 
-      status, create_time, update_time
-      )
+    insert into TOPIC (USER_ID, TOPIC_NAME, TOPIC_INFO, 
+      STATUS, AVATAR_HASH, CREATE_TIME, 
+      UPDATE_TIME)
     values (#{userId,jdbcType=INTEGER}, #{topicName,jdbcType=VARCHAR}, #{topicInfo,jdbcType=VARCHAR}, 
-      #{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-      )
+      #{status,jdbcType=TINYINT}, #{avatarHash,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.wegrow.wegrow.model.Topic">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into topic
+    insert into TOPIC
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="userId != null">
-        user_id,
+        USER_ID,
       </if>
       <if test="topicName != null">
-        topic_name,
+        TOPIC_NAME,
       </if>
       <if test="topicInfo != null">
-        topic_info,
+        TOPIC_INFO,
       </if>
       <if test="status != null">
-        status,
+        STATUS,
+      </if>
+      <if test="avatarHash != null">
+        AVATAR_HASH,
       </if>
       <if test="createTime != null">
-        create_time,
+        CREATE_TIME,
       </if>
       <if test="updateTime != null">
-        update_time,
+        UPDATE_TIME,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -150,6 +154,9 @@
       <if test="status != null">
         #{status,jdbcType=TINYINT},
       </if>
+      <if test="avatarHash != null">
+        #{avatarHash,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -159,34 +166,37 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.wegrow.wegrow.model.TopicExample" resultType="java.lang.Long">
-    select count(*) from topic
+    select count(*) from TOPIC
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update topic
+    update TOPIC
     <set>
       <if test="record.id != null">
-        id = #{record.id,jdbcType=INTEGER},
+        ID = #{record.id,jdbcType=INTEGER},
       </if>
       <if test="record.userId != null">
-        user_id = #{record.userId,jdbcType=INTEGER},
+        USER_ID = #{record.userId,jdbcType=INTEGER},
       </if>
       <if test="record.topicName != null">
-        topic_name = #{record.topicName,jdbcType=VARCHAR},
+        TOPIC_NAME = #{record.topicName,jdbcType=VARCHAR},
       </if>
       <if test="record.topicInfo != null">
-        topic_info = #{record.topicInfo,jdbcType=VARCHAR},
+        TOPIC_INFO = #{record.topicInfo,jdbcType=VARCHAR},
       </if>
       <if test="record.status != null">
-        status = #{record.status,jdbcType=TINYINT},
+        STATUS = #{record.status,jdbcType=TINYINT},
+      </if>
+      <if test="record.avatarHash != null">
+        AVATAR_HASH = #{record.avatarHash,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null">
-        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.updateTime != null">
-        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+        UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -194,50 +204,55 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update topic
-    set id = #{record.id,jdbcType=INTEGER},
-      user_id = #{record.userId,jdbcType=INTEGER},
-      topic_name = #{record.topicName,jdbcType=VARCHAR},
-      topic_info = #{record.topicInfo,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=TINYINT},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    update TOPIC
+    set ID = #{record.id,jdbcType=INTEGER},
+      USER_ID = #{record.userId,jdbcType=INTEGER},
+      TOPIC_NAME = #{record.topicName,jdbcType=VARCHAR},
+      TOPIC_INFO = #{record.topicInfo,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=TINYINT},
+      AVATAR_HASH = #{record.avatarHash,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.wegrow.wegrow.model.Topic">
-    update topic
+    update TOPIC
     <set>
       <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
+        USER_ID = #{userId,jdbcType=INTEGER},
       </if>
       <if test="topicName != null">
-        topic_name = #{topicName,jdbcType=VARCHAR},
+        TOPIC_NAME = #{topicName,jdbcType=VARCHAR},
       </if>
       <if test="topicInfo != null">
-        topic_info = #{topicInfo,jdbcType=VARCHAR},
+        TOPIC_INFO = #{topicInfo,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
-        status = #{status,jdbcType=TINYINT},
+        STATUS = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="avatarHash != null">
+        AVATAR_HASH = #{avatarHash,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.wegrow.wegrow.model.Topic">
-    update topic
-    set user_id = #{userId,jdbcType=INTEGER},
-      topic_name = #{topicName,jdbcType=VARCHAR},
-      topic_info = #{topicInfo,jdbcType=VARCHAR},
-      status = #{status,jdbcType=TINYINT},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
+    update TOPIC
+    set USER_ID = #{userId,jdbcType=INTEGER},
+      TOPIC_NAME = #{topicName,jdbcType=VARCHAR},
+      TOPIC_INFO = #{topicInfo,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=TINYINT},
+      AVATAR_HASH = #{avatarHash,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

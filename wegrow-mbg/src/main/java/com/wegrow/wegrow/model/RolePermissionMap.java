@@ -7,10 +7,10 @@ import java.util.Date;
 public class RolePermissionMap implements Serializable {
     private Integer id;
 
-    @ApiModelProperty(value = "角色id")
+    @ApiModelProperty(value = "角色ID")
     private Integer roleId;
 
-    @ApiModelProperty(value = "权限id")
+    @ApiModelProperty(value = "权限ID")
     private Integer permissionId;
 
     @ApiModelProperty(value = "创建时间")

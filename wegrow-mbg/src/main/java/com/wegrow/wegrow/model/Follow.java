@@ -7,10 +7,10 @@ import java.util.Date;
 public class Follow implements Serializable {
     private Integer id;
 
-    @ApiModelProperty(value = "用户id")
+    @ApiModelProperty(value = "用户ID")
     private Integer userId;
 
-    @ApiModelProperty(value = "用户关注的人的id")
+    @ApiModelProperty(value = "用户关注的人的ID")
     private Integer followedUserId;
 
     @ApiModelProperty(value = "关注状态:是否取消关注等")
