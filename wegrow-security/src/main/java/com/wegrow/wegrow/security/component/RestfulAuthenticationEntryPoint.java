@@ -14,7 +14,7 @@ import java.io.IOException;
  *  用来解决匿名用户访问无权限资源时的异常
  *  此处是把异常直接恢复给访问者
  */
-public class ResfulAuthenticationEntryPoint implements AuthenticationEntryPoint {
+public class RestfulAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
         httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");

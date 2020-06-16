@@ -1,10 +1,14 @@
 package com.wegrow.wegrow.demo.service;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
+@Getter
+@Setter
 public class UpdateUserPasswordParam {
     @ApiModelProperty(value = "邮箱", required = true)
     @Email(message = "邮箱不能为空")

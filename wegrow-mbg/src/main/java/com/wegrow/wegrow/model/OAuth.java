@@ -11,7 +11,7 @@ public class OAuth implements Serializable {
     private Integer userId;
 
     @ApiModelProperty(value = "OAUTH登陆类型")
-    private String oAuthName;
+    private String oauthName;
 
     @ApiModelProperty(value = "第三方认证ID")
     private String oauthId;
@@ -43,12 +43,12 @@ public class OAuth implements Serializable {
         this.userId = userId;
     }
 
-    public String getoAuthName() {
-        return oAuthName;
+    public String getOauthName() {
+        return oauthName;
     }
 
-    public void setoAuthName(String oAuthName) {
-        this.oAuthName = oAuthName;
+    public void setOauthName(String oauthName) {
+        this.oauthName = oauthName;
     }
 
     public String getOauthId() {
@@ -91,7 +91,7 @@ public class OAuth implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", userId=").append(userId);
-        sb.append(", oAuthName=").append(oAuthName);
+        sb.append(", oauthName=").append(oauthName);
         sb.append(", oauthId=").append(oauthId);
         sb.append(", oauthAccessToken=").append(oauthAccessToken);
         sb.append(", createTime=").append(createTime);

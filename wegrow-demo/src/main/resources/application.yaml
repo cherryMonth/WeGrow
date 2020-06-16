@@ -5,17 +5,16 @@ spring:
     url: jdbc:mysql://192.168.124.15:30001/WEGROW?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: root
     password: sj@123456
-#  thymeleaf:
-#    cache: true
-#  devtools:
-#    restart:
-#      enabled: true
-  security:
-    user:
-      name: user
-      password: 123456
   profiles:
     active: dev
   application:
     name: wegrow-demo
-
+mybatis:
+  mapper-locations:
+    - classpath:dao/*.xml
+    - classpath*:com/**/mapper/*.xml
+jwt:
+  tokenHeader: Authorization #JWT存储的请求头
+  secret: wegrow-demo-secret #JWT加解密使用的密钥
+  expiration: 604800 #JWT的超期限时间(60*60*24)
+  tokenHead: Bearer  #JWT负载中拿到开头

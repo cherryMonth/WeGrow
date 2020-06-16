@@ -59,7 +59,7 @@ public interface DemoAdminService {
      * 修改用户角色关系
      */
     @Transactional
-    int updateRole(Integer userId, List<Long> roleIds);
+    int updateRole(Integer userId, List<Integer> roleIds);
 
     /**
      * 获取用户的角色
@@ -80,4 +80,9 @@ public interface DemoAdminService {
      * 获取用户信息
      */
     UserDetails loadUserByUsername(String username);
+
+    /**
+     * 根据用户名修改登陆时间
+     */
+    void updateLoginTimeByUsername(String username);
 }

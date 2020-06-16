@@ -4,20 +4,20 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
 
-public class LocalAuth implements Serializable {
+public class Resource implements Serializable {
     private Integer id;
-
-    @ApiModelProperty(value = "用户ID")
-    private Integer userId;
-
-    @ApiModelProperty(value = "用户密码")
-    private String password;
 
     @ApiModelProperty(value = "信息创建时间")
     private Date createTime;
 
     @ApiModelProperty(value = "信息更新时间")
     private Date updateTime;
+
+    @ApiModelProperty(value = "资源URL")
+    private String url;
+
+    @ApiModelProperty(value = "资源描述")
+    private String description;
 
     private static final long serialVersionUID = 1L;
 
@@ -27,22 +27,6 @@ public class LocalAuth implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public Date getCreateTime() {
@@ -61,6 +45,22 @@ public class LocalAuth implements Serializable {
         this.updateTime = updateTime;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -68,10 +68,10 @@ public class LocalAuth implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", userId=").append(userId);
-        sb.append(", password=").append(password);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);
+        sb.append(", url=").append(url);
+        sb.append(", description=").append(description);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

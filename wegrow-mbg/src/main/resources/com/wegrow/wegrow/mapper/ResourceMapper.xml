@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wegrow.wegrow.mapper.OAuthMapper">
-  <resultMap id="BaseResultMap" type="com.wegrow.wegrow.model.OAuth">
+<mapper namespace="com.wegrow.wegrow.mapper.ResourceMapper">
+  <resultMap id="BaseResultMap" type="com.wegrow.wegrow.model.Resource">
     <id column="ID" jdbcType="INTEGER" property="id" />
-    <result column="USER_ID" jdbcType="INTEGER" property="userId" />
-    <result column="OAUTH_NAME" jdbcType="VARCHAR" property="oauthName" />
-    <result column="OAUTH_ID" jdbcType="VARCHAR" property="oauthId" />
-    <result column="OAUTH_ACCESS_TOKEN" jdbcType="VARCHAR" property="oauthAccessToken" />
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
     <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="URL" jdbcType="VARCHAR" property="url" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -69,15 +67,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    ID, USER_ID, OAUTH_NAME, OAUTH_ID, OAUTH_ACCESS_TOKEN, CREATE_TIME, UPDATE_TIME
+    ID, CREATE_TIME, UPDATE_TIME, URL, DESCRIPTION
   </sql>
-  <select id="selectByExample" parameterType="com.wegrow.wegrow.model.OAuthExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.wegrow.wegrow.model.ResourceExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from O_AUTH
+    from RESOURCE
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -88,99 +86,73 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from O_AUTH
+    from RESOURCE
     where ID = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from O_AUTH
+    delete from RESOURCE
     where ID = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.wegrow.wegrow.model.OAuthExample">
-    delete from O_AUTH
+  <delete id="deleteByExample" parameterType="com.wegrow.wegrow.model.ResourceExample">
+    delete from RESOURCE
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.wegrow.wegrow.model.OAuth">
+  <insert id="insert" parameterType="com.wegrow.wegrow.model.Resource">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into O_AUTH (USER_ID, OAUTH_NAME, OAUTH_ID, 
-      OAUTH_ACCESS_TOKEN, CREATE_TIME, UPDATE_TIME
-      )
-    values (#{userId,jdbcType=INTEGER}, #{oauthName,jdbcType=VARCHAR}, #{oauthId,jdbcType=VARCHAR}, 
-      #{oauthAccessToken,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-      )
+    insert into RESOURCE (CREATE_TIME, UPDATE_TIME, URL, 
+      DESCRIPTION)
+    values (#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{url,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.wegrow.wegrow.model.OAuth">
+  <insert id="insertSelective" parameterType="com.wegrow.wegrow.model.Resource">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into O_AUTH
+    insert into RESOURCE
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        USER_ID,
-      </if>
-      <if test="oauthName != null">
-        OAUTH_NAME,
-      </if>
-      <if test="oauthId != null">
-        OAUTH_ID,
-      </if>
-      <if test="oauthAccessToken != null">
-        OAUTH_ACCESS_TOKEN,
-      </if>
       <if test="createTime != null">
         CREATE_TIME,
       </if>
       <if test="updateTime != null">
         UPDATE_TIME,
       </if>
+      <if test="url != null">
+        URL,
+      </if>
+      <if test="description != null">
+        DESCRIPTION,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="oauthName != null">
-        #{oauthName,jdbcType=VARCHAR},
-      </if>
-      <if test="oauthId != null">
-        #{oauthId,jdbcType=VARCHAR},
-      </if>
-      <if test="oauthAccessToken != null">
-        #{oauthAccessToken,jdbcType=VARCHAR},
-      </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateTime != null">
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.wegrow.wegrow.model.OAuthExample" resultType="java.lang.Long">
-    select count(*) from O_AUTH
+  <select id="countByExample" parameterType="com.wegrow.wegrow.model.ResourceExample" resultType="java.lang.Long">
+    select count(*) from RESOURCE
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update O_AUTH
+    update RESOURCE
     <set>
       <if test="record.id != null">
         ID = #{record.id,jdbcType=INTEGER},
-      </if>
-      <if test="record.userId != null">
-        USER_ID = #{record.userId,jdbcType=INTEGER},
-      </if>
-      <if test="record.oauthName != null">
-        OAUTH_NAME = #{record.oauthName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.oauthId != null">
-        OAUTH_ID = #{record.oauthId,jdbcType=VARCHAR},
-      </if>
-      <if test="record.oauthAccessToken != null">
-        OAUTH_ACCESS_TOKEN = #{record.oauthAccessToken,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null">
         CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
@@ -188,56 +160,52 @@
       <if test="record.updateTime != null">
         UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.url != null">
+        URL = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update O_AUTH
+    update RESOURCE
     set ID = #{record.id,jdbcType=INTEGER},
-      USER_ID = #{record.userId,jdbcType=INTEGER},
-      OAUTH_NAME = #{record.oauthName,jdbcType=VARCHAR},
-      OAUTH_ID = #{record.oauthId,jdbcType=VARCHAR},
-      OAUTH_ACCESS_TOKEN = #{record.oauthAccessToken,jdbcType=VARCHAR},
       CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
-      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP}
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      URL = #{record.url,jdbcType=VARCHAR},
+      DESCRIPTION = #{record.description,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.wegrow.wegrow.model.OAuth">
-    update O_AUTH
+  <update id="updateByPrimaryKeySelective" parameterType="com.wegrow.wegrow.model.Resource">
+    update RESOURCE
     <set>
-      <if test="userId != null">
-        USER_ID = #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="oauthName != null">
-        OAUTH_NAME = #{oauthName,jdbcType=VARCHAR},
-      </if>
-      <if test="oauthId != null">
-        OAUTH_ID = #{oauthId,jdbcType=VARCHAR},
-      </if>
-      <if test="oauthAccessToken != null">
-        OAUTH_ACCESS_TOKEN = #{oauthAccessToken,jdbcType=VARCHAR},
-      </if>
       <if test="createTime != null">
         CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateTime != null">
         UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="url != null">
+        URL = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
     </set>
     where ID = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.wegrow.wegrow.model.OAuth">
-    update O_AUTH
-    set USER_ID = #{userId,jdbcType=INTEGER},
-      OAUTH_NAME = #{oauthName,jdbcType=VARCHAR},
-      OAUTH_ID = #{oauthId,jdbcType=VARCHAR},
-      OAUTH_ACCESS_TOKEN = #{oauthAccessToken,jdbcType=VARCHAR},
-      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+  <update id="updateByPrimaryKey" parameterType="com.wegrow.wegrow.model.Resource">
+    update RESOURCE
+    set CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      URL = #{url,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

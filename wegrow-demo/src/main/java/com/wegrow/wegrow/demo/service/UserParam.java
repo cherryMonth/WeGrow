@@ -1,6 +1,7 @@
 package com.wegrow.wegrow.demo.service;
 
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiOperation;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,17 +15,20 @@ import javax.validation.constraints.NotEmpty;
 @Setter
 public class UserParam {
 
-    @ApiModelProperty(value = "用户邮箱")
+    @ApiModelProperty(value = "用户邮箱", required = true)
     @Email(message = "邮箱格式不合法")
     private String email;
 
-    @ApiModelProperty(value = "用户昵称")
+    @ApiModelProperty(value = "用户昵称", required = true)
     @NotEmpty(message = "用户昵称不能为空")
     private String username;
 
     @ApiModelProperty(value = "用户简介")
     private String aboutMe;
 
-    @ApiModelProperty(value = "用户头像HASH")
+    @ApiModelProperty(value = "用户头像HASH", required = true)
     private String avatarHash;
+
+    @ApiModelProperty(value = "密码", required = true)
+    private String password;
 }

@@ -7,7 +7,6 @@ use springDemo;
 show tables;
 
 drop table users;
-drop table authorities;
 
 create table users
 (
