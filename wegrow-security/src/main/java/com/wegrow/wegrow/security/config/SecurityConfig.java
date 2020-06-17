@@ -1,6 +1,7 @@
 package com.wegrow.wegrow.security.config;
 
 import com.wegrow.wegrow.security.component.*;
+
 import com.wegrow.wegrow.security.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -16,6 +17,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+
+/**
+ * Spring Security的配置扩展，支持自定义的白名单资源路径和查询用户逻辑
+ */
 
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired(required = false) // 表示忽略当前要注入的bean，如果有直接注入，没有跳过，不会报错。
@@ -117,6 +123,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public DynamicSecurityMetadataSource dynamicSecurityMetadataSource() {
         return new DynamicSecurityMetadataSource();
     }
-
 
 }

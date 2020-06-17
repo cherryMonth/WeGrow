@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
@@ -35,10 +36,10 @@ public class UserController {
     @ApiOperation(value = "用户注册")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<User> register(@RequestBody UserParam userParam, BindingResult result) {
+    public CommonResult<User> register(@RequestBody @Valid UserParam userParam, BindingResult result) {
         User user = adminService.register(userParam);
         if (user == null) {
-            CommonResult.failed();
+            return CommonResult.failed("创建用户失败，请检查邮箱或者用户名是否合法!");
         }
         return CommonResult.success(user);
     }

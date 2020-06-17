@@ -9,7 +9,6 @@ import com.wegrow.wegrow.demo.service.DemoAdminService;
 import com.wegrow.wegrow.demo.service.UpdateUserPasswordParam;
 import com.wegrow.wegrow.demo.service.UserParam;
 import com.wegrow.wegrow.mapper.LocalAuthMapper;
-import com.wegrow.wegrow.mapper.RolePermissionMapMapper;
 import com.wegrow.wegrow.mapper.UserMapper;
 import com.wegrow.wegrow.mapper.UserRoleMapMapper;
 import com.wegrow.wegrow.model.*;
@@ -84,11 +83,13 @@ public class DemoAdminServiceImpl implements DemoAdminService {
         if (userList.size() > 0) {
             return null;
         }
-        Integer user_id = userMapper.insert(user);
+        userMapper.insert(user);
         LocalAuth localAuth = new LocalAuth();
-        localAuth.setUserId(user_id);
-        String encodePassword = passwordEncoder.encode(userParam.getPassword());
-        localAuth.setPassword(encodePassword);
+
+        // mybatis插入用户之后，会自动给对象的ID进行赋值
+        localAuth.setUserId(user.getId());
+        localAuth.setPassword(passwordEncoder.encode(userParam.getPassword()));
+        localAuthMapper.insert(localAuth);
         return user;
     }
 
