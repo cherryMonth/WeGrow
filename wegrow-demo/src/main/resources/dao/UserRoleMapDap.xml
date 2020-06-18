@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wegrow.wegrow.demo.dao.UserRoleMapDao">
+    <resultMap id="BaseResultMap" type="com.wegrow.wegrow.model.UserRoleMap">
+        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="USER_ID" jdbcType="INTEGER" property="userId"/>
+        <result column="ROLE_ID" jdbcType="INTEGER" property="roleId"/>
+        <result column="STATUS" jdbcType="TINYINT" property="status"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        ID, USER_ID, ROLE_ID, STATUS, CREATE_TIME, UPDATE_TIME
+    </sql>
+    <insert id="insertList">
+        INSERT INTO USER_ROLE_MAP (USER_ID, ROLE_ID) VALUES
+        <foreach collection="list" separator="," item="item" index="index">
+            (#{item.userId,jdbcType=BIGINT},
+            #{item.roleId,jdbcType=BIGINT})
+        </foreach>
+    </insert>
+    <!-- 用户角色表和角色表进行左连接，然后返回角色表的内容，这样如果用户不存在角色则该角色的消息为NULL -->
+    <select id="getRoleList" resultMap="com.wegrow.wegrow.mapper.UserRoleMapMapper.BaseResultMap">
+        select r.*
+        from USER_ROLE_MAP ur
+                 left join ROLES r on ur.ROLE_ID = r.ID
+        where ur.USER_ID = #{userId}
+    </select>
+    <!-- 返回用户所有的权限且权限必须存在 -->
+    <select id="getPermissionList" resultMap="com.wegrow.wegrow.mapper.PermissionMapper.BaseResultMap">
+        SELECT p.*
+        FROM USER_ROLE_MAP ur
+                 LEFT JOIN ROLES r ON ur.ROLE_ID = r.ID
+                 LEFT JOIN ROLE_PERMISSION_MAP rp ON r.ID = rp.ROLE_ID
+                 LEFT JOIN PERMISSION p ON rp.PERMISSION_ID = p.ID
+        WHERE ur.USER_ID = #{userId}
+          AND p.id IS NOT NULL
+          AND p.STATUS = 1
+          AND r.STATUS = 1;
+    </select>
+</mapper>

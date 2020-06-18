@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wegrow.wegrow.demo.dao.UserLocalAuthDao">
+    <resultMap id="BaseResultMap" type="com.wegrow.wegrow.model.LocalAuth">
+        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="USER_ID" jdbcType="INTEGER" property="userId"/>
+        <result column="PASSWORD" jdbcType="VARCHAR" property="password"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        ID, USER_ID, PASSWORD, CREATE_TIME, UPDATE_TIME
+    </sql>
+    <select id="getLocalAuth" resultType="com.wegrow.wegrow.model.LocalAuth">
+        select
+        <include refid="Base_Column_List"/>
+        from LOCAL_AUTH
+        where USER_ID = #{userId,jdbcType=INTEGER}
+    </select>
+</mapper>

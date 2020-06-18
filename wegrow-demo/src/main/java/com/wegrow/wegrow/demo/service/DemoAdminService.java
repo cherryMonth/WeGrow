@@ -1,8 +1,10 @@
 package com.wegrow.wegrow.demo.service;
 
+import com.wegrow.wegrow.model.LocalAuth;
 import com.wegrow.wegrow.model.Permission;
 import com.wegrow.wegrow.model.Roles;
 import com.wegrow.wegrow.model.User;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -70,6 +72,11 @@ public interface DemoAdminService {
      * 获取用户所有权限（包括角色权限和+-权限）
      */
     List<Permission> getPermissionList(Integer userId);
+
+    /**
+     * 根据用户的ID返回密码
+     */
+    LocalAuth getLocalAuth(Integer userId);
 
     /**
      * 修改密码

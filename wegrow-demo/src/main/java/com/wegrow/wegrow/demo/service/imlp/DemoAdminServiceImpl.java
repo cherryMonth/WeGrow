@@ -9,6 +9,7 @@ import com.wegrow.wegrow.demo.service.DemoAdminService;
 import com.wegrow.wegrow.demo.service.UpdateUserPasswordParam;
 import com.wegrow.wegrow.demo.service.UserParam;
 import com.wegrow.wegrow.mapper.LocalAuthMapper;
+import com.wegrow.wegrow.mapper.RolesMapper;
 import com.wegrow.wegrow.mapper.UserMapper;
 import com.wegrow.wegrow.mapper.UserRoleMapMapper;
 import com.wegrow.wegrow.model.*;
@@ -46,6 +47,9 @@ public class DemoAdminServiceImpl implements DemoAdminService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private RolesMapper rolesMapper;
 
     @Autowired
     private LocalAuthMapper localAuthMapper;
@@ -89,7 +93,14 @@ public class DemoAdminServiceImpl implements DemoAdminService {
         // mybatis插入用户之后，会自动给对象的ID进行赋值
         localAuth.setUserId(user.getId());
         localAuth.setPassword(passwordEncoder.encode(userParam.getPassword()));
+
+        // 给创建的用户添加默认的普通用户角色
+        RolesExample rolesExample = new RolesExample();
+        rolesExample.createCriteria().andNameEqualTo("ORDINARY_USER");
+        ArrayList<Integer> roles_list = new ArrayList<>();
+        roles_list.add(rolesMapper.selectByExample(rolesExample).get(0).getId());
         localAuthMapper.insert(localAuth);
+        updateRole(user.getId(), roles_list);
         return user;
     }
 
@@ -166,6 +177,12 @@ public class DemoAdminServiceImpl implements DemoAdminService {
         return count;
     }
 
+
+    @Override
+    public LocalAuth getLocalAuth(Integer userId) {
+        return userLocalAuthDao.getLocalAuth(userId);
+    }
+
     @Override
     public List<Roles> getRoleList(Integer userId) {
         return userRoleMapDao.getRolesList(userId);
@@ -190,7 +207,7 @@ public class DemoAdminServiceImpl implements DemoAdminService {
         if (CollUtil.isEmpty(userList)) {
             return -2;
         }
-        LocalAuth localAuth = userLocalAuthDao.getLocalAuth(userList.get(0).getId());
+        LocalAuth localAuth = this.getLocalAuth(userList.get(0).getId());
         if (!passwordEncoder.matches(updatePasswordParam.getOldPassword(), localAuth.getPassword())) {
             return -3;
         }
@@ -203,7 +220,7 @@ public class DemoAdminServiceImpl implements DemoAdminService {
     public UserDetails loadUserByUsername(String username) {
         User user = getUserByUsername(username);
         if (user != null) {
-            LocalAuth localAuth = userLocalAuthDao.getLocalAuth(user.getId());
+            LocalAuth localAuth = this.getLocalAuth(user.getId());
             List<Permission> permissionList = getPermissionList(user.getId());
             return new DemoUserDetails(user, permissionList, localAuth);
         }

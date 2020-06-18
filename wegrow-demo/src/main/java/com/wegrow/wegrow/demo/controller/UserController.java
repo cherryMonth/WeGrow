@@ -47,7 +47,7 @@ public class UserController {
     @ApiOperation(value = "登录以后返回token")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult login(@RequestBody UserLoginParam userLoginParam, BindingResult result) {
+    public CommonResult<Object> login(@RequestBody UserLoginParam userLoginParam, BindingResult result) {
         String token = adminService.login(userLoginParam.getUsername(), userLoginParam.getPassword());
         if (token == null) {
             return CommonResult.validateFailed("用户名或密码错误");
@@ -61,7 +61,7 @@ public class UserController {
     @ApiOperation(value = "刷新token")
     @RequestMapping(value = "/refreshToken", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult refreshToken(HttpServletRequest request) {
+    public CommonResult<Object> refreshToken(HttpServletRequest request) {
         String token = request.getHeader(tokenHeader);
         String refreshToken = adminService.refreshToken(token);
         if (refreshToken == null) {
@@ -76,7 +76,7 @@ public class UserController {
     @ApiOperation(value = "获取当前登录用户信息")
     @RequestMapping(value = "/info", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult getAdminInfo(Principal principal) {
+    public CommonResult<Object> getAdminInfo(Principal principal) {
         if (principal == null) {
             return CommonResult.unauthorized(null);
         }
@@ -95,7 +95,7 @@ public class UserController {
     @ApiOperation(value = "登出功能")
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult logout() {
+    public CommonResult<Object> logout() {
         return CommonResult.success(null);
     }
 
@@ -112,7 +112,7 @@ public class UserController {
     @ApiOperation("修改指定用户密码")
     @RequestMapping(value = "/updatePassword", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult updatePassword(@RequestBody UpdateUserPasswordParam updatePasswordParam) {
+    public CommonResult<Object> updatePassword(@RequestBody UpdateUserPasswordParam updatePasswordParam) {
         int status = adminService.updatePassword(updatePasswordParam);
         if (status > 0) {
             return CommonResult.success(status);
