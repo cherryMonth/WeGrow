@@ -66,7 +66,7 @@ public interface DemoAdminService {
     /**
      * 获取用户的角色
      */
-    List<Roles> getRoleList(Integer userId);
+    List<Roles> getRolesList(Integer userId);
 
     /**
      * 获取用户所有权限（包括角色权限和+-权限）

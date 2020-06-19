@@ -19,7 +19,7 @@ public interface UserRoleMapDao {
     int insertList(@Param("list") List<UserRoleMap> userRoleMapList);
 
     // 获取用户所有的角色
-    List<Roles> getRolesList(@Param("useId") Integer userId);
+    List<Roles> getRolesList(@Param("userId") Integer userId);
 
     // 获取用户所有的权限
     List<Permission> getPermissionList(@Param("userId") Integer userId);

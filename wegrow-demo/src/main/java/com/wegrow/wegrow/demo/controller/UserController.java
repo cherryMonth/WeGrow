@@ -58,7 +58,7 @@ public class UserController {
         return CommonResult.success(tokenMap);
     }
 
-    @ApiOperation(value = "刷新token")
+    @ApiOperation(value = "刷新token")  // 刷新token的时间
     @RequestMapping(value = "/refreshToken", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult<Object> refreshToken(HttpServletRequest request) {
@@ -84,7 +84,7 @@ public class UserController {
         User user = adminService.getUserByUsername(username);
         Map<String, Object> data = new HashMap<>();
         data.put("username", user.getUsername());
-        data.put("RolesList", adminService.getRoleList(user.getId()));
+        data.put("RolesList", adminService.getRolesList(user.getId()));
         data.put("PermissionList", adminService.getPermissionList(user.getId()));
         data.put("email", user.getEmail());
         data.put("AvatarHash", user.getAvatarHash());
@@ -94,7 +94,7 @@ public class UserController {
 
     @ApiOperation(value = "登出功能")
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
-    @ResponseBody
+    @ResponseBody  // 由于我们只对token进行管理，所以把用户的登陆和登出交给前端进行管理，我们只负责管理token的生命周期
     public CommonResult<Object> logout() {
         return CommonResult.success(null);
     }

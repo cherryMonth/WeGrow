@@ -20,7 +20,7 @@
         </foreach>
     </insert>
     <!-- 用户角色表和角色表进行左连接，然后返回角色表的内容，这样如果用户不存在角色则该角色的消息为NULL -->
-    <select id="getRoleList" resultMap="com.wegrow.wegrow.mapper.UserRoleMapMapper.BaseResultMap">
+    <select id="getRolesList" resultMap="com.wegrow.wegrow.mapper.UserRoleMapMapper.BaseResultMap">
         select r.*
         from USER_ROLE_MAP ur
                  left join ROLES r on ur.ROLE_ID = r.ID

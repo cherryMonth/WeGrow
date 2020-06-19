@@ -11,7 +11,7 @@
     <sql id="Base_Column_List">
         ID, USER_ID, PASSWORD, CREATE_TIME, UPDATE_TIME
     </sql>
-    <select id="getLocalAuth" resultType="com.wegrow.wegrow.model.LocalAuth">
+    <select id="getLocalAuth" resultMap="com.wegrow.wegrow.mapper.LocalAuthMapper.BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from LOCAL_AUTH

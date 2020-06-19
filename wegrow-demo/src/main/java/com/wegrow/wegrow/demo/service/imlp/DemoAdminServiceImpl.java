@@ -184,7 +184,7 @@ public class DemoAdminServiceImpl implements DemoAdminService {
     }
 
     @Override
-    public List<Roles> getRoleList(Integer userId) {
+    public List<Roles> getRolesList(Integer userId) {
         return userRoleMapDao.getRolesList(userId);
     }
 
