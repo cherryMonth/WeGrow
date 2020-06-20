@@ -14,7 +14,7 @@ public class Follow implements Serializable {
     private Integer followedUserId;
 
     @ApiModelProperty(value = "关注状态:是否取消关注等")
-    private Byte status;
+    private Integer status;
 
     @ApiModelProperty(value = "创建时间")
     private Date createTime;
@@ -48,11 +48,11 @@ public class Follow implements Serializable {
         this.followedUserId = followedUserId;
     }
 
-    public Byte getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

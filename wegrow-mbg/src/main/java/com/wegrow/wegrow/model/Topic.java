@@ -17,7 +17,7 @@ public class Topic implements Serializable {
     private String topicInfo;
 
     @ApiModelProperty(value = "专题状态")
-    private Byte status;
+    private Integer status;
 
     @ApiModelProperty(value = "专题介绍图片HASH")
     private String avatarHash;
@@ -62,11 +62,11 @@ public class Topic implements Serializable {
         this.topicInfo = topicInfo;
     }
 
-    public Byte getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

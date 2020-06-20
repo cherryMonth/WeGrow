@@ -3,9 +3,9 @@ package com.wegrow.wegrow.demo.controller;
 import com.wegrow.wegrow.common.api.CommonPage;
 import com.wegrow.wegrow.common.api.CommonResult;
 import com.wegrow.wegrow.demo.dto.UserLoginParam;
-import com.wegrow.wegrow.demo.service.DemoAdminService;
-import com.wegrow.wegrow.demo.service.UpdateUserPasswordParam;
-import com.wegrow.wegrow.demo.service.UserParam;
+import com.wegrow.wegrow.demo.service.UserService;
+import com.wegrow.wegrow.demo.dto.UpdateUserPasswordParam;
+import com.wegrow.wegrow.demo.dto.UserParam;
 import com.wegrow.wegrow.model.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -31,7 +31,7 @@ public class UserController {
     @Value("${jwt.tokenHead}")
     private String tokenHead;
     @Autowired
-    private DemoAdminService adminService;
+    private UserService adminService;
 
     @ApiOperation(value = "用户注册")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -47,7 +47,7 @@ public class UserController {
     @ApiOperation(value = "登录以后返回token")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<Object> login(@RequestBody UserLoginParam userLoginParam, BindingResult result) {
+    public CommonResult<Object> login(@RequestBody @Valid UserLoginParam userLoginParam, BindingResult result) {
         String token = adminService.login(userLoginParam.getUsername(), userLoginParam.getPassword());
         if (token == null) {
             return CommonResult.validateFailed("用户名或密码错误");

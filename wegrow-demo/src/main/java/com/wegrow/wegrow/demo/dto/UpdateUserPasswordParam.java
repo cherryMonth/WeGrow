@@ -1,4 +1,4 @@
-package com.wegrow.wegrow.demo.service;
+package com.wegrow.wegrow.demo.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;

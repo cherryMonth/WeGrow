@@ -6,7 +6,7 @@
     <result column="USER_ID" jdbcType="INTEGER" property="userId" />
     <result column="TOPIC_NAME" jdbcType="VARCHAR" property="topicName" />
     <result column="TOPIC_INFO" jdbcType="VARCHAR" property="topicInfo" />
-    <result column="STATUS" jdbcType="TINYINT" property="status" />
+    <result column="STATUS" jdbcType="INTEGER" property="status" />
     <result column="AVATAR_HASH" jdbcType="VARCHAR" property="avatarHash" />
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
     <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
@@ -110,7 +110,7 @@
       STATUS, AVATAR_HASH, CREATE_TIME, 
       UPDATE_TIME)
     values (#{userId,jdbcType=INTEGER}, #{topicName,jdbcType=VARCHAR}, #{topicInfo,jdbcType=VARCHAR}, 
-      #{status,jdbcType=TINYINT}, #{avatarHash,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=INTEGER}, #{avatarHash,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.wegrow.wegrow.model.Topic">
@@ -152,7 +152,7 @@
         #{topicInfo,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
-        #{status,jdbcType=TINYINT},
+        #{status,jdbcType=INTEGER},
       </if>
       <if test="avatarHash != null">
         #{avatarHash,jdbcType=VARCHAR},
@@ -187,7 +187,7 @@
         TOPIC_INFO = #{record.topicInfo,jdbcType=VARCHAR},
       </if>
       <if test="record.status != null">
-        STATUS = #{record.status,jdbcType=TINYINT},
+        STATUS = #{record.status,jdbcType=INTEGER},
       </if>
       <if test="record.avatarHash != null">
         AVATAR_HASH = #{record.avatarHash,jdbcType=VARCHAR},
@@ -209,7 +209,7 @@
       USER_ID = #{record.userId,jdbcType=INTEGER},
       TOPIC_NAME = #{record.topicName,jdbcType=VARCHAR},
       TOPIC_INFO = #{record.topicInfo,jdbcType=VARCHAR},
-      STATUS = #{record.status,jdbcType=TINYINT},
+      STATUS = #{record.status,jdbcType=INTEGER},
       AVATAR_HASH = #{record.avatarHash,jdbcType=VARCHAR},
       CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
       UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP}
@@ -230,7 +230,7 @@
         TOPIC_INFO = #{topicInfo,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
-        STATUS = #{status,jdbcType=TINYINT},
+        STATUS = #{status,jdbcType=INTEGER},
       </if>
       <if test="avatarHash != null">
         AVATAR_HASH = #{avatarHash,jdbcType=VARCHAR},
@@ -249,7 +249,7 @@
     set USER_ID = #{userId,jdbcType=INTEGER},
       TOPIC_NAME = #{topicName,jdbcType=VARCHAR},
       TOPIC_INFO = #{topicInfo,jdbcType=VARCHAR},
-      STATUS = #{status,jdbcType=TINYINT},
+      STATUS = #{status,jdbcType=INTEGER},
       AVATAR_HASH = #{avatarHash,jdbcType=VARCHAR},
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}

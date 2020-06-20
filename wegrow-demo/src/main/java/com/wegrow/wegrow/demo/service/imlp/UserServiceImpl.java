@@ -5,9 +5,9 @@ import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageHelper;
 import com.wegrow.wegrow.demo.bo.DemoUserDetails;
 import com.wegrow.wegrow.demo.dao.UserLocalAuthDao;
-import com.wegrow.wegrow.demo.service.DemoAdminService;
-import com.wegrow.wegrow.demo.service.UpdateUserPasswordParam;
-import com.wegrow.wegrow.demo.service.UserParam;
+import com.wegrow.wegrow.demo.service.UserService;
+import com.wegrow.wegrow.demo.dto.UpdateUserPasswordParam;
+import com.wegrow.wegrow.demo.dto.UserParam;
 import com.wegrow.wegrow.mapper.LocalAuthMapper;
 import com.wegrow.wegrow.mapper.RolesMapper;
 import com.wegrow.wegrow.mapper.UserMapper;
@@ -35,9 +35,9 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class DemoAdminServiceImpl implements DemoAdminService {
+public class UserServiceImpl implements UserService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DemoAdminServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;

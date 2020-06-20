@@ -1,11 +1,10 @@
 package com.wegrow.wegrow.demo.config;
 
-import com.wegrow.wegrow.security.config.IgnoreUrlsConfig;
 import com.wegrow.wegrow.security.config.SecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import com.wegrow.wegrow.demo.service.DemoAdminService;
+import com.wegrow.wegrow.demo.service.UserService;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,7 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class DemoSecurityConfig extends SecurityConfig {
     @Autowired
-    private DemoAdminService demoAdminService;
+    private UserService demoAdminService;
 
     @Bean
     public UserDetailsService userDetailsService() {

@@ -14,7 +14,7 @@ public class Permission implements Serializable {
     private String action;
 
     @ApiModelProperty(value = "是否启用")
-    private Boolean status;
+    private Integer status;
 
     @ApiModelProperty(value = "创建时间")
     private Date createTime;
@@ -48,11 +48,11 @@ public class Permission implements Serializable {
         this.action = action;
     }
 
-    public Boolean getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

@@ -14,7 +14,7 @@ public class UserRoleMap implements Serializable {
     private Integer roleId;
 
     @ApiModelProperty(value = "该用户当前角色的状态")
-    private Byte status;
+    private Integer status;
 
     @ApiModelProperty(value = "创建时间")
     private Date createTime;
@@ -48,11 +48,11 @@ public class UserRoleMap implements Serializable {
         this.roleId = roleId;
     }
 
-    public Byte getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

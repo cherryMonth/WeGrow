@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wegrow.wegrow.demo.dao.UserBlockMapDao">
+    <resultMap id="BaseResultMap" type="com.wegrow.wegrow.model.Block">
+        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="USER_ID" jdbcType="INTEGER" property="userId"/>
+        <result column="TITLE" jdbcType="VARCHAR" property="title"/>
+        <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="STATUS" jdbcType="INTEGER" property="status"/>
+        <result column="TOPIC_ID" jdbcType="INTEGER" property="topicId"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.wegrow.wegrow.model.Block">
+        <result column="BLOCK_CONTENT" jdbcType="LONGVARCHAR" property="blockContent"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        ID, USER_ID, TITLE, UPDATE_TIME, CREATE_TIME, STATUS, TOPIC_ID
+    </sql>
+    <sql id="Blob_Column_List">
+        BLOCK_CONTENT
+    </sql>
+    <select id="getUserBlockAuth" resultMap="ResultMapWithBLOBs">
+        select b.*
+        from BLOCK b
+                 INNER JOIN USER u ON u.ID = b.USER_ID
+        where u.USERNAME = #{userName,jdbcType=VARCHAR}
+          and b.ID = #{blockId,jdbcType=INTEGER}
+    </select>
+</mapper>

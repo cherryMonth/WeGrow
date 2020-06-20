@@ -19,13 +19,13 @@ public class Block implements Serializable {
     private Date createTime;
 
     @ApiModelProperty(value = "文章状态:是否被封禁")
-    private Byte status;
+    private Integer status;
 
     @ApiModelProperty(value = "所属的专题ID")
     private Integer topicId;
 
     @ApiModelProperty(value = "用户创建的内容")
-    private String content;
+    private String blockContent;
 
     private static final long serialVersionUID = 1L;
 
@@ -69,11 +69,11 @@ public class Block implements Serializable {
         this.createTime = createTime;
     }
 
-    public Byte getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
@@ -85,12 +85,12 @@ public class Block implements Serializable {
         this.topicId = topicId;
     }
 
-    public String getContent() {
-        return content;
+    public String getBlockContent() {
+        return blockContent;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setBlockContent(String blockContent) {
+        this.blockContent = blockContent;
     }
 
     @Override
@@ -106,7 +106,7 @@ public class Block implements Serializable {
         sb.append(", createTime=").append(createTime);
         sb.append(", status=").append(status);
         sb.append(", topicId=").append(topicId);
-        sb.append(", content=").append(content);
+        sb.append(", blockContent=").append(blockContent);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

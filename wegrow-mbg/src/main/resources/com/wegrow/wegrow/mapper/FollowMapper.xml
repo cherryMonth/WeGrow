@@ -5,7 +5,7 @@
     <id column="ID" jdbcType="INTEGER" property="id" />
     <result column="USER_ID" jdbcType="INTEGER" property="userId" />
     <result column="FOLLOWED_USER_ID" jdbcType="INTEGER" property="followedUserId" />
-    <result column="STATUS" jdbcType="TINYINT" property="status" />
+    <result column="STATUS" jdbcType="INTEGER" property="status" />
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
     <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
@@ -106,7 +106,7 @@
     </selectKey>
     insert into FOLLOW (USER_ID, FOLLOWED_USER_ID, STATUS, 
       CREATE_TIME, UPDATE_TIME)
-    values (#{userId,jdbcType=INTEGER}, #{followedUserId,jdbcType=INTEGER}, #{status,jdbcType=TINYINT}, 
+    values (#{userId,jdbcType=INTEGER}, #{followedUserId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.wegrow.wegrow.model.Follow">
@@ -139,7 +139,7 @@
         #{followedUserId,jdbcType=INTEGER},
       </if>
       <if test="status != null">
-        #{status,jdbcType=TINYINT},
+        #{status,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -168,7 +168,7 @@
         FOLLOWED_USER_ID = #{record.followedUserId,jdbcType=INTEGER},
       </if>
       <if test="record.status != null">
-        STATUS = #{record.status,jdbcType=TINYINT},
+        STATUS = #{record.status,jdbcType=INTEGER},
       </if>
       <if test="record.createTime != null">
         CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
@@ -186,7 +186,7 @@
     set ID = #{record.id,jdbcType=INTEGER},
       USER_ID = #{record.userId,jdbcType=INTEGER},
       FOLLOWED_USER_ID = #{record.followedUserId,jdbcType=INTEGER},
-      STATUS = #{record.status,jdbcType=TINYINT},
+      STATUS = #{record.status,jdbcType=INTEGER},
       CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
       UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
@@ -203,7 +203,7 @@
         FOLLOWED_USER_ID = #{followedUserId,jdbcType=INTEGER},
       </if>
       <if test="status != null">
-        STATUS = #{status,jdbcType=TINYINT},
+        STATUS = #{status,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
@@ -218,7 +218,7 @@
     update FOLLOW
     set USER_ID = #{userId,jdbcType=INTEGER},
       FOLLOWED_USER_ID = #{followedUserId,jdbcType=INTEGER},
-      STATUS = #{status,jdbcType=TINYINT},
+      STATUS = #{status,jdbcType=INTEGER},
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=INTEGER}

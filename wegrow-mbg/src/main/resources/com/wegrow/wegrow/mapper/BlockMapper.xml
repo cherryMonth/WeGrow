@@ -7,11 +7,11 @@
     <result column="TITLE" jdbcType="VARCHAR" property="title" />
     <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="STATUS" jdbcType="TINYINT" property="status" />
+    <result column="STATUS" jdbcType="INTEGER" property="status" />
     <result column="TOPIC_ID" jdbcType="INTEGER" property="topicId" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.wegrow.wegrow.model.Block">
-    <result column="CONTENT" jdbcType="LONGVARCHAR" property="content" />
+    <result column="BLOCK_CONTENT" jdbcType="LONGVARCHAR" property="blockContent" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -75,7 +75,7 @@
     ID, USER_ID, TITLE, UPDATE_TIME, CREATE_TIME, STATUS, TOPIC_ID
   </sql>
   <sql id="Blob_Column_List">
-    CONTENT
+    BLOCK_CONTENT
   </sql>
   <select id="selectByExampleWithBLOBs" parameterType="com.wegrow.wegrow.model.BlockExample" resultMap="ResultMapWithBLOBs">
     select
@@ -131,10 +131,10 @@
     </selectKey>
     insert into BLOCK (USER_ID, TITLE, UPDATE_TIME, 
       CREATE_TIME, STATUS, TOPIC_ID, 
-      CONTENT)
+      BLOCK_CONTENT)
     values (#{userId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{status,jdbcType=TINYINT}, #{topicId,jdbcType=INTEGER}, 
-      #{content,jdbcType=LONGVARCHAR})
+      #{createTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, #{topicId,jdbcType=INTEGER}, 
+      #{blockContent,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.wegrow.wegrow.model.Block">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -160,8 +160,8 @@
       <if test="topicId != null">
         TOPIC_ID,
       </if>
-      <if test="content != null">
-        CONTENT,
+      <if test="blockContent != null">
+        BLOCK_CONTENT,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -178,13 +178,13 @@
         #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="status != null">
-        #{status,jdbcType=TINYINT},
+        #{status,jdbcType=INTEGER},
       </if>
       <if test="topicId != null">
         #{topicId,jdbcType=INTEGER},
       </if>
-      <if test="content != null">
-        #{content,jdbcType=LONGVARCHAR},
+      <if test="blockContent != null">
+        #{blockContent,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -213,13 +213,13 @@
         CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.status != null">
-        STATUS = #{record.status,jdbcType=TINYINT},
+        STATUS = #{record.status,jdbcType=INTEGER},
       </if>
       <if test="record.topicId != null">
         TOPIC_ID = #{record.topicId,jdbcType=INTEGER},
       </if>
-      <if test="record.content != null">
-        CONTENT = #{record.content,jdbcType=LONGVARCHAR},
+      <if test="record.blockContent != null">
+        BLOCK_CONTENT = #{record.blockContent,jdbcType=LONGVARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -233,9 +233,9 @@
       TITLE = #{record.title,jdbcType=VARCHAR},
       UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
       CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
-      STATUS = #{record.status,jdbcType=TINYINT},
+      STATUS = #{record.status,jdbcType=INTEGER},
       TOPIC_ID = #{record.topicId,jdbcType=INTEGER},
-      CONTENT = #{record.content,jdbcType=LONGVARCHAR}
+      BLOCK_CONTENT = #{record.blockContent,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -247,7 +247,7 @@
       TITLE = #{record.title,jdbcType=VARCHAR},
       UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
       CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
-      STATUS = #{record.status,jdbcType=TINYINT},
+      STATUS = #{record.status,jdbcType=INTEGER},
       TOPIC_ID = #{record.topicId,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -269,13 +269,13 @@
         CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="status != null">
-        STATUS = #{status,jdbcType=TINYINT},
+        STATUS = #{status,jdbcType=INTEGER},
       </if>
       <if test="topicId != null">
         TOPIC_ID = #{topicId,jdbcType=INTEGER},
       </if>
-      <if test="content != null">
-        CONTENT = #{content,jdbcType=LONGVARCHAR},
+      <if test="blockContent != null">
+        BLOCK_CONTENT = #{blockContent,jdbcType=LONGVARCHAR},
       </if>
     </set>
     where ID = #{id,jdbcType=INTEGER}
@@ -286,9 +286,9 @@
       TITLE = #{title,jdbcType=VARCHAR},
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-      STATUS = #{status,jdbcType=TINYINT},
+      STATUS = #{status,jdbcType=INTEGER},
       TOPIC_ID = #{topicId,jdbcType=INTEGER},
-      CONTENT = #{content,jdbcType=LONGVARCHAR}
+      BLOCK_CONTENT = #{blockContent,jdbcType=LONGVARCHAR}
     where ID = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.wegrow.wegrow.model.Block">
@@ -297,7 +297,7 @@
       TITLE = #{title,jdbcType=VARCHAR},
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-      STATUS = #{status,jdbcType=TINYINT},
+      STATUS = #{status,jdbcType=INTEGER},
       TOPIC_ID = #{topicId,jdbcType=INTEGER}
     where ID = #{id,jdbcType=INTEGER}
   </update>

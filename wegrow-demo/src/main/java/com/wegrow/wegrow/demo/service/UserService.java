@@ -1,16 +1,17 @@
 package com.wegrow.wegrow.demo.service;
 
+import com.wegrow.wegrow.demo.dto.UpdateUserPasswordParam;
+import com.wegrow.wegrow.demo.dto.UserParam;
 import com.wegrow.wegrow.model.LocalAuth;
 import com.wegrow.wegrow.model.Permission;
 import com.wegrow.wegrow.model.Roles;
 import com.wegrow.wegrow.model.User;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
 
-public interface DemoAdminService {
+public interface UserService {
     /**
      * 根据用户名获取后台管理员
      */
