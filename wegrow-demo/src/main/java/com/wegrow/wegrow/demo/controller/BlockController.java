@@ -75,7 +75,7 @@ public class BlockController {
         }
     }
 
-    @ApiOperation(value = "更新品牌")
+    @ApiOperation(value = "更新block")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @ResponseBody  // PathVariable 从url中获取
     public CommonResult<Object> update(@PathVariable("id") Integer id,
