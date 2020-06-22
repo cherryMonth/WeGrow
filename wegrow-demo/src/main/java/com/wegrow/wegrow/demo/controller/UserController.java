@@ -112,7 +112,7 @@ public class UserController {
     @ApiOperation("修改指定用户密码")
     @RequestMapping(value = "/updatePassword", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<Object> updatePassword(@RequestBody UpdateUserPasswordParam updatePasswordParam) {
+    public CommonResult<Object> updatePassword(@RequestBody @Valid UpdateUserPasswordParam updatePasswordParam) {
         int status = adminService.updatePassword(updatePasswordParam);
         if (status > 0) {
             return CommonResult.success(status);
