@@ -54,7 +54,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         // 在此设置允许的请求头域名，如果前端请求的列表与服务器设置的符合则进行回复
         httpServletResponse.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:8080");
         // 在此设置服务器允许的请求头信息
-        httpServletResponse.setHeader("Access-Control-Allow-Headers", "access-control-allow-origin,content-type");
+        httpServletResponse.setHeader("Access-Control-Allow-Headers", "access-control-allow-origin,content-type,Authorization");
         filterChain.doFilter(httpServletRequest, httpServletResponse);
     }
 }
