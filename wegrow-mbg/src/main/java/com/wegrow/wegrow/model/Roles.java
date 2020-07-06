@@ -11,7 +11,7 @@ public class Roles implements Serializable {
     private String name;
 
     @ApiModelProperty(value = "是否启用")
-    private Integer status;
+    private Boolean status;
 
     @ApiModelProperty(value = "创建时间")
     private Date createTime;
@@ -37,11 +37,11 @@ public class Roles implements Serializable {
         this.name = name;
     }
 
-    public Integer getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 

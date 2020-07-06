@@ -18,7 +18,7 @@ public class Block implements Serializable {
     @ApiModelProperty(value = "创建时间")
     private Date createTime;
 
-    @ApiModelProperty(value = "文章状态:是否被封禁")
+    @ApiModelProperty(value = "文章状态:是否可用")
     private Integer status;
 
     @ApiModelProperty(value = "所属的专题ID")
