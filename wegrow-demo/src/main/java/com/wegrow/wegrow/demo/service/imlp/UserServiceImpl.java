@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService {
         // example用来构建复杂的SQL，然后使用model mapper进行查询
         UserExample userExample = new UserExample();
         userExample.createCriteria().andUsernameEqualTo(username);
-        List<User> userList = userMapper.selectByExample(userExample);
+        List<User> userList = userMapper.selectByExampleWithBLOBs(userExample);
         if (userList != null && userList.size() > 0) {
             return userList.get(0);
         }
