@@ -85,4 +85,18 @@ public interface BlockService {
      * @return
      */
     int updateBlockStatus(String principalName, List<Integer> ids, Integer status);
+
+    /**
+     * 返回用户具有某种状态的文章
+     * 0：被封禁
+     * 1：正常
+     * 2：草稿
+     * 3：被删除
+     * @param principalName
+     * @param keyword
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    List<Block> listBlockByStatus(String principalName, Integer status, int pageNum, int pageSize);
 }

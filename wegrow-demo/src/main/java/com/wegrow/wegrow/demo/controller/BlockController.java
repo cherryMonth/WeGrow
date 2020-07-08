@@ -45,6 +45,19 @@ public class BlockController {
         return CommonResult.success(CommonPage.restPage(blockList));
     }
 
+    @ApiOperation(value = "根据状态获取用户自己的Block")
+    @RequestMapping(value = "/getBlockByStatus", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<CommonPage<Block>> getOwnListByStatus(@RequestParam(value = "status") Integer status,
+                                                              @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+                                                              @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize, Principal principal) {
+        if (null == principal) {
+            return CommonResult.unauthorized(null);
+        }
+        List<Block> blockList = blockService.listBlockByStatus(principal.getName(), status, pageNum, pageSize);
+        return CommonResult.success(CommonPage.restPage(blockList));
+    }
+
     @ApiOperation(value = "根据关键词获取用户自己的Block")
     @RequestMapping(value = "/MyOwnlist", method = RequestMethod.GET)
     @ResponseBody
@@ -67,9 +80,10 @@ public class BlockController {
         }
         String username = principal.getName();
 
-        int count = blockService.createBlock(blockParam, username);
-        if (count == 1) {
-            return CommonResult.success(count);
+        // 插入之后返回主键
+        int result = blockService.createBlock(blockParam, username);
+        if (result > 0) {
+            return CommonResult.success(result);
         } else {
             return CommonResult.failed("创建失败, 请检查内容是否正确!");
         }
@@ -81,13 +95,13 @@ public class BlockController {
     public CommonResult<Object> update(@PathVariable("id") Integer id,
                                        Principal principal,
                                        @RequestBody @Valid BlockParam blockParam,
-                                       BindingResult result) {
+                                       BindingResult bindingResult) {
         if (null == principal) {
             return CommonResult.unauthorized(null);
         }
-        int count = blockService.updateBlock(blockParam, principal.getName(), id);
-        if (count == 1) {
-            return CommonResult.success(count);
+        int result = blockService.updateBlock(blockParam, principal.getName(), id);
+        if (result > 0) {
+            return CommonResult.success(result);
         } else {
             return CommonResult.failed("请检查内容信息是否合法!");
         }

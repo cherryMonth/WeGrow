@@ -41,7 +41,11 @@ public class BlockServiceImpl implements BlockService {
         userExample.createCriteria().andUsernameEqualTo(username);
         block.setUserId(userMapper.selectByExample(userExample).get(0).getId());
         BeanUtils.copyProperties(blockParam, block);
-        return blockMapper.insertSelective(block);
+        int count = blockMapper.insertSelective(block);
+        if (count > 0) {
+            return block.getId();
+        }
+        return count;
     }
 
     @Override
@@ -53,7 +57,11 @@ public class BlockServiceImpl implements BlockService {
         Block block = new Block();
         BeanUtils.copyProperties(blockParam, block);
         block.setId(blockId);
-        return blockMapper.updateByPrimaryKeySelective(block);
+        int count = blockMapper.updateByPrimaryKeySelective(block);
+        if (count > 0) {
+            return block.getId();
+        }
+        return count;
     }
 
     @Override
@@ -120,5 +128,19 @@ public class BlockServiceImpl implements BlockService {
         BlockExample blockExample = new BlockExample();
         blockExample.createCriteria().andIdIn(ids).andUserIdEqualTo(user.getId());
         return blockMapper.updateByExampleSelective(block, blockExample);
+    }
+
+    @Override
+    public List<Block> listBlockByStatus(String principalName, Integer status, int pageNum, int pageSize) {
+        UserExample userExample = new UserExample();
+        userExample.createCriteria().andUsernameEqualTo(principalName);
+        User user = userMapper.selectByExample(userExample).get(0);
+
+        PageHelper.startPage(pageNum, pageSize);
+        BlockExample blockExample = new BlockExample();
+        // 这里要填数据库中的名称
+        blockExample.setOrderByClause("TITLE desc");
+        BlockExample.Criteria criteria = blockExample.createCriteria().andUserIdEqualTo(user.getId()).andStatusEqualTo(status);
+        return blockMapper.selectByExampleWithBLOBs(blockExample);
     }
 }
