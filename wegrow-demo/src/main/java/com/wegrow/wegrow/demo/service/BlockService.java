@@ -70,12 +70,12 @@ public interface BlockService {
     List<Block> listBlock(String principalName, String keyword, int pageNum, int pageSize);
 
     /**
-     * 根据id返回Block
+     * 根据id返回用户所属的Block
      *
      * @param id
      * @return
      */
-    Block getBlock(Integer id);
+    Block getBlock(String principalName, Integer id);
 
     /**
      * 批量修改用户所属的Block status

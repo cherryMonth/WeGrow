@@ -114,8 +114,18 @@ public class BlockServiceImpl implements BlockService {
     }
 
     @Override
-    public Block getBlock(Integer id) {
-        return blockMapper.selectByPrimaryKey(id);
+    public Block getBlock(String principalName, Integer id) {
+        UserExample userExample = new UserExample();
+        userExample.createCriteria().andUsernameEqualTo(principalName);
+        User user = userMapper.selectByExample(userExample).get(0);
+        BlockExample blockExample = new BlockExample();
+        blockExample.createCriteria().andUserIdEqualTo(user.getId()).andIdEqualTo(id);
+        List<Block> blockList = blockMapper.selectByExampleWithBLOBs(blockExample);
+        if (blockList.size() > 0) {
+            return blockList.get(0);
+        } else {
+            return null;
+        }
     }
 
     @Override

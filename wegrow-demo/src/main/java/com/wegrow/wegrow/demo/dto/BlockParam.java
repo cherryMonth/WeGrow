@@ -12,7 +12,6 @@ import javax.validation.constraints.NotNull;
 @Setter
 public class BlockParam {
     @ApiModelProperty(value = "用户创建的内容名称")
-    @NotEmpty(message = "标题不能为空")
     private String title;
 
     @ApiModelProperty(value = "所属的专题ID")
@@ -23,6 +22,5 @@ public class BlockParam {
     private Integer status;
 
     @ApiModelProperty(value = "用户创建的内容")
-    @NotEmpty(message = "内容不能为空")
     private String blockContent;
 }
