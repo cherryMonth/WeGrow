@@ -1,15 +1,13 @@
 package com.wegrow.wegrow.demo.service.imlp;
 
 import com.github.pagehelper.PageHelper;
+import com.wegrow.wegrow.demo.dao.NameIdMapDao;
 import com.wegrow.wegrow.demo.dao.UserBlockMapDao;
 import com.wegrow.wegrow.demo.dto.BlockParam;
 import com.wegrow.wegrow.demo.service.BlockService;
 import com.wegrow.wegrow.mapper.BlockMapper;
-import com.wegrow.wegrow.mapper.UserMapper;
 import com.wegrow.wegrow.model.Block;
 import com.wegrow.wegrow.model.BlockExample;
-import com.wegrow.wegrow.model.User;
-import com.wegrow.wegrow.model.UserExample;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +22,7 @@ public class BlockServiceImpl implements BlockService {
     private BlockMapper blockMapper;
 
     @Autowired
-    private UserMapper userMapper;
+    private NameIdMapDao nameIdMapDao;
 
     @Autowired
     private UserBlockMapDao userBlockMapDao;
@@ -37,9 +35,7 @@ public class BlockServiceImpl implements BlockService {
     @Override
     public int createBlock(BlockParam blockParam, String username) {
         Block block = new Block();
-        UserExample userExample = new UserExample();
-        userExample.createCriteria().andUsernameEqualTo(username);
-        block.setUserId(userMapper.selectByExample(userExample).get(0).getId());
+        block.setUserId(nameIdMapDao.getId(username));
         BeanUtils.copyProperties(blockParam, block);
         int count = blockMapper.insertSelective(block);
         if (count > 0) {
@@ -51,12 +47,11 @@ public class BlockServiceImpl implements BlockService {
     @Override
     public int updateBlock(BlockParam blockParam, String username, Integer blockId) {
         // 检查用户是否有对block的拥有权
-        if (userBlockMapDao.getUserBlockAuth(username, blockId) == null) {
+        Block block = userBlockMapDao.getUserBlockAuth(username, blockId);
+        if (block == null) {
             return 0;
         }
-        Block block = new Block();
         BeanUtils.copyProperties(blockParam, block);
-        block.setId(blockId);
         int count = blockMapper.updateByPrimaryKeySelective(block);
         if (count > 0) {
             return block.getId();
@@ -74,21 +69,20 @@ public class BlockServiceImpl implements BlockService {
 
     @Override
     public int deleteBlock(String principalName, List<Integer> blockIds) {
-        UserExample userExample = new UserExample();
-        userExample.createCriteria().andUsernameEqualTo(principalName);
-        User user = userMapper.selectByExample(userExample).get(0);
         BlockExample blockExample = new BlockExample();
-        blockExample.createCriteria().andIdIn(blockIds).andUserIdEqualTo(user.getId());
+        blockExample.createCriteria().andIdIn(blockIds).andUserIdEqualTo(nameIdMapDao.getId(principalName));
         return blockMapper.deleteByExample(blockExample);
     }
 
     @Override
+    // 用户根据关键词查询公开文章
     public List<Block> listBlock(String keyword, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         BlockExample blockExample = new BlockExample();
         // 这里要填数据库中的名称
         blockExample.setOrderByClause("TITLE desc");
-        BlockExample.Criteria criteria = blockExample.createCriteria();
+        // 只能查询公开的文章
+        BlockExample.Criteria criteria = blockExample.createCriteria().andStatusEqualTo(2);
         if (!StringUtils.isEmpty(keyword)) {
             criteria.andTitleLike("%" + keyword + "%");
         }
@@ -96,16 +90,15 @@ public class BlockServiceImpl implements BlockService {
     }
 
     @Override
+    // 用户查询自己的所有文章，支持关键词查询
     public List<Block> listBlock(String principalName, String keyword, int pageNum, int pageSize) {
-        UserExample userExample = new UserExample();
-        userExample.createCriteria().andUsernameEqualTo(principalName);
-        User user = userMapper.selectByExample(userExample).get(0);
-
         PageHelper.startPage(pageNum, pageSize);
         BlockExample blockExample = new BlockExample();
         // 这里要填数据库中的名称
         blockExample.setOrderByClause("TITLE desc");
-        BlockExample.Criteria criteria = blockExample.createCriteria().andUserIdEqualTo(user.getId());
+
+        BlockExample.Criteria criteria = blockExample.createCriteria().
+                andUserIdEqualTo(nameIdMapDao.getId(principalName));
 
         if (!StringUtils.isEmpty(keyword)) {
             criteria.andTitleLike("%" + keyword + "%");
@@ -114,12 +107,10 @@ public class BlockServiceImpl implements BlockService {
     }
 
     @Override
+    // 登陆的用户根据ID返回所属的文章
     public Block getBlock(String principalName, Integer id) {
-        UserExample userExample = new UserExample();
-        userExample.createCriteria().andUsernameEqualTo(principalName);
-        User user = userMapper.selectByExample(userExample).get(0);
         BlockExample blockExample = new BlockExample();
-        blockExample.createCriteria().andUserIdEqualTo(user.getId()).andIdEqualTo(id);
+        blockExample.createCriteria().andUserIdEqualTo(nameIdMapDao.getId(principalName)).andIdEqualTo(id);
         List<Block> blockList = blockMapper.selectByExampleWithBLOBs(blockExample);
         if (blockList.size() > 0) {
             return blockList.get(0);
@@ -130,27 +121,22 @@ public class BlockServiceImpl implements BlockService {
 
     @Override
     public int updateBlockStatus(String principalName, List<Integer> ids, Integer status) {
-        UserExample userExample = new UserExample();
-        userExample.createCriteria().andUsernameEqualTo(principalName);
-        User user = userMapper.selectByExample(userExample).get(0);
         Block block = new Block();
         block.setStatus(status);
         BlockExample blockExample = new BlockExample();
-        blockExample.createCriteria().andIdIn(ids).andUserIdEqualTo(user.getId());
+        blockExample.createCriteria().andIdIn(ids).andUserIdEqualTo(nameIdMapDao.getId(principalName));
         return blockMapper.updateByExampleSelective(block, blockExample);
     }
 
     @Override
     public List<Block> listBlockByStatus(String principalName, Integer status, int pageNum, int pageSize) {
-        UserExample userExample = new UserExample();
-        userExample.createCriteria().andUsernameEqualTo(principalName);
-        User user = userMapper.selectByExample(userExample).get(0);
 
         PageHelper.startPage(pageNum, pageSize);
         BlockExample blockExample = new BlockExample();
         // 这里要填数据库中的名称
         blockExample.setOrderByClause("TITLE desc");
-        BlockExample.Criteria criteria = blockExample.createCriteria().andUserIdEqualTo(user.getId()).andStatusEqualTo(status);
+        BlockExample.Criteria criteria = blockExample.createCriteria().
+                andUserIdEqualTo(nameIdMapDao.getId(principalName)).andStatusEqualTo(status);
         return blockMapper.selectByExampleWithBLOBs(blockExample);
     }
 }

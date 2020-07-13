@@ -28,13 +28,7 @@ public class BlockController {
     @Autowired
     private BlockService blockService;
 
-    @ApiOperation(value = "获取全部Block")
-    @RequestMapping(value = "/listAll", method = RequestMethod.GET)
-    @ResponseBody
-    public CommonResult<List<Block>> getAllList() {
-        return CommonResult.success(blockService.listAllBlock());
-    }
-
+    // 用于用户根据关键词查询系统的文章，只能查看状态为2的文章
     @ApiOperation(value = "根据关键词获取Block")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody

@@ -18,10 +18,6 @@ public class TopicParam {
     @ApiModelProperty(value = "专题简介")
     private String topicInfo;
 
-    @ApiModelProperty(value = "专题状态")
-    @FlagValidator(value = {"0", "1"}, message = "专题状态不正确")
-    private Integer status;
-
     @ApiModelProperty(value = "专题介绍图片HASH", required = true)
     @NotEmpty(message = "专题logo不能为空")
     private String avatarHash;

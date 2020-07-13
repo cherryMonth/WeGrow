@@ -9,9 +9,6 @@
         <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
-    <sql id="Base_Column_List">
-        ID, USER_ID, ROLE_ID, STATUS, CREATE_TIME, UPDATE_TIME
-    </sql>
     <insert id="insertList">
         INSERT INTO USER_ROLE_MAP (USER_ID, ROLE_ID) VALUES
         <foreach collection="list" separator="," item="item" index="index">

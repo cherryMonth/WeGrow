@@ -13,12 +13,6 @@
     <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.wegrow.wegrow.model.Block">
         <result column="BLOCK_CONTENT" jdbcType="LONGVARCHAR" property="blockContent"/>
     </resultMap>
-    <sql id="Base_Column_List">
-        ID, USER_ID, TITLE, UPDATE_TIME, CREATE_TIME, STATUS, TOPIC_ID
-    </sql>
-    <sql id="Blob_Column_List">
-        BLOCK_CONTENT
-    </sql>
     <select id="getUserBlockAuth" resultMap="ResultMapWithBLOBs">
         select b.*
         from BLOCK b

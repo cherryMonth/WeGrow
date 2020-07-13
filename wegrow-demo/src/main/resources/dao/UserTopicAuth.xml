@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wegrow.wegrow.demo.dao.UserTopicAuth">
+    <resultMap id="BaseResultMap" type="com.wegrow.wegrow.model.Topic">
+        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="USER_ID" jdbcType="INTEGER" property="userId"/>
+        <result column="TOPIC_NAME" jdbcType="VARCHAR" property="topicName"/>
+        <result column="TOPIC_INFO" jdbcType="VARCHAR" property="topicInfo"/>
+        <result column="STATUS" jdbcType="INTEGER" property="status"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.wegrow.wegrow.model.Topic">
+        <result column="AVATAR_HASH" jdbcType="LONGVARCHAR" property="avatarHash"/>
+    </resultMap>
+    <select id="getUserBlockAuth" resultMap="ResultMapWithBLOBs">
+        select b.*
+        from TOPIC b
+                 INNER JOIN USER u ON u.ID = b.USER_ID
+        where u.USERNAME = #{userName,jdbcType=VARCHAR}
+          and b.ID = #{topicId,jdbcType=INTEGER}
+    </select>
+</mapper>

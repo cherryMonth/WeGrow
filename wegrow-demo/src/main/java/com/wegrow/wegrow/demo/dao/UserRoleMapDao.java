@@ -4,7 +4,6 @@ import com.wegrow.wegrow.model.Permission;
 import com.wegrow.wegrow.model.Resource;
 import com.wegrow.wegrow.model.Roles;
 import com.wegrow.wegrow.model.UserRoleMap;
-import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

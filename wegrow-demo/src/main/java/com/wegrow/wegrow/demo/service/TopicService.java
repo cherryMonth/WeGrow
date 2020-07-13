@@ -11,43 +11,38 @@ import java.util.List;
  */
 public interface TopicService {
     /**
-     * 获取所有的Topic
+     * 获取用户所有的Topic数量
      */
-    List<Topic> getAllTopic();
+    Integer getAllTopicLength(String principalName);
 
     /**
-     * 创建Topic
+     * 创建用户自己的Topic
      */
-    int createTopic(TopicParam topicParam, String userName);
+    int createTopic(String principalName, TopicParam topicParam);
 
     /**
-     * 修改Topic
+     * 用户修改自己的Topic
      */
     @Transactional
-    int updateTopic(Integer id, TopicParam topicParam);
+    int updateTopic(String principalName, Integer id, TopicParam topicParam);
 
     /**
-     * 删除Topic
+     * 用户删除Topic
      */
-    int deleteTopic(Integer id);
+    int deleteTopic(String principalName, Integer id);
 
     /**
-     * 批量删除Topic
+     * 用户批量删除Topic
      */
-    int deleteTopic(List<Integer> id);
+    int deleteTopic(String principalName, List<Integer> id);
 
     /**
-     * 分页查询
+     * 用户分页查询
      */
-    List<Topic> listTopic(String keyword, int pageNum, int pageSize);
+    List<Topic> listTopic(String principalName, String keyword, int pageNum, int pageSize);
 
     /**
-     * 获取品牌
+     * 用户获取品牌
      */
-    Topic getTopic(Integer id);
-
-    /**
-     * 批量修改审核状态
-     */
-    int updateStatus(List<Integer> ids, Integer status);
+    Topic getTopic(String principalName, Integer id);
 }
