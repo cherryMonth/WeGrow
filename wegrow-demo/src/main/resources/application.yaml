@@ -2,9 +2,9 @@ server:
   port: 8082
 spring:
   datasource:
-    url: jdbc:mysql://192.168.124.15:30001/WEGROW?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://172.18.48.5:3316/WEGROW?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: root
-    password: sj@123456
+    password: 559922137
   profiles:
     active: dev
   application:
