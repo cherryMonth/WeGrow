@@ -43,7 +43,7 @@ public class TopicServiceImpl implements TopicService {
         UserExample userExample = new UserExample();
         userExample.createCriteria().andUsernameEqualTo(userName);
         topic.setUserId(userMapper.selectByExample(userExample).get(0).getId());
-        return topicMapper.insert(topic);
+        return topicMapper.insertSelective(topic);
     }
 
     @Override

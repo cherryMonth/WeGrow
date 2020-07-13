@@ -32,7 +32,7 @@ public class FollowImpl implements FollowService {
         follow.setUserId(followParam.getUserId());
         follow.setFollowedUserId(followParam.getFollowedUserId());
         follow.setStatus(1);
-        return followMapper.insert(follow);
+        return followMapper.insertSelective(follow);
     }
 
     @Override

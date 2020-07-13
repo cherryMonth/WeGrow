@@ -87,7 +87,7 @@ public class UserServiceImpl implements UserService {
         if (userList.size() > 0) {
             return null;
         }
-        userMapper.insert(user);
+        userMapper.insertSelective(user);
         LocalAuth localAuth = new LocalAuth();
 
         // mybatis插入用户之后，会自动给对象的ID进行赋值
@@ -99,7 +99,7 @@ public class UserServiceImpl implements UserService {
         rolesExample.createCriteria().andNameEqualTo("ORDINARY_USER");
         ArrayList<Integer> roles_list = new ArrayList<>();
         roles_list.add(rolesMapper.selectByExample(rolesExample).get(0).getId());
-        localAuthMapper.insert(localAuth);
+        localAuthMapper.insertSelective(localAuth);
         updateRole(user.getId(), roles_list);
         return user;
     }
