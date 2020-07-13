@@ -53,7 +53,7 @@ public class TopicServiceImpl implements TopicService {
         BeanUtils.copyProperties(topicParam, topic);
         topic.setUserId(userId);
         topic.setStatus(TopicStatus.PRIVATE.ordinal());
-        topicMapper.insert(topic);
+        topicMapper.insertSelective(topic);
         return topic.getId();
     }
 
@@ -102,12 +102,12 @@ public class TopicServiceImpl implements TopicService {
 
     @Override
     public List<Topic> listTopic(String principalName, String keyword, int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
         TopicExample topicExample = new TopicExample();
         // 这里要填数据库中的名称
         topicExample.setOrderByClause("TOPIC_NAME desc");
         TopicExample.Criteria criteria = topicExample.createCriteria().
                 andUserIdEqualTo(nameIdMapDao.getId(principalName));
+        PageHelper.startPage(pageNum, pageSize);
         if (!StringUtils.isEmpty(keyword)) {
             criteria.andTopicNameLike("%" + keyword + "%");
         }

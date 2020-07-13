@@ -6,7 +6,7 @@
     </resultMap>
     <select id="getId" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List" />
+        ID
         from USER
         where USERNAME = #{userName, jdbcType=VARCHAR}
     </select>

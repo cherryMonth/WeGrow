@@ -77,7 +77,6 @@ public class BlockServiceImpl implements BlockService {
     @Override
     // 用户根据关键词查询公开文章
     public List<Block> listBlock(String keyword, int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
         BlockExample blockExample = new BlockExample();
         // 这里要填数据库中的名称
         blockExample.setOrderByClause("TITLE desc");
@@ -86,13 +85,13 @@ public class BlockServiceImpl implements BlockService {
         if (!StringUtils.isEmpty(keyword)) {
             criteria.andTitleLike("%" + keyword + "%");
         }
+        PageHelper.startPage(pageNum, pageSize);
         return blockMapper.selectByExampleWithBLOBs(blockExample);
     }
 
     @Override
     // 用户查询自己的所有文章，支持关键词查询
     public List<Block> listBlock(String principalName, String keyword, int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
         BlockExample blockExample = new BlockExample();
         // 这里要填数据库中的名称
         blockExample.setOrderByClause("TITLE desc");
@@ -103,6 +102,7 @@ public class BlockServiceImpl implements BlockService {
         if (!StringUtils.isEmpty(keyword)) {
             criteria.andTitleLike("%" + keyword + "%");
         }
+        PageHelper.startPage(pageNum, pageSize);
         return blockMapper.selectByExampleWithBLOBs(blockExample);
     }
 
@@ -130,13 +130,12 @@ public class BlockServiceImpl implements BlockService {
 
     @Override
     public List<Block> listBlockByStatus(String principalName, Integer status, int pageNum, int pageSize) {
-
-        PageHelper.startPage(pageNum, pageSize);
         BlockExample blockExample = new BlockExample();
         // 这里要填数据库中的名称
         blockExample.setOrderByClause("TITLE desc");
         BlockExample.Criteria criteria = blockExample.createCriteria().
                 andUserIdEqualTo(nameIdMapDao.getId(principalName)).andStatusEqualTo(status);
+        PageHelper.startPage(pageNum, pageSize);
         return blockMapper.selectByExampleWithBLOBs(blockExample);
     }
 }

@@ -2,13 +2,18 @@ server:
   port: 8082
 spring:
   datasource:
-    url: jdbc:mysql://192.168.124.15:30001/WEGROW?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
-    username: root
-    password: sj@123456
+    url: jdbc:mysql://${DB_SERVER_IP}:${DB_SERVER_PORT}/WEGROW?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: ${DB_SERVER_USER}
+    password: ${DB_SERVER_PASSWORD}
   profiles:
     active: dev
   application:
     name: wegrow-demo
+pagehelper:
+  reasonable: true
+  support-methods-arguments: true
+  page-size-zero: false
+  params: count=countSql
 mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

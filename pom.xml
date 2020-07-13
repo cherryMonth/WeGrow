@@ -13,6 +13,7 @@
         <module>common</module>
         <module>wegrow-demo</module>
         <module>wegrow-security</module>
+        <module>eureka</module>
     </modules>
     <name>wegrow</name>
     <packaging>pom</packaging>

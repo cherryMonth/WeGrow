@@ -32,7 +32,7 @@ public class FollowImpl implements FollowService {
         follow.setUserId(followParam.getUserId());
         follow.setFollowedUserId(followParam.getFollowedUserId());
         follow.setStatus(1);
-        return followMapper.insert(follow);
+        return followMapper.insertSelective(follow);
     }
 
     @Override
@@ -42,23 +42,23 @@ public class FollowImpl implements FollowService {
 
     @Override
     public List<Follow> listFollowingByPrincipalName(String principalName, int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
         UserExample userExample = new UserExample();
         userExample.createCriteria().andUsernameEqualTo(principalName);
         User user = userMapper.selectByExample(userExample).get(0);
         FollowExample followExample = new FollowExample();
         followExample.createCriteria().andUserIdEqualTo(user.getId());
+        PageHelper.startPage(pageNum, pageSize);
         return followMapper.selectByExample(followExample);
     }
 
     @Override
     public List<Follow> listFollowedByPrincipalName(String principalName, int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
         UserExample userExample = new UserExample();
         userExample.createCriteria().andUsernameEqualTo(principalName);
         User user = userMapper.selectByExample(userExample).get(0);
         FollowExample followExample = new FollowExample();
         followExample.createCriteria().andFollowedUserIdEqualTo(user.getId());
+        PageHelper.startPage(pageNum, pageSize);
         return followMapper.selectByExample(followExample);
     }
 

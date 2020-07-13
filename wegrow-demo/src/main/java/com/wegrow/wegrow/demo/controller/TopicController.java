@@ -80,6 +80,7 @@ public class TopicController {
                                                    @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                                    @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                                                    Principal principal) {
+
         List<Topic> topicList = topicService.listTopic(principal.getName(), keyword, pageNum, pageSize);
         return CommonResult.success(CommonPage.restPage(topicList));
     }
