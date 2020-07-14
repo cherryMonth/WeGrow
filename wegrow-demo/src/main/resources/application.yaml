@@ -39,6 +39,7 @@ security:
       - /user/info
       - /user/logout
       - /user/upload
+      - /user/summaryInfo/**
 jwt:
   tokenHeader: Authorization #JWT存储的请求头
   secret: wegrow-demo-secret #JWT加解密使用的密钥

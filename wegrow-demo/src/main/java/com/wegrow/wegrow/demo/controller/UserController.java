@@ -92,6 +92,13 @@ public class UserController {
         return CommonResult.success(data);
     }
 
+    @ApiOperation(value = "获取给定用户的统计信息")
+    @RequestMapping(value = "/summaryInfo/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<Object> getAdminInfo(@PathVariable("id") Integer id) {
+        return CommonResult.success(adminService.getSummaryUserInfo(id));
+    }
+
     @ApiOperation(value = "登出功能")
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
     @ResponseBody  // 由于我们只对token进行管理，所以把用户的登陆和登出交给前端进行管理，我们只负责管理token的生命周期

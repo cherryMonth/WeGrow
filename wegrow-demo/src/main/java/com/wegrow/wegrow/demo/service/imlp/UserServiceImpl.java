@@ -32,6 +32,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -234,5 +235,20 @@ public class UserServiceImpl implements UserService {
         UserExample example = new UserExample();
         example.createCriteria().andUsernameEqualTo(username);
         userMapper.updateByExampleSelective(record, example);
+    }
+
+    @Override
+    public HashMap<String, String> getSummaryUserInfo(Integer userId) {
+        User user = userMapper.selectByPrimaryKey(userId);
+        if(user == null) {
+            return null;
+        }
+        else {
+            HashMap<String, String> hashMap = new HashMap<>();
+            hashMap.put("userName", user.getUsername());
+            hashMap.put("aboutMe", user.getAboutMe());
+            hashMap.put("avatarHash", user.getAvatarHash());
+            return hashMap;
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.wegrow.wegrow.demo.service.imlp;
 
 import com.github.pagehelper.PageHelper;
+import com.wegrow.wegrow.api.BlockStatus;
 import com.wegrow.wegrow.demo.dao.NameIdMapDao;
 import com.wegrow.wegrow.demo.dao.UserBlockMapDao;
 import com.wegrow.wegrow.demo.dto.BlockParam;
@@ -75,13 +76,14 @@ public class BlockServiceImpl implements BlockService {
     }
 
     @Override
-    // 用户根据关键词查询公开文章
+    // 用户根据关键词查询发布的文章
     public List<Block> listBlock(String keyword, int pageNum, int pageSize) {
         BlockExample blockExample = new BlockExample();
         // 这里要填数据库中的名称
         blockExample.setOrderByClause("TITLE desc");
-        // 只能查询公开的文章
-        BlockExample.Criteria criteria = blockExample.createCriteria().andStatusEqualTo(2);
+        // 只能查询发布的文章
+        BlockExample.Criteria criteria = blockExample.createCriteria().andStatusEqualTo(BlockStatus.PUBLIC.ordinal());
+
         if (!StringUtils.isEmpty(keyword)) {
             criteria.andTitleLike("%" + keyword + "%");
         }
@@ -97,7 +99,7 @@ public class BlockServiceImpl implements BlockService {
         blockExample.setOrderByClause("TITLE desc");
 
         BlockExample.Criteria criteria = blockExample.createCriteria().
-                andUserIdEqualTo(nameIdMapDao.getId(principalName));
+                andUserIdEqualTo(nameIdMapDao.getId(principalName)).andStatusGreaterThanOrEqualTo(BlockStatus.PUBLIC.ordinal());
 
         if (!StringUtils.isEmpty(keyword)) {
             criteria.andTitleLike("%" + keyword + "%");
