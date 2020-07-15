@@ -28,10 +28,6 @@ public class BlockServiceImpl implements BlockService {
     @Autowired
     private UserBlockMapDao userBlockMapDao;
 
-    @Override
-    public List<Block> listAllBlock() {
-        return blockMapper.selectByExampleWithBLOBs(new BlockExample());
-    }
 
     @Override
     public int createBlock(BlockParam blockParam, String username) {
@@ -62,17 +58,22 @@ public class BlockServiceImpl implements BlockService {
 
     @Override
     public int deleteBlock(String principalName, Integer blockId) {
-        if (userBlockMapDao.getUserBlockAuth(principalName, blockId) == null) {
+        Block block = userBlockMapDao.getUserBlockAuth(principalName, blockId);
+        if (block == null) {
             return 0;
         }
-        return blockMapper.deleteByPrimaryKey(blockId);
+        block.setStatus(BlockStatus.DELETE.ordinal());
+        return blockMapper.updateByPrimaryKey(block);
     }
 
     @Override
     public int deleteBlock(String principalName, List<Integer> blockIds) {
         BlockExample blockExample = new BlockExample();
-        blockExample.createCriteria().andIdIn(blockIds).andUserIdEqualTo(nameIdMapDao.getId(principalName));
-        return blockMapper.deleteByExample(blockExample);
+        blockExample.createCriteria().andIdIn(blockIds).
+                andUserIdEqualTo(nameIdMapDao.getId(principalName)).andStatusGreaterThan(BlockStatus.DELETE.ordinal());
+        Block block = new Block();
+        block.setStatus(BlockStatus.DELETE.ordinal());
+        return blockMapper.updateByExampleSelective(block, blockExample);
     }
 
     @Override
@@ -112,7 +113,8 @@ public class BlockServiceImpl implements BlockService {
     // 登陆的用户根据ID返回所属的文章
     public Block getBlock(String principalName, Integer id) {
         BlockExample blockExample = new BlockExample();
-        blockExample.createCriteria().andUserIdEqualTo(nameIdMapDao.getId(principalName)).andIdEqualTo(id);
+        blockExample.createCriteria().andUserIdEqualTo(nameIdMapDao.getId(principalName)).
+                andIdEqualTo(id).andStatusGreaterThanOrEqualTo(BlockStatus.DRAFT.ordinal());
         List<Block> blockList = blockMapper.selectByExampleWithBLOBs(blockExample);
         if (blockList.size() > 0) {
             return blockList.get(0);
@@ -126,7 +128,8 @@ public class BlockServiceImpl implements BlockService {
         Block block = new Block();
         block.setStatus(status);
         BlockExample blockExample = new BlockExample();
-        blockExample.createCriteria().andIdIn(ids).andUserIdEqualTo(nameIdMapDao.getId(principalName));
+        blockExample.createCriteria().andIdIn(ids).andUserIdEqualTo(nameIdMapDao.getId(principalName)).
+                andStatusGreaterThanOrEqualTo(BlockStatus.DRAFT.ordinal());
         return blockMapper.updateByExampleSelective(block, blockExample);
     }
 
@@ -136,7 +139,8 @@ public class BlockServiceImpl implements BlockService {
         // 这里要填数据库中的名称
         blockExample.setOrderByClause("TITLE desc");
         BlockExample.Criteria criteria = blockExample.createCriteria().
-                andUserIdEqualTo(nameIdMapDao.getId(principalName)).andStatusEqualTo(status);
+                andUserIdEqualTo(nameIdMapDao.getId(principalName)).andStatusEqualTo(status).
+                andStatusGreaterThan(BlockStatus.DELETE.ordinal());
         PageHelper.startPage(pageNum, pageSize);
         return blockMapper.selectByExampleWithBLOBs(blockExample);
     }

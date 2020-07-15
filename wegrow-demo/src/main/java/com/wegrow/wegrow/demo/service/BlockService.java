@@ -13,7 +13,6 @@ import java.util.List;
  * Component：当你不确定是属于哪一层的时候使用。
  */
 public interface BlockService {
-    List<Block> listAllBlock();
 
     /**
      * 创建Block并指定User id
@@ -21,7 +20,7 @@ public interface BlockService {
     int createBlock(BlockParam blockParam, String principalName);
 
     /**
-     * 给定block内容、Block ID和User name对Block进行更新
+     * 给定block内容、Block ID和User name对Block进行更新(只能修改草稿及以上的状态)
      *
      * @param blockParam
      * @param principalName
@@ -32,7 +31,7 @@ public interface BlockService {
     int updateBlock(BlockParam blockParam, String principalName, Integer blockId);
 
     /**
-     * 根据UserName删除其所属的Block
+     * 根据UserName删除其所属的Block(只能删除草稿及以上的状态)
      *
      * @param principalName
      * @param blockId
@@ -41,7 +40,7 @@ public interface BlockService {
     int deleteBlock(String principalName, Integer blockId);
 
     /**
-     * 根据UserName批量删除其所属的Block
+     * 根据UserName批量删除其所属的Block(只能删除草稿及以上的状态)
      *
      * @param principalName
      * @param blockIds
@@ -50,7 +49,7 @@ public interface BlockService {
     int deleteBlock(String principalName, List<Integer> blockIds);
 
     /**
-     * 根据关键词批量返回Block
+     * 根据关键词批量返回Block (只能查询公开状态的block)
      *
      * @param keyword
      * @param pageNum
@@ -60,7 +59,7 @@ public interface BlockService {
     List<Block> listBlock(String keyword, int pageNum, int pageSize);
 
     /**
-     * 根据关键词批量返回User所属的Block
+     * 根据关键词批量返回User所属的Block (只能查询公开及以上的文章)
      *
      * @param keyword
      * @param pageNum
@@ -70,7 +69,7 @@ public interface BlockService {
     List<Block> listBlock(String principalName, String keyword, int pageNum, int pageSize);
 
     /**
-     * 根据id返回用户所属的Block
+     * 根据id返回用户所属的Block，只能返回被大于等于草稿的文章
      *
      * @param id
      * @return
@@ -78,7 +77,7 @@ public interface BlockService {
     Block getBlock(String principalName, Integer id);
 
     /**
-     * 批量修改用户所属的Block status
+     * 批量修改用户所属的Block status(状态需要大于等于草稿)
      *
      * @param ids
      * @param status
@@ -87,7 +86,7 @@ public interface BlockService {
     int updateBlockStatus(String principalName, List<Integer> ids, Integer status);
 
     /**
-     * 返回用户具有某种状态的文章
+     * 返回用户具有某种状态的文章 (状态需要大于等于公开)
      * 0：被封禁
      * 1：正常
      * 2：草稿
