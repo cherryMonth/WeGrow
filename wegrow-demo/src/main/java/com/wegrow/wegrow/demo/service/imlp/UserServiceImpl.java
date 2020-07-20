@@ -248,6 +248,7 @@ public class UserServiceImpl implements UserService {
             hashMap.put("userName", user.getUsername());
             hashMap.put("aboutMe", user.getAboutMe());
             hashMap.put("avatarHash", user.getAvatarHash());
+            hashMap.put("userId", user.getId().toString());
             return hashMap;
         }
     }

@@ -52,6 +52,16 @@ public class BlockController {
         return CommonResult.success(CommonPage.restPage(blockList));
     }
 
+    @ApiOperation(value = "获取指定用户的Block")
+    @RequestMapping(value = "/BlocklistByUserId", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<CommonPage<Block>> Blocklist(@RequestParam(value = "userId") Integer userId,
+                                                     @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+                                                     @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
+        List<Block> blockList = blockService.listBlockByUserId(userId, pageNum, pageSize);
+        return CommonResult.success(CommonPage.restPage(blockList));
+    }
+
     @ApiOperation(value = "根据关键词获取用户自己的Block")
     @RequestMapping(value = "/MyOwnlist", method = RequestMethod.GET)
     @ResponseBody

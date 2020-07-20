@@ -69,6 +69,15 @@ public interface BlockService {
     List<Block> listBlock(String principalName, String keyword, int pageNum, int pageSize);
 
     /**
+     * 根据用户ID返回Block
+     * @param userId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    List<Block> listBlockByUserId(Integer userId, int pageNum, int pageSize);
+
+    /**
      * 根据id返回用户所属的Block，只能返回被大于等于草稿的文章
      *
      * @param id

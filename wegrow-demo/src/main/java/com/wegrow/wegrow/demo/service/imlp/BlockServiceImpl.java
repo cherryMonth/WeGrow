@@ -93,6 +93,15 @@ public class BlockServiceImpl implements BlockService {
     }
 
     @Override
+    public List<Block> listBlockByUserId(Integer userId, int pageNum, int pageSize) {
+        BlockExample blockExample = new BlockExample();
+        blockExample.createCriteria().andUserIdEqualTo(userId).andStatusEqualTo(BlockStatus.PUBLIC.ordinal());
+        blockExample.setOrderByClause("TITLE desc");
+        PageHelper.startPage(pageNum, pageSize);
+        return blockMapper.selectByExampleWithBLOBs(blockExample);
+    }
+
+    @Override
     // 用户查询自己的所有文章，支持关键词查询
     public List<Block> listBlock(String principalName, String keyword, int pageNum, int pageSize) {
         BlockExample blockExample = new BlockExample();
