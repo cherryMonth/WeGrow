@@ -86,6 +86,14 @@ public interface BlockService {
     Block getBlock(String principalName, Integer id);
 
     /**
+     * 根据id返回Block，需要判断用户是否有对文章查阅的权限
+     *
+     * @param id
+     * @return
+     */
+    Block getBlockByUserPermission(String principalName, Integer id);
+
+    /**
      * 批量修改用户所属的Block status(状态需要大于等于草稿)
      *
      * @param ids

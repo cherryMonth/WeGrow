@@ -6,6 +6,7 @@ import com.wegrow.wegrow.demo.dao.NameIdMapDao;
 import com.wegrow.wegrow.demo.dao.UserBlockMapDao;
 import com.wegrow.wegrow.demo.dto.BlockParam;
 import com.wegrow.wegrow.demo.service.BlockService;
+import com.wegrow.wegrow.demo.service.FollowService;
 import com.wegrow.wegrow.mapper.BlockMapper;
 import com.wegrow.wegrow.model.Block;
 import com.wegrow.wegrow.model.BlockExample;
@@ -27,6 +28,9 @@ public class BlockServiceImpl implements BlockService {
 
     @Autowired
     private UserBlockMapDao userBlockMapDao;
+
+    @Autowired
+    private FollowService followService;
 
 
     @Override
@@ -130,6 +134,26 @@ public class BlockServiceImpl implements BlockService {
         } else {
             return null;
         }
+    }
+
+    @Override
+    public Block getBlockByUserPermission(String principalName, Integer id) {
+        Block block = blockMapper.selectByPrimaryKey(id);
+        // 如果文章不存在则返回NULL
+        if (null == block) {
+            return null;
+        } else if (block.getStatus().equals(BlockStatus.PUBLIC.ordinal())) {
+            // 如果文章状态为公开，则返回Block
+            return block;
+        } else if (block.getUserId().equals(nameIdMapDao.getId(principalName))) {
+            // 如果文章的所有者查看则返回block
+            return block;
+        } else if (block.getStatus().equals(BlockStatus.FANS.ordinal()) &&
+                followService.getUserPairFollowedStatus(nameIdMapDao.getId(principalName), block.getUserId()).equals(1)) {
+            // 如果是作者的粉丝且文章可以被粉丝查看则返回block
+            return block;
+        }
+        return null;
     }
 
     @Override

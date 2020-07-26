@@ -142,12 +142,20 @@ public class BlockController {
     }
 
     @ApiOperation(value = "根据编号查询block信息")
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<Block> getUserItem(@PathVariable("id") Integer id, Principal principal) {
+        Block result = blockService.getBlockByUserPermission(principal.getName(), id);
+        if (result == null) {
+            return CommonResult.failed("检索失败，请检查输入内容是否存在!");
+        }
+        return CommonResult.success(result);
+    }
+
+    @ApiOperation(value = "根据编号查询block信息")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult<Block> getItem(@PathVariable("id") Integer id, Principal principal) {
-        if (null == principal) {
-            return CommonResult.unauthorized(null);
-        }
         Block result = blockService.getBlock(principal.getName(), id);
         if (result == null) {
             return CommonResult.failed("检索失败，请检查输入内容是否存在!");

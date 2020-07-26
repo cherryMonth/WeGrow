@@ -12,6 +12,7 @@
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.wegrow.wegrow.model.Block">
     <result column="BLOCK_CONTENT" jdbcType="LONGVARCHAR" property="blockContent" />
+    <result column="BLOCK_IMAGE" jdbcType="LONGVARCHAR" property="blockImage" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -75,7 +76,7 @@
     ID, USER_ID, TITLE, UPDATE_TIME, CREATE_TIME, STATUS, TOPIC_ID
   </sql>
   <sql id="Blob_Column_List">
-    BLOCK_CONTENT
+    BLOCK_CONTENT, BLOCK_IMAGE
   </sql>
   <select id="selectByExampleWithBLOBs" parameterType="com.wegrow.wegrow.model.BlockExample" resultMap="ResultMapWithBLOBs">
     select
@@ -131,10 +132,10 @@
     </selectKey>
     insert into BLOCK (USER_ID, TITLE, UPDATE_TIME, 
       CREATE_TIME, STATUS, TOPIC_ID, 
-      BLOCK_CONTENT)
+      BLOCK_CONTENT, BLOCK_IMAGE)
     values (#{userId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{createTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, #{topicId,jdbcType=INTEGER}, 
-      #{blockContent,jdbcType=LONGVARCHAR})
+      #{blockContent,jdbcType=LONGVARCHAR}, #{blockImage,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.wegrow.wegrow.model.Block">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -163,6 +164,9 @@
       <if test="blockContent != null">
         BLOCK_CONTENT,
       </if>
+      <if test="blockImage != null">
+        BLOCK_IMAGE,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="userId != null">
@@ -185,6 +189,9 @@
       </if>
       <if test="blockContent != null">
         #{blockContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="blockImage != null">
+        #{blockImage,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -221,6 +228,9 @@
       <if test="record.blockContent != null">
         BLOCK_CONTENT = #{record.blockContent,jdbcType=LONGVARCHAR},
       </if>
+      <if test="record.blockImage != null">
+        BLOCK_IMAGE = #{record.blockImage,jdbcType=LONGVARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -235,7 +245,8 @@
       CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
       STATUS = #{record.status,jdbcType=INTEGER},
       TOPIC_ID = #{record.topicId,jdbcType=INTEGER},
-      BLOCK_CONTENT = #{record.blockContent,jdbcType=LONGVARCHAR}
+      BLOCK_CONTENT = #{record.blockContent,jdbcType=LONGVARCHAR},
+      BLOCK_IMAGE = #{record.blockImage,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -277,6 +288,9 @@
       <if test="blockContent != null">
         BLOCK_CONTENT = #{blockContent,jdbcType=LONGVARCHAR},
       </if>
+      <if test="blockImage != null">
+        BLOCK_IMAGE = #{blockImage,jdbcType=LONGVARCHAR},
+      </if>
     </set>
     where ID = #{id,jdbcType=INTEGER}
   </update>
@@ -288,7 +302,8 @@
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       STATUS = #{status,jdbcType=INTEGER},
       TOPIC_ID = #{topicId,jdbcType=INTEGER},
-      BLOCK_CONTENT = #{blockContent,jdbcType=LONGVARCHAR}
+      BLOCK_CONTENT = #{blockContent,jdbcType=LONGVARCHAR},
+      BLOCK_IMAGE = #{blockImage,jdbcType=LONGVARCHAR}
     where ID = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.wegrow.wegrow.model.Block">
