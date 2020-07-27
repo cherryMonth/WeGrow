@@ -1,6 +1,7 @@
 package com.wegrow.wegrow.demo.service.imlp;
 
 import com.github.pagehelper.PageHelper;
+import com.wegrow.wegrow.demo.dao.NameIdMapDao;
 import com.wegrow.wegrow.demo.dto.FollowParam;
 import com.wegrow.wegrow.demo.service.FollowService;
 import com.wegrow.wegrow.mapper.FollowMapper;
@@ -20,14 +21,18 @@ public class FollowImpl implements FollowService {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private NameIdMapDao nameIdMapDao;
+
     @Override
     public int createRelationship(FollowParam followParam, String principalName) {
         // 只有当前用户和表单提交user id的满足时才能创建关系
-        UserExample userExample = new UserExample();
-        userExample.createCriteria().andUsernameEqualTo(principalName).andIdEqualTo(followParam.getUserId());
-        if(userMapper.selectByExample(userExample).size() == 0){
+        User user = userMapper.selectByPrimaryKey(followParam.getUserId());
+
+        if (null == user || !user.getId().equals(nameIdMapDao.getId(principalName))) {
             return 0;
         }
+
         Follow follow = new Follow();
         follow.setUserId(followParam.getUserId());
         follow.setFollowedUserId(followParam.getFollowedUserId());
@@ -87,5 +92,16 @@ public class FollowImpl implements FollowService {
         FollowExample followExample = new FollowExample();
         followExample.createCriteria().andIdIn(ids).andUserIdEqualTo(user.getId());
         return followMapper.updateByExampleSelective(follow, followExample);
+    }
+
+    @Override
+    public Integer getUserPairFollowedStatus(Integer following, Integer followed) {
+        FollowExample followExample = new FollowExample();
+        followExample.createCriteria().andUserIdEqualTo(following).andFollowedUserIdEqualTo(followed);
+        List<Follow> followList = followMapper.selectByExample(followExample);
+        if (followList.size() > 0) {
+            return followList.get(0).getStatus();
+        }
+        return null;
     }
 }

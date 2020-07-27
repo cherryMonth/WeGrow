@@ -16,15 +16,21 @@ public interface TopicMapper {
 
     int insertSelective(Topic record);
 
+    List<Topic> selectByExampleWithBLOBs(TopicExample example);
+
     List<Topic> selectByExample(TopicExample example);
 
     Topic selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") Topic record, @Param("example") TopicExample example);
 
+    int updateByExampleWithBLOBs(@Param("record") Topic record, @Param("example") TopicExample example);
+
     int updateByExample(@Param("record") Topic record, @Param("example") TopicExample example);
 
     int updateByPrimaryKeySelective(Topic record);
+
+    int updateByPrimaryKeyWithBLOBs(Topic record);
 
     int updateByPrimaryKey(Topic record);
 }

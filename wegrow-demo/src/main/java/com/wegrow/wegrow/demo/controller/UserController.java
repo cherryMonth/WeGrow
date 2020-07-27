@@ -83,13 +83,21 @@ public class UserController {
         String username = principal.getName();
         User user = adminService.getUserByUsername(username);
         Map<String, Object> data = new HashMap<>();
-        data.put("username", user.getUsername());
+        data.put("UserName", user.getUsername());
         data.put("RolesList", adminService.getRolesList(user.getId()));
         data.put("PermissionList", adminService.getPermissionList(user.getId()));
-        data.put("email", user.getEmail());
+        data.put("Email", user.getEmail());
         data.put("AvatarHash", user.getAvatarHash());
         data.put("AboutMe", user.getAboutMe());
+        data.put("UserId", user.getId());
         return CommonResult.success(data);
+    }
+
+    @ApiOperation(value = "获取给定用户的统计信息")
+    @RequestMapping(value = "/summaryInfo/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<Object> getAdminInfo(@PathVariable("id") Integer id) {
+        return CommonResult.success(adminService.getSummaryUserInfo(id));
     }
 
     @ApiOperation(value = "登出功能")

@@ -52,6 +52,16 @@ public class BlockController {
         return CommonResult.success(CommonPage.restPage(blockList));
     }
 
+    @ApiOperation(value = "获取指定用户的Block")
+    @RequestMapping(value = "/BlocklistByUserId", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<CommonPage<Block>> Blocklist(@RequestParam(value = "userId") Integer userId,
+                                                     @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+                                                     @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
+        List<Block> blockList = blockService.listBlockByUserId(userId, pageNum, pageSize);
+        return CommonResult.success(CommonPage.restPage(blockList));
+    }
+
     @ApiOperation(value = "根据关键词获取用户自己的Block")
     @RequestMapping(value = "/MyOwnlist", method = RequestMethod.GET)
     @ResponseBody
@@ -132,12 +142,20 @@ public class BlockController {
     }
 
     @ApiOperation(value = "根据编号查询block信息")
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<Block> getUserItem(@PathVariable("id") Integer id, Principal principal) {
+        Block result = blockService.getBlockByUserPermission(principal.getName(), id);
+        if (result == null) {
+            return CommonResult.failed("检索失败，请检查输入内容是否存在!");
+        }
+        return CommonResult.success(result);
+    }
+
+    @ApiOperation(value = "根据编号查询block信息")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult<Block> getItem(@PathVariable("id") Integer id, Principal principal) {
-        if (null == principal) {
-            return CommonResult.unauthorized(null);
-        }
         Block result = blockService.getBlock(principal.getName(), id);
         if (result == null) {
             return CommonResult.failed("检索失败，请检查输入内容是否存在!");

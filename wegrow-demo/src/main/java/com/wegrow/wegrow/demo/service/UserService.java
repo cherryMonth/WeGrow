@@ -9,6 +9,7 @@ import com.wegrow.wegrow.model.User;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface UserService {
@@ -93,4 +94,9 @@ public interface UserService {
      * 根据用户名修改登陆时间
      */
     void updateLoginTimeByUsername(String username);
+
+    /**
+     * 获取用户的概述信息
+     */
+    HashMap<String, String> getSummaryUserInfo(Integer userId);
 }

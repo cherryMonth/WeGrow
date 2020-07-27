@@ -27,6 +27,9 @@ public class Block implements Serializable {
     @ApiModelProperty(value = "用户创建的内容")
     private String blockContent;
 
+    @ApiModelProperty(value = "文章图像")
+    private String blockImage;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -93,6 +96,14 @@ public class Block implements Serializable {
         this.blockContent = blockContent;
     }
 
+    public String getBlockImage() {
+        return blockImage;
+    }
+
+    public void setBlockImage(String blockImage) {
+        this.blockImage = blockImage;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -107,6 +118,7 @@ public class Block implements Serializable {
         sb.append(", status=").append(status);
         sb.append(", topicId=").append(topicId);
         sb.append(", blockContent=").append(blockContent);
+        sb.append(", blockImage=").append(blockImage);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

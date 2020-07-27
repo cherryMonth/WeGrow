@@ -19,14 +19,14 @@ public class Topic implements Serializable {
     @ApiModelProperty(value = "专题状态")
     private Integer status;
 
-    @ApiModelProperty(value = "专题介绍图片HASH")
-    private String avatarHash;
-
     @ApiModelProperty(value = "创建时间")
     private Date createTime;
 
     @ApiModelProperty(value = "更新时间")
     private Date updateTime;
+
+    @ApiModelProperty(value = "专题介绍图片HASH")
+    private String avatarHash;
 
     private static final long serialVersionUID = 1L;
 
@@ -70,14 +70,6 @@ public class Topic implements Serializable {
         this.status = status;
     }
 
-    public String getAvatarHash() {
-        return avatarHash;
-    }
-
-    public void setAvatarHash(String avatarHash) {
-        this.avatarHash = avatarHash;
-    }
-
     public Date getCreateTime() {
         return createTime;
     }
@@ -94,6 +86,14 @@ public class Topic implements Serializable {
         this.updateTime = updateTime;
     }
 
+    public String getAvatarHash() {
+        return avatarHash;
+    }
+
+    public void setAvatarHash(String avatarHash) {
+        this.avatarHash = avatarHash;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -105,9 +105,9 @@ public class Topic implements Serializable {
         sb.append(", topicName=").append(topicName);
         sb.append(", topicInfo=").append(topicInfo);
         sb.append(", status=").append(status);
-        sb.append(", avatarHash=").append(avatarHash);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);
+        sb.append(", avatarHash=").append(avatarHash);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

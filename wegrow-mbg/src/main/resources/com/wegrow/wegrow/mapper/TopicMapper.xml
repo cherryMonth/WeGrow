@@ -7,9 +7,11 @@
     <result column="TOPIC_NAME" jdbcType="VARCHAR" property="topicName" />
     <result column="TOPIC_INFO" jdbcType="VARCHAR" property="topicInfo" />
     <result column="STATUS" jdbcType="INTEGER" property="status" />
-    <result column="AVATAR_HASH" jdbcType="VARCHAR" property="avatarHash" />
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
     <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.wegrow.wegrow.model.Topic">
+    <result column="AVATAR_HASH" jdbcType="LONGVARCHAR" property="avatarHash" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -70,8 +72,27 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    ID, USER_ID, TOPIC_NAME, TOPIC_INFO, STATUS, AVATAR_HASH, CREATE_TIME, UPDATE_TIME
+    ID, USER_ID, TOPIC_NAME, TOPIC_INFO, STATUS, CREATE_TIME, UPDATE_TIME
   </sql>
+  <sql id="Blob_Column_List">
+    AVATAR_HASH
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.wegrow.wegrow.model.TopicExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from TOPIC
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByExample" parameterType="com.wegrow.wegrow.model.TopicExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -86,9 +107,11 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from TOPIC
     where ID = #{id,jdbcType=INTEGER}
   </select>
@@ -107,11 +130,11 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into TOPIC (USER_ID, TOPIC_NAME, TOPIC_INFO, 
-      STATUS, AVATAR_HASH, CREATE_TIME, 
-      UPDATE_TIME)
+      STATUS, CREATE_TIME, UPDATE_TIME, 
+      AVATAR_HASH)
     values (#{userId,jdbcType=INTEGER}, #{topicName,jdbcType=VARCHAR}, #{topicInfo,jdbcType=VARCHAR}, 
-      #{status,jdbcType=INTEGER}, #{avatarHash,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+      #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{avatarHash,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.wegrow.wegrow.model.Topic">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -131,14 +154,14 @@
       <if test="status != null">
         STATUS,
       </if>
-      <if test="avatarHash != null">
-        AVATAR_HASH,
-      </if>
       <if test="createTime != null">
         CREATE_TIME,
       </if>
       <if test="updateTime != null">
         UPDATE_TIME,
+      </if>
+      <if test="avatarHash != null">
+        AVATAR_HASH,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -154,14 +177,14 @@
       <if test="status != null">
         #{status,jdbcType=INTEGER},
       </if>
-      <if test="avatarHash != null">
-        #{avatarHash,jdbcType=VARCHAR},
-      </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateTime != null">
         #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="avatarHash != null">
+        #{avatarHash,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -189,16 +212,30 @@
       <if test="record.status != null">
         STATUS = #{record.status,jdbcType=INTEGER},
       </if>
-      <if test="record.avatarHash != null">
-        AVATAR_HASH = #{record.avatarHash,jdbcType=VARCHAR},
-      </if>
       <if test="record.createTime != null">
         CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.updateTime != null">
         UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.avatarHash != null">
+        AVATAR_HASH = #{record.avatarHash,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update TOPIC
+    set ID = #{record.id,jdbcType=INTEGER},
+      USER_ID = #{record.userId,jdbcType=INTEGER},
+      TOPIC_NAME = #{record.topicName,jdbcType=VARCHAR},
+      TOPIC_INFO = #{record.topicInfo,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=INTEGER},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      AVATAR_HASH = #{record.avatarHash,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -210,7 +247,6 @@
       TOPIC_NAME = #{record.topicName,jdbcType=VARCHAR},
       TOPIC_INFO = #{record.topicInfo,jdbcType=VARCHAR},
       STATUS = #{record.status,jdbcType=INTEGER},
-      AVATAR_HASH = #{record.avatarHash,jdbcType=VARCHAR},
       CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
       UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
@@ -232,16 +268,27 @@
       <if test="status != null">
         STATUS = #{status,jdbcType=INTEGER},
       </if>
-      <if test="avatarHash != null">
-        AVATAR_HASH = #{avatarHash,jdbcType=VARCHAR},
-      </if>
       <if test="createTime != null">
         CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateTime != null">
         UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="avatarHash != null">
+        AVATAR_HASH = #{avatarHash,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.wegrow.wegrow.model.Topic">
+    update TOPIC
+    set USER_ID = #{userId,jdbcType=INTEGER},
+      TOPIC_NAME = #{topicName,jdbcType=VARCHAR},
+      TOPIC_INFO = #{topicInfo,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=INTEGER},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      AVATAR_HASH = #{avatarHash,jdbcType=LONGVARCHAR}
     where ID = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.wegrow.wegrow.model.Topic">
@@ -250,7 +297,6 @@
       TOPIC_NAME = #{topicName,jdbcType=VARCHAR},
       TOPIC_INFO = #{topicInfo,jdbcType=VARCHAR},
       STATUS = #{status,jdbcType=INTEGER},
-      AVATAR_HASH = #{avatarHash,jdbcType=VARCHAR},
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=INTEGER}
