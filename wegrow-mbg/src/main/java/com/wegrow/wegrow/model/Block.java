@@ -27,7 +27,6 @@ public class Block implements Serializable {
     @ApiModelProperty(value = "用户创建的内容")
     private String blockContent;
 
-    @ApiModelProperty(value = "文章图像")
     private String blockImage;
 
     private static final long serialVersionUID = 1L;

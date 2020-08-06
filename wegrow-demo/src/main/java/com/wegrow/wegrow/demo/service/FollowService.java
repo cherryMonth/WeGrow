@@ -3,7 +3,6 @@ package com.wegrow.wegrow.demo.service;
 import com.wegrow.wegrow.demo.dto.FollowParam;
 import com.wegrow.wegrow.model.Follow;
 
-import java.lang.Long;
 import java.util.List;
 
 public interface FollowService {

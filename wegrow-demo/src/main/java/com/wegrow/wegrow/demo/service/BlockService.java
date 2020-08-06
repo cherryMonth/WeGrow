@@ -109,7 +109,6 @@ public interface BlockService {
      * 2：草稿
      * 3：被删除
      * @param principalName
-     * @param keyword
      * @param pageNum
      * @param pageSize
      * @return
