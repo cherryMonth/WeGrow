@@ -4,26 +4,29 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
 
-public class BlockComment implements Serializable {
+public class Comment implements Serializable {
     private Integer id;
 
     @ApiModelProperty(value = "用户ID")
     private Integer userId;
 
-    @ApiModelProperty(value = "BLOCK ID")
-    private Integer blockId;
+    @ApiModelProperty(value = "目标类型：具体针对哪个业务评论（目标表名）")
+    private String targetType;
+
+    @ApiModelProperty(value = "目标表对应的ID")
+    private Integer targetId;
 
     @ApiModelProperty(value = "内容")
     private String content;
+
+    @ApiModelProperty(value = "0是未删除，1删除")
+    private Boolean status;
 
     @ApiModelProperty(value = "创建时间")
     private Date createTime;
 
     @ApiModelProperty(value = "更新时间")
     private Date updateTime;
-
-    @ApiModelProperty(value = "0是根节点，1是子节点")
-    private Boolean status;
 
     private static final long serialVersionUID = 1L;
 
@@ -43,12 +46,20 @@ public class BlockComment implements Serializable {
         this.userId = userId;
     }
 
-    public Integer getBlockId() {
-        return blockId;
+    public String getTargetType() {
+        return targetType;
     }
 
-    public void setBlockId(Integer blockId) {
-        this.blockId = blockId;
+    public void setTargetType(String targetType) {
+        this.targetType = targetType;
+    }
+
+    public Integer getTargetId() {
+        return targetId;
+    }
+
+    public void setTargetId(Integer targetId) {
+        this.targetId = targetId;
     }
 
     public String getContent() {
@@ -57,6 +68,14 @@ public class BlockComment implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
     public Date getCreateTime() {
@@ -75,14 +94,6 @@ public class BlockComment implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -91,11 +102,12 @@ public class BlockComment implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", userId=").append(userId);
-        sb.append(", blockId=").append(blockId);
+        sb.append(", targetType=").append(targetType);
+        sb.append(", targetId=").append(targetId);
         sb.append(", content=").append(content);
+        sb.append(", status=").append(status);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);
-        sb.append(", status=").append(status);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

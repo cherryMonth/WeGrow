@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wegrow.wegrow.mapper.BlockCommentMapper">
-  <resultMap id="BaseResultMap" type="com.wegrow.wegrow.model.BlockComment">
+<mapper namespace="com.wegrow.wegrow.mapper.ReplyMapper">
+  <resultMap id="BaseResultMap" type="com.wegrow.wegrow.model.Reply">
     <id column="ID" jdbcType="INTEGER" property="id" />
-    <result column="USER_ID" jdbcType="INTEGER" property="userId" />
-    <result column="BLOCK_ID" jdbcType="INTEGER" property="blockId" />
+    <result column="COMMENT_ID" jdbcType="INTEGER" property="commentId" />
     <result column="CONTENT" jdbcType="VARCHAR" property="content" />
-    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="USER_ID" jdbcType="INTEGER" property="userId" />
     <result column="STATUS" jdbcType="BIT" property="status" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="REPLY_ID" jdbcType="INTEGER" property="replyId" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -69,15 +70,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    ID, USER_ID, BLOCK_ID, CONTENT, CREATE_TIME, UPDATE_TIME, STATUS
+    ID, COMMENT_ID, CONTENT, USER_ID, STATUS, CREATE_TIME, REPLY_ID, UPDATE_TIME
   </sql>
-  <select id="selectByExample" parameterType="com.wegrow.wegrow.model.BlockCommentExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.wegrow.wegrow.model.ReplyExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from BLOCK_COMMENT
+    from REPLY
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -88,105 +89,114 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from BLOCK_COMMENT
+    from REPLY
     where ID = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from BLOCK_COMMENT
+    delete from REPLY
     where ID = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.wegrow.wegrow.model.BlockCommentExample">
-    delete from BLOCK_COMMENT
+  <delete id="deleteByExample" parameterType="com.wegrow.wegrow.model.ReplyExample">
+    delete from REPLY
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.wegrow.wegrow.model.BlockComment">
+  <insert id="insert" parameterType="com.wegrow.wegrow.model.Reply">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into BLOCK_COMMENT (USER_ID, BLOCK_ID, CONTENT, 
-      CREATE_TIME, UPDATE_TIME, STATUS
-      )
-    values (#{userId,jdbcType=INTEGER}, #{blockId,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=BIT}
-      )
+    insert into REPLY (COMMENT_ID, CONTENT, USER_ID, 
+      STATUS, CREATE_TIME, REPLY_ID, 
+      UPDATE_TIME)
+    values (#{commentId,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+      #{status,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, #{replyId,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.wegrow.wegrow.model.BlockComment">
+  <insert id="insertSelective" parameterType="com.wegrow.wegrow.model.Reply">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into BLOCK_COMMENT
+    insert into REPLY
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        USER_ID,
-      </if>
-      <if test="blockId != null">
-        BLOCK_ID,
+      <if test="commentId != null">
+        COMMENT_ID,
       </if>
       <if test="content != null">
         CONTENT,
       </if>
-      <if test="createTime != null">
-        CREATE_TIME,
-      </if>
-      <if test="updateTime != null">
-        UPDATE_TIME,
+      <if test="userId != null">
+        USER_ID,
       </if>
       <if test="status != null">
         STATUS,
       </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="replyId != null">
+        REPLY_ID,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="blockId != null">
-        #{blockId,jdbcType=INTEGER},
+      <if test="commentId != null">
+        #{commentId,jdbcType=INTEGER},
       </if>
       <if test="content != null">
         #{content,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
       </if>
       <if test="status != null">
         #{status,jdbcType=BIT},
       </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replyId != null">
+        #{replyId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.wegrow.wegrow.model.BlockCommentExample" resultType="java.lang.Long">
-    select count(*) from BLOCK_COMMENT
+  <select id="countByExample" parameterType="com.wegrow.wegrow.model.ReplyExample" resultType="java.lang.Long">
+    select count(*) from REPLY
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update BLOCK_COMMENT
+    update REPLY
     <set>
       <if test="record.id != null">
         ID = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.userId != null">
-        USER_ID = #{record.userId,jdbcType=INTEGER},
-      </if>
-      <if test="record.blockId != null">
-        BLOCK_ID = #{record.blockId,jdbcType=INTEGER},
+      <if test="record.commentId != null">
+        COMMENT_ID = #{record.commentId,jdbcType=INTEGER},
       </if>
       <if test="record.content != null">
         CONTENT = #{record.content,jdbcType=VARCHAR},
       </if>
-      <if test="record.createTime != null">
-        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.updateTime != null">
-        UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      <if test="record.userId != null">
+        USER_ID = #{record.userId,jdbcType=INTEGER},
       </if>
       <if test="record.status != null">
         STATUS = #{record.status,jdbcType=BIT},
+      </if>
+      <if test="record.createTime != null">
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.replyId != null">
+        REPLY_ID = #{record.replyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null">
+        UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -194,50 +204,55 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update BLOCK_COMMENT
+    update REPLY
     set ID = #{record.id,jdbcType=INTEGER},
-      USER_ID = #{record.userId,jdbcType=INTEGER},
-      BLOCK_ID = #{record.blockId,jdbcType=INTEGER},
+      COMMENT_ID = #{record.commentId,jdbcType=INTEGER},
       CONTENT = #{record.content,jdbcType=VARCHAR},
+      USER_ID = #{record.userId,jdbcType=INTEGER},
+      STATUS = #{record.status,jdbcType=BIT},
       CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
-      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
-      STATUS = #{record.status,jdbcType=BIT}
+      REPLY_ID = #{record.replyId,jdbcType=INTEGER},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.wegrow.wegrow.model.BlockComment">
-    update BLOCK_COMMENT
+  <update id="updateByPrimaryKeySelective" parameterType="com.wegrow.wegrow.model.Reply">
+    update REPLY
     <set>
-      <if test="userId != null">
-        USER_ID = #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="blockId != null">
-        BLOCK_ID = #{blockId,jdbcType=INTEGER},
+      <if test="commentId != null">
+        COMMENT_ID = #{commentId,jdbcType=INTEGER},
       </if>
       <if test="content != null">
         CONTENT = #{content,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null">
-        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      <if test="userId != null">
+        USER_ID = #{userId,jdbcType=INTEGER},
       </if>
       <if test="status != null">
         STATUS = #{status,jdbcType=BIT},
       </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replyId != null">
+        REPLY_ID = #{replyId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where ID = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.wegrow.wegrow.model.BlockComment">
-    update BLOCK_COMMENT
-    set USER_ID = #{userId,jdbcType=INTEGER},
-      BLOCK_ID = #{blockId,jdbcType=INTEGER},
+  <update id="updateByPrimaryKey" parameterType="com.wegrow.wegrow.model.Reply">
+    update REPLY
+    set COMMENT_ID = #{commentId,jdbcType=INTEGER},
       CONTENT = #{content,jdbcType=VARCHAR},
+      USER_ID = #{userId,jdbcType=INTEGER},
+      STATUS = #{status,jdbcType=BIT},
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
-      STATUS = #{status,jdbcType=BIT}
+      REPLY_ID = #{replyId,jdbcType=INTEGER},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

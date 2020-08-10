@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class BlockCommentExample {
+public class CommentExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public BlockCommentExample() {
+    public CommentExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -225,63 +225,133 @@ public class BlockCommentExample {
             return (Criteria) this;
         }
 
-        public Criteria andBlockIdIsNull() {
-            addCriterion("BLOCK_ID is null");
+        public Criteria andTargetTypeIsNull() {
+            addCriterion("TARGET_TYPE is null");
             return (Criteria) this;
         }
 
-        public Criteria andBlockIdIsNotNull() {
-            addCriterion("BLOCK_ID is not null");
+        public Criteria andTargetTypeIsNotNull() {
+            addCriterion("TARGET_TYPE is not null");
             return (Criteria) this;
         }
 
-        public Criteria andBlockIdEqualTo(Integer value) {
-            addCriterion("BLOCK_ID =", value, "blockId");
+        public Criteria andTargetTypeEqualTo(String value) {
+            addCriterion("TARGET_TYPE =", value, "targetType");
             return (Criteria) this;
         }
 
-        public Criteria andBlockIdNotEqualTo(Integer value) {
-            addCriterion("BLOCK_ID <>", value, "blockId");
+        public Criteria andTargetTypeNotEqualTo(String value) {
+            addCriterion("TARGET_TYPE <>", value, "targetType");
             return (Criteria) this;
         }
 
-        public Criteria andBlockIdGreaterThan(Integer value) {
-            addCriterion("BLOCK_ID >", value, "blockId");
+        public Criteria andTargetTypeGreaterThan(String value) {
+            addCriterion("TARGET_TYPE >", value, "targetType");
             return (Criteria) this;
         }
 
-        public Criteria andBlockIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("BLOCK_ID >=", value, "blockId");
+        public Criteria andTargetTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("TARGET_TYPE >=", value, "targetType");
             return (Criteria) this;
         }
 
-        public Criteria andBlockIdLessThan(Integer value) {
-            addCriterion("BLOCK_ID <", value, "blockId");
+        public Criteria andTargetTypeLessThan(String value) {
+            addCriterion("TARGET_TYPE <", value, "targetType");
             return (Criteria) this;
         }
 
-        public Criteria andBlockIdLessThanOrEqualTo(Integer value) {
-            addCriterion("BLOCK_ID <=", value, "blockId");
+        public Criteria andTargetTypeLessThanOrEqualTo(String value) {
+            addCriterion("TARGET_TYPE <=", value, "targetType");
             return (Criteria) this;
         }
 
-        public Criteria andBlockIdIn(List<Integer> values) {
-            addCriterion("BLOCK_ID in", values, "blockId");
+        public Criteria andTargetTypeLike(String value) {
+            addCriterion("TARGET_TYPE like", value, "targetType");
             return (Criteria) this;
         }
 
-        public Criteria andBlockIdNotIn(List<Integer> values) {
-            addCriterion("BLOCK_ID not in", values, "blockId");
+        public Criteria andTargetTypeNotLike(String value) {
+            addCriterion("TARGET_TYPE not like", value, "targetType");
             return (Criteria) this;
         }
 
-        public Criteria andBlockIdBetween(Integer value1, Integer value2) {
-            addCriterion("BLOCK_ID between", value1, value2, "blockId");
+        public Criteria andTargetTypeIn(List<String> values) {
+            addCriterion("TARGET_TYPE in", values, "targetType");
             return (Criteria) this;
         }
 
-        public Criteria andBlockIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("BLOCK_ID not between", value1, value2, "blockId");
+        public Criteria andTargetTypeNotIn(List<String> values) {
+            addCriterion("TARGET_TYPE not in", values, "targetType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTargetTypeBetween(String value1, String value2) {
+            addCriterion("TARGET_TYPE between", value1, value2, "targetType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTargetTypeNotBetween(String value1, String value2) {
+            addCriterion("TARGET_TYPE not between", value1, value2, "targetType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTargetIdIsNull() {
+            addCriterion("TARGET_ID is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTargetIdIsNotNull() {
+            addCriterion("TARGET_ID is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTargetIdEqualTo(Integer value) {
+            addCriterion("TARGET_ID =", value, "targetId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTargetIdNotEqualTo(Integer value) {
+            addCriterion("TARGET_ID <>", value, "targetId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTargetIdGreaterThan(Integer value) {
+            addCriterion("TARGET_ID >", value, "targetId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTargetIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("TARGET_ID >=", value, "targetId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTargetIdLessThan(Integer value) {
+            addCriterion("TARGET_ID <", value, "targetId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTargetIdLessThanOrEqualTo(Integer value) {
+            addCriterion("TARGET_ID <=", value, "targetId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTargetIdIn(List<Integer> values) {
+            addCriterion("TARGET_ID in", values, "targetId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTargetIdNotIn(List<Integer> values) {
+            addCriterion("TARGET_ID not in", values, "targetId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTargetIdBetween(Integer value1, Integer value2) {
+            addCriterion("TARGET_ID between", value1, value2, "targetId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTargetIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("TARGET_ID not between", value1, value2, "targetId");
             return (Criteria) this;
         }
 
@@ -352,6 +422,66 @@ public class BlockCommentExample {
 
         public Criteria andContentNotBetween(String value1, String value2) {
             addCriterion("CONTENT not between", value1, value2, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIsNull() {
+            addCriterion("STATUS is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIsNotNull() {
+            addCriterion("STATUS is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusEqualTo(Boolean value) {
+            addCriterion("STATUS =", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNotEqualTo(Boolean value) {
+            addCriterion("STATUS <>", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusGreaterThan(Boolean value) {
+            addCriterion("STATUS >", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("STATUS >=", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusLessThan(Boolean value) {
+            addCriterion("STATUS <", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusLessThanOrEqualTo(Boolean value) {
+            addCriterion("STATUS <=", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIn(List<Boolean> values) {
+            addCriterion("STATUS in", values, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNotIn(List<Boolean> values) {
+            addCriterion("STATUS not in", values, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusBetween(Boolean value1, Boolean value2) {
+            addCriterion("STATUS between", value1, value2, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("STATUS not between", value1, value2, "status");
             return (Criteria) this;
         }
 
@@ -472,66 +602,6 @@ public class BlockCommentExample {
 
         public Criteria andUpdateTimeNotBetween(Date value1, Date value2) {
             addCriterion("UPDATE_TIME not between", value1, value2, "updateTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusIsNull() {
-            addCriterion("STATUS is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusIsNotNull() {
-            addCriterion("STATUS is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusEqualTo(Boolean value) {
-            addCriterion("STATUS =", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusNotEqualTo(Boolean value) {
-            addCriterion("STATUS <>", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusGreaterThan(Boolean value) {
-            addCriterion("STATUS >", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusGreaterThanOrEqualTo(Boolean value) {
-            addCriterion("STATUS >=", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusLessThan(Boolean value) {
-            addCriterion("STATUS <", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusLessThanOrEqualTo(Boolean value) {
-            addCriterion("STATUS <=", value, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusIn(List<Boolean> values) {
-            addCriterion("STATUS in", values, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusNotIn(List<Boolean> values) {
-            addCriterion("STATUS not in", values, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusBetween(Boolean value1, Boolean value2) {
-            addCriterion("STATUS between", value1, value2, "status");
-            return (Criteria) this;
-        }
-
-        public Criteria andStatusNotBetween(Boolean value1, Boolean value2) {
-            addCriterion("STATUS not between", value1, value2, "status");
             return (Criteria) this;
         }
     }

@@ -34,6 +34,7 @@ public class BlockServiceImpl implements BlockService {
 
 
     @Override
+    // 用户创建Block
     public int createBlock(BlockParam blockParam, String username) {
         Block block = new Block();
         block.setUserId(nameIdMapDao.getId(username));
@@ -46,6 +47,7 @@ public class BlockServiceImpl implements BlockService {
     }
 
     @Override
+    // 用户更新block
     public int updateBlock(BlockParam blockParam, String username, Integer blockId) {
         // 检查用户是否有对block的拥有权
         Block block = userBlockMapDao.getUserBlockAuth(username, blockId);
@@ -61,6 +63,7 @@ public class BlockServiceImpl implements BlockService {
     }
 
     @Override
+    // 用户删除block
     public int deleteBlock(String principalName, Integer blockId) {
         Block block = userBlockMapDao.getUserBlockAuth(principalName, blockId);
         if (block == null) {
@@ -71,6 +74,7 @@ public class BlockServiceImpl implements BlockService {
     }
 
     @Override
+    // 用户批量删除block
     public int deleteBlock(String principalName, List<Integer> blockIds) {
         BlockExample blockExample = new BlockExample();
         blockExample.createCriteria().andIdIn(blockIds).
@@ -81,7 +85,7 @@ public class BlockServiceImpl implements BlockService {
     }
 
     @Override
-    // 用户根据关键词查询发布的文章
+    // 用户根据关键词查询公开发布的文章
     public List<Block> listBlock(String keyword, int pageNum, int pageSize) {
         BlockExample blockExample = new BlockExample();
         // 这里要填数据库中的名称
@@ -97,6 +101,7 @@ public class BlockServiceImpl implements BlockService {
     }
 
     @Override
+    // 查询用户ID公开的文章
     public List<Block> listBlockByUserId(Integer userId, int pageNum, int pageSize) {
         BlockExample blockExample = new BlockExample();
         blockExample.createCriteria().andUserIdEqualTo(userId).andStatusEqualTo(BlockStatus.PUBLIC.ordinal());

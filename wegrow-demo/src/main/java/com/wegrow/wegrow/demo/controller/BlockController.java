@@ -4,7 +4,6 @@ import com.wegrow.wegrow.common.api.CommonPage;
 import com.wegrow.wegrow.common.api.CommonResult;
 import com.wegrow.wegrow.demo.dto.BlockParam;
 import com.wegrow.wegrow.demo.service.BlockService;
-import com.wegrow.wegrow.model.Topic;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -167,11 +166,11 @@ public class BlockController {
     @RequestMapping(value = "/update/updateBlockStatus", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<Object> updateBlockStatus(@RequestParam("ids") List<Integer> ids,
-                                                  @RequestParam("updateTopicStatus") Integer updateTopicStatus, Principal principal) {
+                                                  @RequestParam("updateTargetStatus") Integer updateTargetStatus, Principal principal) {
         if (null == principal) {
             return CommonResult.unauthorized(null);
         }
-        int count = blockService.updateBlockStatus(principal.getName(), ids, updateTopicStatus);
+        int count = blockService.updateBlockStatus(principal.getName(), ids, updateTargetStatus);
         if (count > 0) {
             return CommonResult.success(count);
         } else {
