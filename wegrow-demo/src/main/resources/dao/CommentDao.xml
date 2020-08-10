@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wegrow.wegrow.demo.dao.CommentDao">
+    <!-- 负责查询评论表的内容，返回的类型为HashMap -->
+    <resultMap id="BaseResultMap" type="hashmap">
+        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="USER_ID" property="userId"/>
+        <result column="TARGET_TYPE" property="targetType"/>
+        <result column="TARGET_ID" property="targetId"/>
+        <result column="CONTENT" property="content"/>
+        <result column="STATUS" property="status"/>
+        <result column="CREATE_TIME" property="createTime"/>
+        <result column="UPDATE_TIME" property="updateTime"/>
+        <!-- 嵌套子查询，负责查询对应评论Id的回复表的内容 -->
+        <collection property="reply" column="id" ofType="com.wegrow.wegrow.model.Reply"
+                    select="com.wegrow.wegrow.demo.dao.CommentDao.getReplyByComment"/>
+    </resultMap>
+    <resultMap id="ReplyBaseResultMap" type="com.wegrow.wegrow.model.Reply">
+        <id column="ID" jdbcType="INTEGER" property="id" />
+        <result column="COMMENT_ID" jdbcType="INTEGER" property="commentId" />
+        <result column="CONTENT" jdbcType="VARCHAR" property="content" />
+        <result column="USER_ID" jdbcType="INTEGER" property="userId" />
+        <result column="STATUS" jdbcType="BIT" property="status" />
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="REPLY_ID" jdbcType="INTEGER" property="replyId" />
+        <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
+    <select id="getComment" resultMap="BaseResultMap">
+        select ID,
+               USER_ID,
+               TARGET_TYPE,
+               TARGET_ID,
+               CONTENT,
+               STATUS,
+               CREATE_TIME,
+               UPDATE_TIME
+        from COMMENT
+        where TARGET_ID = #{targetId, jdbcType=INTEGER}
+          and TARGET_TYPE = #{targetType, jdbcType=VARCHAR}
+    </select>
+    <select id="getReplyByComment" parameterType="java.lang.Integer" resultMap="ReplyBaseResultMap">
+        select *
+        from REPLY
+        where COMMENT_ID = #{id,jdbcType=INTEGER}
+    </select>
+</mapper>

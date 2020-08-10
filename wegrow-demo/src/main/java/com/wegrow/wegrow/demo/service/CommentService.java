@@ -2,7 +2,6 @@ package com.wegrow.wegrow.demo.service;
 
 import com.wegrow.wegrow.demo.dto.CommentParam;
 import com.wegrow.wegrow.demo.dto.ReplyParam;
-import com.wegrow.wegrow.model.Comment;
 
 import java.util.List;
 
@@ -40,5 +39,5 @@ public interface CommentService {
      * 获取评论
      * @return
      */
-    List<List<Object>> getCommentList(String targetType, Integer targetId, int pageNum, int pageSize);
+    List<Object> getCommentList(String targetType, Integer targetId, int pageNum, int pageSize);
 }

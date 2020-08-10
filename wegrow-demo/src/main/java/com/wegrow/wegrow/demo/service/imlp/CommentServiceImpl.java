@@ -1,6 +1,7 @@
 package com.wegrow.wegrow.demo.service.imlp;
 
 import com.github.pagehelper.PageHelper;
+import com.wegrow.wegrow.demo.dao.CommentDao;
 import com.wegrow.wegrow.demo.dao.NameIdMapDao;
 import com.wegrow.wegrow.demo.dto.CommentParam;
 import com.wegrow.wegrow.demo.dto.ReplyParam;
@@ -15,7 +16,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,11 +30,14 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     private NameIdMapDao nameIdMapDao;
 
+    @Autowired
+    private CommentDao commentDao;
+
     @Override
-    public Integer createComment(String principalName, CommentParam blockCommentParam) {
+    public Integer createComment(String principalName, CommentParam commentParam) {
         Comment comment = new Comment();
         comment.setUserId(nameIdMapDao.getId(principalName));
-        BeanUtils.copyProperties(blockCommentParam, comment);
+        BeanUtils.copyProperties(commentParam, comment);
         return commentMapper.insertSelective(comment);
     }
 
@@ -68,22 +71,8 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     // 获取文章的评论内容
-    public List<List<Object>> getCommentList(String targetType, Integer targetId, int pageNum, int pageSize) {
-        CommentExample commentExample = new CommentExample();
-        commentExample.setOrderByClause("ID asc");
-        commentExample.createCriteria().andTargetTypeEqualTo(targetType).andTargetIdEqualTo(targetId);
+    public List<Object> getCommentList(String targetType, Integer targetId, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Comment> comments = commentMapper.selectByExample(commentExample);
-        List<List<Object>> commentResult = new ArrayList<>();
-        ReplyExample replyExample = new ReplyExample();
-        for (Comment comment : comments) {
-            List<Object> objectList = new ArrayList<>();
-            objectList.add(comment);
-            replyExample.createCriteria().andCommentIdEqualTo(comment.getId());
-            objectList.addAll(replyMapper.selectByExample(replyExample));
-            replyExample.clear();
-            commentResult.add(objectList);
-        }
-        return commentResult;
+        return commentDao.getComment(targetType, targetId);
     }
 }
