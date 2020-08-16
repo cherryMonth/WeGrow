@@ -46,7 +46,7 @@ public class FollowController {
     @RequestMapping(value = "/listFollowingByPrincipalName", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<CommonPage<Follow>> listFollowingByPrincipalName(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
-                                                                        @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize, Principal principal) {
+                                                                         @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize, Principal principal) {
         if (null == principal) {
             return CommonResult.unauthorized(null);
         }
@@ -58,7 +58,7 @@ public class FollowController {
     @RequestMapping(value = "/listFollowedByPrincipalName", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<CommonPage<Follow>> listFollowedByPrincipalName(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
-                                                                         @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize, Principal principal) {
+                                                                        @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize, Principal principal) {
         if (null == principal) {
             return CommonResult.unauthorized(null);
         }
@@ -89,14 +89,14 @@ public class FollowController {
     }
 
     @ApiOperation(value = "批量更新关注状态")   // 从表单中获取数据
-    @RequestMapping(value = "/update/updateBlockStatus", method = RequestMethod.POST)
+    @RequestMapping(value = "/update/updateFollowStatus", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult<Object> updateBlockStatus(@RequestParam("ids") List<Integer> ids,
-                                                  @RequestParam("updateTopicStatus") Integer updateTopicStatus, Principal principal) {
+                                                  @RequestParam("updateFollowStatus") Integer updateFollowStatus, Principal principal) {
         if (null == principal) {
             return CommonResult.unauthorized(null);
         }
-        int count = followService.updateFollowStatus(principal.getName(), ids, updateTopicStatus);
+        int count = followService.updateFollowStatus(principal.getName(), ids, updateFollowStatus);
         if (count > 0) {
             return CommonResult.success(count);
         } else {

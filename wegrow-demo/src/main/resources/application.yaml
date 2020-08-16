@@ -39,6 +39,8 @@ security:
       - /user/info
       - /user/logout
       - /user/upload
+      - /user/userName/*
+      - /user/userAvatar/*
       - /user/summaryInfo/**
 jwt:
   tokenHeader: Authorization #JWT存储的请求头

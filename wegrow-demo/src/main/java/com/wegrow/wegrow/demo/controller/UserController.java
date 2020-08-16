@@ -6,6 +6,7 @@ import com.wegrow.wegrow.demo.dto.UserLoginParam;
 import com.wegrow.wegrow.demo.service.UserService;
 import com.wegrow.wegrow.demo.dto.UpdateUserPasswordParam;
 import com.wegrow.wegrow.demo.dto.UserParam;
+import com.wegrow.wegrow.model.Comment;
 import com.wegrow.wegrow.model.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -71,6 +72,20 @@ public class UserController {
         tokenMap.put("token", refreshToken);
         tokenMap.put("tokenHead", tokenHead);
         return CommonResult.success(tokenMap);
+    }
+
+    @ApiOperation(value = "根据Id获取用户的名称")
+    @RequestMapping(value = "/userName/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<String> getUserName(@PathVariable("id") Integer id){
+        return CommonResult.success(adminService.getItem(id).getUsername());
+    }
+
+    @ApiOperation(value = "根据Id获取用户的头像")
+    @RequestMapping(value = "/userAvatar/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<String> getUserAvatar(@PathVariable("id") Integer id){
+        return CommonResult.success(adminService.getItem(id).getAvatarHash());
     }
 
     @ApiOperation(value = "获取当前登录用户信息")
