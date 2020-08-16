@@ -98,6 +98,14 @@ public class CommonResult<T> {
         return new CommonResult<T>(ResultCode.FORBIDDEN.getCode(), ResultCode.FORBIDDEN.getMessage(), data);
     }
 
+    /**
+     * 失败返回结果
+     * @param message 提示信息
+     */
+    public static <T> CommonResult<T> forbidden(String message) {
+        return new CommonResult<T>(ResultCode.FORBIDDEN.getCode(), message, null);
+    }
+
     public long getCode() {
         return code;
     }

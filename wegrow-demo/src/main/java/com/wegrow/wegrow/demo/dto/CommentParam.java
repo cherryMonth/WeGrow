@@ -21,4 +21,7 @@ public class CommentParam {
     @ApiModelProperty(value = "评论的内容")
     @NotBlank(message = "评论内容不能为空")
     private String content;
+
+    @ApiModelProperty(value = "返回添加的评论所位于的页数")
+    private Integer pageSize;
 }

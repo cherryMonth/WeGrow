@@ -11,7 +11,7 @@ public class Reply implements Serializable {
     private Integer commentId;
 
     @ApiModelProperty(value = "内容")
-    private String content;
+    private String replyContent;
 
     @ApiModelProperty(value = "用户ID")
     private Integer userId;
@@ -46,12 +46,12 @@ public class Reply implements Serializable {
         this.commentId = commentId;
     }
 
-    public String getContent() {
-        return content;
+    public String getReplyContent() {
+        return replyContent;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setReplyContent(String replyContent) {
+        this.replyContent = replyContent;
     }
 
     public Integer getUserId() {
@@ -102,7 +102,7 @@ public class Reply implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", commentId=").append(commentId);
-        sb.append(", content=").append(content);
+        sb.append(", replyContent=").append(replyContent);
         sb.append(", userId=").append(userId);
         sb.append(", status=").append(status);
         sb.append(", createTime=").append(createTime);

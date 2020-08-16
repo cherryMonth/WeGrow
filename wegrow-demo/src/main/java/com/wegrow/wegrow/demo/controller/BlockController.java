@@ -146,7 +146,7 @@ public class BlockController {
     public CommonResult<Block> getUserItem(@PathVariable("id") Integer id, Principal principal) {
         Block result = blockService.getBlockByUserPermission(principal.getName(), id);
         if (result == null) {
-            return CommonResult.failed("检索失败，请检查输入内容是否存在!");
+            return CommonResult.forbidden("检索失败，请检查输入内容是否存在!");
         }
         return CommonResult.success(result);
     }

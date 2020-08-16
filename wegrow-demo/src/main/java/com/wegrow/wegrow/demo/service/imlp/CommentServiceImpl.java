@@ -34,11 +34,21 @@ public class CommentServiceImpl implements CommentService {
     private CommentDao commentDao;
 
     @Override
-    public Integer createComment(String principalName, CommentParam commentParam) {
+    // 获取评论的总数
+    public long getCountNum(String targetType, Integer targetId) {
+        CommentExample commentExample = new CommentExample();
+        commentExample.createCriteria().andTargetTypeEqualTo(targetType).andTargetIdEqualTo(targetId);
+        return commentMapper.countByExample(commentExample);
+    }
+
+    @Override
+    public long createComment(String principalName, CommentParam commentParam) {
         Comment comment = new Comment();
         comment.setUserId(nameIdMapDao.getId(principalName));
         BeanUtils.copyProperties(commentParam, comment);
-        return commentMapper.insertSelective(comment);
+        commentMapper.insertSelective(comment);
+        long pagePaginationNum = getCountNum(commentParam.getTargetType(), commentParam.getTargetId());
+        return (pagePaginationNum + commentParam.getPageSize() - 1) / commentParam.getPageSize();
     }
 
     @Override

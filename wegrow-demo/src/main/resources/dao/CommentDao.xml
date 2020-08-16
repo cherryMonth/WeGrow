@@ -4,43 +4,57 @@
     <!-- 负责查询评论表的内容，返回的类型为HashMap -->
     <resultMap id="BaseResultMap" type="hashmap">
         <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="USERNAME" property="userName"/>
         <result column="USER_ID" property="userId"/>
         <result column="TARGET_TYPE" property="targetType"/>
         <result column="TARGET_ID" property="targetId"/>
         <result column="CONTENT" property="content"/>
-        <result column="STATUS" property="status"/>
+        <result column="AVATAR_HASH" jdbcType="VARCHAR" property="avatarHash"/>
         <result column="CREATE_TIME" property="createTime"/>
-        <result column="UPDATE_TIME" property="updateTime"/>
         <!-- 嵌套子查询，负责查询对应评论Id的回复表的内容 -->
         <collection property="reply" column="id" ofType="com.wegrow.wegrow.model.Reply"
                     select="com.wegrow.wegrow.demo.dao.CommentDao.getReplyByComment"/>
     </resultMap>
-    <resultMap id="ReplyBaseResultMap" type="com.wegrow.wegrow.model.Reply">
-        <id column="ID" jdbcType="INTEGER" property="id" />
-        <result column="COMMENT_ID" jdbcType="INTEGER" property="commentId" />
-        <result column="CONTENT" jdbcType="VARCHAR" property="content" />
-        <result column="USER_ID" jdbcType="INTEGER" property="userId" />
-        <result column="STATUS" jdbcType="BIT" property="status" />
-        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
-        <result column="REPLY_ID" jdbcType="INTEGER" property="replyId" />
-        <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <resultMap id="ReplyBaseResultMap" type="hashmap">
+        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="REPLY_CONTENT" jdbcType="VARCHAR" property="replyContent"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="USER_ID" jdbcType="INTEGER" property="userId"/>
+        <result column="REPLY_ID" jdbcType="INTEGER" property="replyId"/>
+        <result column="USERNAME" jdbcType="VARCHAR" property="userName"/>
+        <result column="AVATAR_HASH" jdbcType="VARCHAR" property="userAvatarHash"/>
+        <result column="REPLY_NAME" jdbcType="VARCHAR" property="replyName"/>
+        <result column="REPLY_AVATARHASH" jdbcType="VARCHAR" property="replyAvatarHash"/>
     </resultMap>
     <select id="getComment" resultMap="BaseResultMap">
-        select ID,
-               USER_ID,
-               TARGET_TYPE,
-               TARGET_ID,
-               CONTENT,
-               STATUS,
-               CREATE_TIME,
-               UPDATE_TIME
-        from COMMENT
+        select c.ID,
+               u.USERNAME,
+               c.USER_ID,
+               c.TARGET_TYPE,
+               c.TARGET_ID,
+               c.CONTENT,
+               u.AVATAR_HASH,
+               c.CREATE_TIME
+        from COMMENT as c
+                 INNER JOIN USER as u on u.id = c.USER_ID
         where TARGET_ID = #{targetId, jdbcType=INTEGER}
+          and STATUS = false
           and TARGET_TYPE = #{targetType, jdbcType=VARCHAR}
     </select>
     <select id="getReplyByComment" parameterType="java.lang.Integer" resultMap="ReplyBaseResultMap">
-        select *
-        from REPLY
+        select r.ID,
+               r.REPLY_CONTENT,
+               r.CREATE_TIME,
+               r.USER_ID,
+               r.REPLY_ID,
+               u.USERNAME,
+               u.AVATAR_HASH,
+               ur.USERNAME    as REPLY_NAME,
+               ur.AVATAR_HASH as REPLY_AVATARHASH
+        from REPLY as r
+                 INNER JOIN USER as u on r.USER_ID = u.ID
+                 INNER JOIN USER as ur on ur.ID = r.REPLY_ID
         where COMMENT_ID = #{id,jdbcType=INTEGER}
+          and STATUS = false
     </select>
 </mapper>

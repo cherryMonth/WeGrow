@@ -225,73 +225,73 @@ public class ReplyExample {
             return (Criteria) this;
         }
 
-        public Criteria andContentIsNull() {
-            addCriterion("CONTENT is null");
+        public Criteria andReplyContentIsNull() {
+            addCriterion("REPLY_CONTENT is null");
             return (Criteria) this;
         }
 
-        public Criteria andContentIsNotNull() {
-            addCriterion("CONTENT is not null");
+        public Criteria andReplyContentIsNotNull() {
+            addCriterion("REPLY_CONTENT is not null");
             return (Criteria) this;
         }
 
-        public Criteria andContentEqualTo(String value) {
-            addCriterion("CONTENT =", value, "content");
+        public Criteria andReplyContentEqualTo(String value) {
+            addCriterion("REPLY_CONTENT =", value, "replyContent");
             return (Criteria) this;
         }
 
-        public Criteria andContentNotEqualTo(String value) {
-            addCriterion("CONTENT <>", value, "content");
+        public Criteria andReplyContentNotEqualTo(String value) {
+            addCriterion("REPLY_CONTENT <>", value, "replyContent");
             return (Criteria) this;
         }
 
-        public Criteria andContentGreaterThan(String value) {
-            addCriterion("CONTENT >", value, "content");
+        public Criteria andReplyContentGreaterThan(String value) {
+            addCriterion("REPLY_CONTENT >", value, "replyContent");
             return (Criteria) this;
         }
 
-        public Criteria andContentGreaterThanOrEqualTo(String value) {
-            addCriterion("CONTENT >=", value, "content");
+        public Criteria andReplyContentGreaterThanOrEqualTo(String value) {
+            addCriterion("REPLY_CONTENT >=", value, "replyContent");
             return (Criteria) this;
         }
 
-        public Criteria andContentLessThan(String value) {
-            addCriterion("CONTENT <", value, "content");
+        public Criteria andReplyContentLessThan(String value) {
+            addCriterion("REPLY_CONTENT <", value, "replyContent");
             return (Criteria) this;
         }
 
-        public Criteria andContentLessThanOrEqualTo(String value) {
-            addCriterion("CONTENT <=", value, "content");
+        public Criteria andReplyContentLessThanOrEqualTo(String value) {
+            addCriterion("REPLY_CONTENT <=", value, "replyContent");
             return (Criteria) this;
         }
 
-        public Criteria andContentLike(String value) {
-            addCriterion("CONTENT like", value, "content");
+        public Criteria andReplyContentLike(String value) {
+            addCriterion("REPLY_CONTENT like", value, "replyContent");
             return (Criteria) this;
         }
 
-        public Criteria andContentNotLike(String value) {
-            addCriterion("CONTENT not like", value, "content");
+        public Criteria andReplyContentNotLike(String value) {
+            addCriterion("REPLY_CONTENT not like", value, "replyContent");
             return (Criteria) this;
         }
 
-        public Criteria andContentIn(List<String> values) {
-            addCriterion("CONTENT in", values, "content");
+        public Criteria andReplyContentIn(List<String> values) {
+            addCriterion("REPLY_CONTENT in", values, "replyContent");
             return (Criteria) this;
         }
 
-        public Criteria andContentNotIn(List<String> values) {
-            addCriterion("CONTENT not in", values, "content");
+        public Criteria andReplyContentNotIn(List<String> values) {
+            addCriterion("REPLY_CONTENT not in", values, "replyContent");
             return (Criteria) this;
         }
 
-        public Criteria andContentBetween(String value1, String value2) {
-            addCriterion("CONTENT between", value1, value2, "content");
+        public Criteria andReplyContentBetween(String value1, String value2) {
+            addCriterion("REPLY_CONTENT between", value1, value2, "replyContent");
             return (Criteria) this;
         }
 
-        public Criteria andContentNotBetween(String value1, String value2) {
-            addCriterion("CONTENT not between", value1, value2, "content");
+        public Criteria andReplyContentNotBetween(String value1, String value2) {
+            addCriterion("REPLY_CONTENT not between", value1, value2, "replyContent");
             return (Criteria) this;
         }
 

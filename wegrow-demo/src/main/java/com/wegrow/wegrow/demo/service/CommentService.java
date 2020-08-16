@@ -10,7 +10,7 @@ public interface CommentService {
     /**
      * 添加一条评论
      */
-    Integer createComment(String principalName, CommentParam blockCommentParam);
+    long createComment(String principalName, CommentParam blockCommentParam);
 
     /**
      * 添加一条回复
@@ -37,7 +37,14 @@ public interface CommentService {
 
     /**
      * 获取评论
+     *
      * @return
      */
     List<Object> getCommentList(String targetType, Integer targetId, int pageNum, int pageSize);
+
+    /**
+     * 获取评论的总数目
+     * @return
+     */
+    long getCountNum(String targetType, Integer targetId);
 }

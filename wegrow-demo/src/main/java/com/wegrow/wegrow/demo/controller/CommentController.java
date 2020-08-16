@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -31,7 +32,7 @@ public class CommentController {
         }
         String username = principal.getName();
 
-        int result = commentService.createComment(username, commentParam);
+        long result = commentService.createComment(username, commentParam);
         if (result > 0) {
             return CommonResult.success(result);
         } else {
@@ -56,19 +57,24 @@ public class CommentController {
         }
     }
 
+
     @ApiOperation(value = "获取评论")
-    @RequestMapping(value = "/getCommentList", method = RequestMethod.POST)
+    @RequestMapping(value = "/getCommentList", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult<Object> getCommentList(@RequestParam(value = "targetType") String targetType,
                                                @RequestParam(value = "targetId") Integer targetId,
                                                @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
-                                               @RequestParam(value = "pageSize", defaultValue = "2") Integer pageSize,
+                                               @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                                                Principal principal) {
         if (null == principal) {
             return CommonResult.unauthorized(null);
         }
 
         List<Object> result = commentService.getCommentList(targetType, targetId, pageNum, pageSize);
-        return CommonResult.success(result);
+        long pagePaginationNum = commentService.getCountNum(targetType, targetId);
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("commentList", result);
+        hashMap.put("pagePaginationNum", (pagePaginationNum + pageSize - 1) / pageSize);
+        return CommonResult.success(hashMap);
     }
 }

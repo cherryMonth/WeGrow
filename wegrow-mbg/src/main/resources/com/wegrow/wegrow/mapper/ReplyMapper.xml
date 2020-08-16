@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.wegrow.wegrow.model.Reply">
     <id column="ID" jdbcType="INTEGER" property="id" />
     <result column="COMMENT_ID" jdbcType="INTEGER" property="commentId" />
-    <result column="CONTENT" jdbcType="VARCHAR" property="content" />
+    <result column="REPLY_CONTENT" jdbcType="VARCHAR" property="replyContent" />
     <result column="USER_ID" jdbcType="INTEGER" property="userId" />
     <result column="STATUS" jdbcType="BIT" property="status" />
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
@@ -70,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    ID, COMMENT_ID, CONTENT, USER_ID, STATUS, CREATE_TIME, REPLY_ID, UPDATE_TIME
+    ID, COMMENT_ID, REPLY_CONTENT, USER_ID, STATUS, CREATE_TIME, REPLY_ID, UPDATE_TIME
   </sql>
   <select id="selectByExample" parameterType="com.wegrow.wegrow.model.ReplyExample" resultMap="BaseResultMap">
     select
@@ -106,10 +106,10 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into REPLY (COMMENT_ID, CONTENT, USER_ID, 
+    insert into REPLY (COMMENT_ID, REPLY_CONTENT, USER_ID, 
       STATUS, CREATE_TIME, REPLY_ID, 
       UPDATE_TIME)
-    values (#{commentId,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+    values (#{commentId,jdbcType=INTEGER}, #{replyContent,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
       #{status,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, #{replyId,jdbcType=INTEGER}, 
       #{updateTime,jdbcType=TIMESTAMP})
   </insert>
@@ -122,8 +122,8 @@
       <if test="commentId != null">
         COMMENT_ID,
       </if>
-      <if test="content != null">
-        CONTENT,
+      <if test="replyContent != null">
+        REPLY_CONTENT,
       </if>
       <if test="userId != null">
         USER_ID,
@@ -145,8 +145,8 @@
       <if test="commentId != null">
         #{commentId,jdbcType=INTEGER},
       </if>
-      <if test="content != null">
-        #{content,jdbcType=VARCHAR},
+      <if test="replyContent != null">
+        #{replyContent,jdbcType=VARCHAR},
       </if>
       <if test="userId != null">
         #{userId,jdbcType=INTEGER},
@@ -180,8 +180,8 @@
       <if test="record.commentId != null">
         COMMENT_ID = #{record.commentId,jdbcType=INTEGER},
       </if>
-      <if test="record.content != null">
-        CONTENT = #{record.content,jdbcType=VARCHAR},
+      <if test="record.replyContent != null">
+        REPLY_CONTENT = #{record.replyContent,jdbcType=VARCHAR},
       </if>
       <if test="record.userId != null">
         USER_ID = #{record.userId,jdbcType=INTEGER},
@@ -207,7 +207,7 @@
     update REPLY
     set ID = #{record.id,jdbcType=INTEGER},
       COMMENT_ID = #{record.commentId,jdbcType=INTEGER},
-      CONTENT = #{record.content,jdbcType=VARCHAR},
+      REPLY_CONTENT = #{record.replyContent,jdbcType=VARCHAR},
       USER_ID = #{record.userId,jdbcType=INTEGER},
       STATUS = #{record.status,jdbcType=BIT},
       CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
@@ -223,8 +223,8 @@
       <if test="commentId != null">
         COMMENT_ID = #{commentId,jdbcType=INTEGER},
       </if>
-      <if test="content != null">
-        CONTENT = #{content,jdbcType=VARCHAR},
+      <if test="replyContent != null">
+        REPLY_CONTENT = #{replyContent,jdbcType=VARCHAR},
       </if>
       <if test="userId != null">
         USER_ID = #{userId,jdbcType=INTEGER},
@@ -247,7 +247,7 @@
   <update id="updateByPrimaryKey" parameterType="com.wegrow.wegrow.model.Reply">
     update REPLY
     set COMMENT_ID = #{commentId,jdbcType=INTEGER},
-      CONTENT = #{content,jdbcType=VARCHAR},
+      REPLY_CONTENT = #{replyContent,jdbcType=VARCHAR},
       USER_ID = #{userId,jdbcType=INTEGER},
       STATUS = #{status,jdbcType=BIT},
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},

@@ -16,7 +16,7 @@ public class ReplyParam {
 
     @ApiModelProperty(value = "回复的内容")
     @NotBlank(message = "回复内容不能为空")
-    private String content;
+    private String replyContent;
 
     @ApiModelProperty(value = "被评论的用户")
     @NotNull(message = "被评论的用户不能为空")
