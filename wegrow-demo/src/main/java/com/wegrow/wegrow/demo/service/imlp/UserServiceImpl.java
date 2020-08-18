@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageHelper;
 import com.wegrow.wegrow.demo.bo.DemoUserDetails;
+import com.wegrow.wegrow.demo.dao.NameIdMapDao;
 import com.wegrow.wegrow.demo.dao.UserLocalAuthDao;
 import com.wegrow.wegrow.demo.service.UserService;
 import com.wegrow.wegrow.demo.dto.UpdateUserPasswordParam;
@@ -63,6 +64,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRoleMapDao userRoleMapDao;
+
+    @Autowired
+    private NameIdMapDao nameIdMapDao;
 
     @Override
     public User getUserByUsername(String username) {
@@ -195,21 +199,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int updatePassword(UpdateUserPasswordParam updatePasswordParam) {
-        if (StrUtil.isEmpty(updatePasswordParam.getEmail())
-                || StrUtil.isEmpty(updatePasswordParam.getOldPassword())
-                || StrUtil.isEmpty(updatePasswordParam.getNewPassword())) {
+    public int updatePassword(String principalName, UpdateUserPasswordParam updatePasswordParam) {
+        if (StrUtil.isEmpty(updatePasswordParam.getNewPassword())) {
             return -1;
         }
 
-        UserExample userExample = new UserExample();
-        userExample.createCriteria().andEmailEqualTo(updatePasswordParam.getEmail());
-        List<User> userList = userMapper.selectByExample(userExample);
-        if (CollUtil.isEmpty(userList)) {
-            return -2;
-        }
-        LocalAuth localAuth = this.getLocalAuth(userList.get(0).getId());
-        if (!passwordEncoder.matches(updatePasswordParam.getOldPassword(), localAuth.getPassword())) {
+        LocalAuth localAuth = this.getLocalAuth(nameIdMapDao.getId(principalName));
+        if (null == localAuth) {
             return -3;
         }
         localAuth.setPassword(passwordEncoder.encode(updatePasswordParam.getNewPassword()));
@@ -240,10 +236,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public HashMap<String, String> getSummaryUserInfo(Integer userId) {
         User user = userMapper.selectByPrimaryKey(userId);
-        if(user == null) {
+        if (user == null) {
             return null;
-        }
-        else {
+        } else {
             HashMap<String, String> hashMap = new HashMap<>();
             hashMap.put("userName", user.getUsername());
             hashMap.put("aboutMe", user.getAboutMe());

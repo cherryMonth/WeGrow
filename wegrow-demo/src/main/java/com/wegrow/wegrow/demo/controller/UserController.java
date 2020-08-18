@@ -135,8 +135,11 @@ public class UserController {
     @ApiOperation("修改指定用户密码")
     @RequestMapping(value = "/updatePassword", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<Object> updatePassword(@RequestBody @Valid UpdateUserPasswordParam updatePasswordParam) {
-        int status = adminService.updatePassword(updatePasswordParam);
+    public CommonResult<Object> updatePassword(@RequestBody @Valid UpdateUserPasswordParam updatePasswordParam, Principal principal) {
+        if (null == principal) {
+            return CommonResult.unauthorized(null);
+        }
+        int status = adminService.updatePassword(principal.getName(), updatePasswordParam);
         if (status > 0) {
             return CommonResult.success(status);
         } else if (status == -1) {

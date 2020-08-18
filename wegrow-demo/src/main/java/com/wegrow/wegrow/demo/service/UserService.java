@@ -83,7 +83,7 @@ public interface UserService {
     /**
      * 修改密码
      */
-    int updatePassword(UpdateUserPasswordParam updatePasswordParam);
+    int updatePassword(String principalName, UpdateUserPasswordParam updatePasswordParam);
 
     /**
      * 获取用户信息
