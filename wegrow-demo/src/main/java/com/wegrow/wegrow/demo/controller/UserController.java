@@ -2,6 +2,7 @@ package com.wegrow.wegrow.demo.controller;
 
 import com.wegrow.wegrow.common.api.CommonPage;
 import com.wegrow.wegrow.common.api.CommonResult;
+import com.wegrow.wegrow.demo.dto.UserInfoUpdateParam;
 import com.wegrow.wegrow.demo.dto.UserLoginParam;
 import com.wegrow.wegrow.demo.service.UserService;
 import com.wegrow.wegrow.demo.dto.UpdateUserPasswordParam;
@@ -45,6 +46,20 @@ public class UserController {
         return CommonResult.success(user);
     }
 
+    @ApiOperation(value = "用户更新")
+    @RequestMapping(value = "/updateInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult<Object> updateInfo(@RequestBody @Valid UserInfoUpdateParam userInfoUpdateParam, BindingResult result, Principal principal) {
+        String token = adminService.update(principal.getName(), userInfoUpdateParam);
+        if (token == null) {
+            return CommonResult.failed("更新用户失败，请检查用户信息或者用户名是否合法!");
+        }
+        Map<String, String> tokenMap = new HashMap<>();
+        tokenMap.put("token", token);
+        tokenMap.put("tokenHead", tokenHead);
+        return CommonResult.success(tokenMap);
+    }
+
     @ApiOperation(value = "登录以后返回token")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
@@ -77,14 +92,14 @@ public class UserController {
     @ApiOperation(value = "根据Id获取用户的名称")
     @RequestMapping(value = "/userName/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult<String> getUserName(@PathVariable("id") Integer id){
+    public CommonResult<String> getUserName(@PathVariable("id") Integer id) {
         return CommonResult.success(adminService.getItem(id).getUsername());
     }
 
     @ApiOperation(value = "根据Id获取用户的头像")
     @RequestMapping(value = "/userAvatar/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult<String> getUserAvatar(@PathVariable("id") Integer id){
+    public CommonResult<String> getUserAvatar(@PathVariable("id") Integer id) {
         return CommonResult.success(adminService.getItem(id).getAvatarHash());
     }
 

@@ -1,6 +1,5 @@
 package com.wegrow.wegrow.demo.dto;
 
-import com.wegrow.wegrow.demo.validator.FlagValidator;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;

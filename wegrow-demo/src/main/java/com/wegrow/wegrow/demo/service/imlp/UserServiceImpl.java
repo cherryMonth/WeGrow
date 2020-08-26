@@ -1,11 +1,11 @@
 package com.wegrow.wegrow.demo.service.imlp;
 
-import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageHelper;
 import com.wegrow.wegrow.demo.bo.DemoUserDetails;
 import com.wegrow.wegrow.demo.dao.NameIdMapDao;
 import com.wegrow.wegrow.demo.dao.UserLocalAuthDao;
+import com.wegrow.wegrow.demo.dto.UserInfoUpdateParam;
 import com.wegrow.wegrow.demo.service.UserService;
 import com.wegrow.wegrow.demo.dto.UpdateUserPasswordParam;
 import com.wegrow.wegrow.demo.dto.UserParam;
@@ -151,9 +151,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int update(Integer id, User user) {
-        user.setId(id);
-        return userMapper.updateByPrimaryKeySelective(user);
+    public String update(String principalName, UserInfoUpdateParam userInfoUpdateParam) {
+        Integer userId = nameIdMapDao.getId(userInfoUpdateParam.getUsername());
+        if (!principalName.equals(userInfoUpdateParam.getUsername()) && userId != null) {
+            return null;
+        }
+        User user = new User();
+        user.setId(nameIdMapDao.getId(principalName));
+        BeanUtils.copyProperties(userInfoUpdateParam, user);
+        userMapper.updateByPrimaryKeySelective(user);
+        UserDetails userDetails = loadUserByUsername(user.getUsername());
+        return jwtTokenUtil.generateToken(userDetails);
     }
 
     @Override

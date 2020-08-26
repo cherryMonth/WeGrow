@@ -1,6 +1,7 @@
 package com.wegrow.wegrow.demo.service;
 
 import com.wegrow.wegrow.demo.dto.UpdateUserPasswordParam;
+import com.wegrow.wegrow.demo.dto.UserInfoUpdateParam;
 import com.wegrow.wegrow.demo.dto.UserParam;
 import com.wegrow.wegrow.model.LocalAuth;
 import com.wegrow.wegrow.model.Permission;
@@ -52,7 +53,7 @@ public interface UserService {
     /**
      * 修改指定用户信息
      */
-    int update(Integer id, User user);
+    String update(String principalName, UserInfoUpdateParam userInfoUpdateParam);
 
     /**
      * 删除指定用户
