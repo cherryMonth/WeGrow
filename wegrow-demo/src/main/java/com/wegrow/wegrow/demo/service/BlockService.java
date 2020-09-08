@@ -114,4 +114,10 @@ public interface BlockService {
      * @return
      */
     List<Block> listBlockByStatus(String principalName, Integer status, int pageNum, int pageSize);
+
+    /**
+     * 获取block的总数目
+     * @return
+     */
+    long getCountNum(String principalName, Integer status);
 }

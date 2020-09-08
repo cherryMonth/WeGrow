@@ -10,6 +10,7 @@ import com.wegrow.wegrow.demo.service.FollowService;
 import com.wegrow.wegrow.mapper.BlockMapper;
 import com.wegrow.wegrow.model.Block;
 import com.wegrow.wegrow.model.BlockExample;
+import com.wegrow.wegrow.model.CommentExample;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -181,5 +182,12 @@ public class BlockServiceImpl implements BlockService {
                 andStatusGreaterThan(BlockStatus.DELETE.ordinal());
         PageHelper.startPage(pageNum, pageSize);
         return blockMapper.selectByExampleWithBLOBs(blockExample);
+    }
+
+    @Override
+    public long getCountNum(String principalName, Integer status) {
+        BlockExample blockExample = new BlockExample();
+        blockExample.createCriteria().andStatusEqualTo(status).andUserIdEqualTo(nameIdMapDao.getId(principalName));
+        return blockMapper.countByExample(blockExample);
     }
 }

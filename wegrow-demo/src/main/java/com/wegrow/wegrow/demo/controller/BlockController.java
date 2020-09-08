@@ -14,6 +14,7 @@ import com.wegrow.wegrow.model.Block;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -49,6 +50,23 @@ public class BlockController {
         }
         List<Block> blockList = blockService.listBlockByStatus(principal.getName(), status, pageNum, pageSize);
         return CommonResult.success(CommonPage.restPage(blockList));
+    }
+
+    @ApiOperation(value = "根据状态获取用户自己的Block")
+    @RequestMapping(value = "/getBlockByStatusPagePagination", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<Object> getBlockByStatusPagePagination(@RequestParam(value = "status") Integer status,
+                                                              @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+                                                              @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize, Principal principal) {
+        if (null == principal) {
+            return CommonResult.unauthorized(null);
+        }
+        List<Block> blockList = blockService.listBlockByStatus(principal.getName(), status, pageNum, pageSize);
+        long pagePaginationNum = blockService.getCountNum(principal.getName(), status);
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("blockList", blockList);
+        hashMap.put("pagePaginationNum", (pagePaginationNum + pageSize - 1) / pageSize);
+        return CommonResult.success(hashMap);
     }
 
     @ApiOperation(value = "获取指定用户的Block")
